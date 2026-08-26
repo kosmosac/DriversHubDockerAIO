@@ -40,12 +40,11 @@ revisions with the tested revisions above.
 - either an existing TLS reverse proxy or free public ports 80 and 443
 - an hCaptcha site for the public Hub domain
 
-The initial backend build compiles the Python application with Nuitka and can
-take a long time. It uses two concurrent compiler jobs by default and builds
-the backend programs one after another. Set `BACKEND_BUILD_JOBS=1` in `.env` to
-reduce CPU and memory pressure on a small host. A higher value makes the build
-faster but uses more host resources. Later builds normally reuse the Docker
-build cache.
+A backend build compiles the Python application with Nuitka and can take a long
+time. It uses two concurrent compiler jobs by default and builds the backend
+programs one after another. Set `BACKEND_BUILD_JOBS=1` in `.env` to reduce CPU
+and memory pressure on a small host. A higher value can make the build faster
+but uses more host resources.
 
 ## Get the source code
 
@@ -62,7 +61,12 @@ cp upstream/HubBackend/config_sample.json config/config.json
 
 Set secure MariaDB passwords in `.env`. Replace `hub.example.com` in
 `VITE_CONFIG_URL` with the public Hub domain. Set `VITE_HCAPTCHA_SITEKEY` to the
-public hCaptcha site key for the same domain.
+public hCaptcha site key for the same domain. The site key is included in the
+frontend files and is not a secret. The related `captcha.secret` value in
+`config/config.json` must remain secret.
+
+Vite includes these values when it builds the frontend. Rebuild the frontend
+image after you change `VITE_CONFIG_URL` or `VITE_HCAPTCHA_SITEKEY`.
 
 Set at least these values in `config/config.json`:
 
@@ -157,9 +161,9 @@ with `docker compose -f compose.direct.yaml`.
 ## Configure a reverse proxy
 
 This section applies to the recommended `compose.yaml` deployment. The external
-proxy must replace incoming client-IP headers. The internal Caddy server
-uses `X-Real-IP` as the verified client address and forwards it to the backend.
-The examples below contain the required headers.
+proxy must replace incoming client-IP headers. The internal Caddy server trusts
+these headers only from its private network and forwards the verified client
+address to the backend. The examples below contain the required headers.
 
 Replace `hub.example.com` with the public Hub domain. Keep
 `HUB_BIND=127.0.0.1:18080` unless you also update the proxy target.
@@ -193,6 +197,16 @@ server {
 }
 ```
 
+Test and reload Nginx after you add the configuration:
+
+```bash
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+See the [Nginx proxy module documentation](https://nginx.org/en/docs/http/ngx_http_proxy_module.html)
+for additional proxy options.
+
 ### Caddy
 
 ```caddyfile
@@ -208,11 +222,25 @@ hub.example.com {
 Caddy obtains and renews the TLS certificate automatically when DNS and inbound
 ports are configured correctly.
 
+Validate and reload the external Caddy configuration:
+
+```bash
+sudo caddy validate --config /etc/caddy/Caddyfile
+sudo systemctl reload caddy
+```
+
+See the [Caddy reverse proxy documentation](https://caddyserver.com/docs/caddyfile/directives/reverse_proxy)
+for additional proxy options.
+
 ### Plesk Nginx
 
-In Plesk, open **Domains**, select the Hub domain, and open **Apache & nginx
-Settings**. Disable **Proxy mode**. Add this block to **Additional nginx
-directives**:
+In Plesk, use a domain or subdomain with a valid TLS certificate:
+
+1. Open **Domains**, select the Hub domain, and open **PHP**.
+2. Disable **PHP Support** and apply the change.
+3. Open **Apache & nginx Settings**.
+4. Disable **Proxy mode** and apply the change.
+5. Add this block to **Additional nginx directives**:
 
 ```nginx
 location / {
@@ -223,6 +251,13 @@ location / {
     proxy_set_header X-Forwarded-Proto $scheme;
 }
 ```
+
+Apply the configuration. Do not add a `server` block in this field. Plesk
+creates that block and manages TLS. Proxy mode must be disabled before you add
+`location /`, or Plesk can create a duplicate location.
+
+See the [Plesk reverse proxy instructions](https://support.plesk.com/hc/en-us/articles/12388464421143-How-to-pass-requests-from-a-Plesk-hosted-domain-to-the-application-listening-on-a-local-port)
+for additional information.
 
 The internal Caddy server does not publish the API schema, interactive API
 documentation, or the upstream restart endpoint. The restart endpoint cannot
@@ -242,10 +277,27 @@ Create an application in the
 2. Set `discord_client_id` in `config/config.json` to the application ID.
 3. Set `discord_client_secret` to the application secret.
 
+The callback points to the frontend. Do not add `/api` to it. The frontend
+requests the `identify`, `email`, and `role_connections.write` OAuth scopes.
+
 A Discord bot is optional. It is only necessary when the Hub must check guild
 membership, use guild nicknames, manage roles, or send Discord messages. For
 these functions, create a bot, set `discord_bot_token` and `discord_guild_id`,
-and install the bot in the guild with the required permissions.
+and install the bot in the guild. Give it access to each channel where it must
+send messages. Give it **Manage Roles** only when the Hub must change roles,
+and put its role above every role that it must manage.
+
+If you do not install a bot, use these settings:
+
+```json
+"must_join_guild": false,
+"use_server_nickname": false,
+"discord_guild_id": "",
+"discord_bot_token": ""
+```
+
+The external `discord-member` plugin also requires the bot. The client secret
+and bot token are secrets. Reset them immediately if they become public.
 
 ### Steam
 
@@ -253,6 +305,8 @@ Get a Steam Web API key from the
 [Steam Web API key page](https://steamcommunity.com/dev/apikey). Use the public
 Hub domain when Steam asks for a domain. Set `steam_api_key` in
 `config/config.json`. Steam OpenID does not require a registered callback URL.
+The frontend uses `https://hub.example.com/auth/steam/callback` automatically.
+The Web API key lets the backend read Steam profile information.
 
 ### TruckersMP
 
@@ -262,7 +316,9 @@ an API key. After you create the initial administrator, set
 administration interface. Use the numeric ID from the TruckersMP VTC page URL.
 
 A user must connect Steam before connecting TruckersMP. The backend checks that
-both connections use the same Steam ID.
+both connections use the same Steam ID. The `trackers` section in
+`config/config.json` configures telemetry services such as Trucky or TrackSim.
+It does not configure the TruckersMP account connection.
 
 ### Email
 
@@ -271,10 +327,14 @@ address, or reset a password. Set these values in `config/config.json`:
 
 ```json
 "smtp_host": "smtp.example.com",
-"smtp_port": 587,
+"smtp_port": "587",
 "smtp_email": "hub@example.com",
 "smtp_password": "replace with the SMTP password"
 ```
+
+Use the host, submission port, login name, and password supplied by the email
+provider. Some providers use an account name instead of an email address for
+the SMTP login.
 
 Set the public confirmation URL and keep the `{secret}` placeholder:
 
@@ -285,9 +345,16 @@ Set the public confirmation URL and keep the `{secret}` placeholder:
 ```
 
 Do not remove the other entries from `frontend_urls`. Set `from_email` in the
-`register`, `update_email`, and `reset_password` templates to a valid sender.
+`register`, `update_email`, and `reset_password` templates to a valid sender,
+for example:
 
-Secrets in `config/config.json` and `.env` must not be committed.
+```json
+"from_email": "Drivers Hub <hub@example.com>"
+```
+
+Secrets in `config/config.json` and `.env` must not be committed. Restart the
+backend after you change SMTP settings. Test registration and password reset
+before you make email registration available to users.
 
 ### Registration and required connections
 
@@ -306,8 +373,20 @@ an image for changes in `config/config.json`.
 
 ## Create the initial administrator
 
-The sample configuration grants `administrator` to role `0`, named `root`.
-Create the user after the deployment is running:
+The sample configuration grants `administrator` to role `0`, named `root`:
+
+```json
+"perms": {
+    "administrator": [0]
+},
+"roles": [
+    {"id": 0, "order_id": 0, "name": "root", "discord_role_id": ""}
+]
+```
+
+These are excerpts. Do not replace the complete `perms` object or `roles` list
+with them. Keep this relation, or use the administrator role ID from your
+modified configuration. Create the user after the deployment is running:
 
 ```bash
 docker compose run --rm backend \
@@ -321,25 +400,34 @@ docker compose run --rm backend \
   drivershub --config /app/config/config.json setup accept-user UID
 ```
 
-The command returns a separate user ID. Assign role `0` to that user ID:
+The command returns a separate user ID. Assign role `0` to that user ID. Use
+your selected administrator role ID instead of `0` if you changed it:
 
 ```bash
 docker compose run --rm backend \
   drivershub --config /app/config/config.json setup update-roles USER_ID 0
 ```
 
-Do not interchange `UID` and `USER_ID`.
+Do not interchange `UID` and `USER_ID`. You can now sign in with the email
+address and password from the first command.
 
 ## Edit the configuration in the Hub
 
 The administration interface can save configuration changes. The backend
-container gives its unprivileged user ownership of the bind-mounted `config/`
-directory when it starts. This lets it create `config.json.saved` and replace
-`config.json`.
+container gives its unprivileged user, UID and GID `10001`, ownership of the
+bind-mounted `config/` directory when it starts. This lets it create
+`config.json.saved` and replace `config.json`. Both files stay in the project
+directory on the host.
 
 The administrator needs `update_config` to save changes and `reload_config` to
-apply them. Reloadable settings take effect without a container restart. Use
+apply them. The default `administrator` permission grants both operations. The
+administrator must enable MFA before applying a saved configuration.
+Reloadable settings take effect without a container restart. Use
 `docker compose restart backend` for settings that require a process restart.
+
+The start process can change the numeric owner of files in `config/` to
+`10001:10001` on the host. Use an account with sufficient permissions when you
+edit these files directly. Do not make the directory writable by all users.
 
 ## Persistent data and backups
 
@@ -396,6 +484,10 @@ docker compose logs -f frontend backend
 
 # Restart the backend after a configuration change.
 docker compose restart backend
+
+# Rebuild the frontend after a Vite setting in .env changes.
+docker compose build frontend
+docker compose up -d frontend
 
 # Stop the complete deployment.
 docker compose down
