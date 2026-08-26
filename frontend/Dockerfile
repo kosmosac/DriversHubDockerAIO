@@ -40,7 +40,7 @@ RUN node /tmp/fix-logout-state.mjs
 ARG VITE_CONFIG_URL
 ARG VITE_HCAPTCHA_SITEKEY
 
-ENV ASSETS_BASE="" \
+ENV ASSETS_BASE="/" \
     VITE_USE_MULTIHUB=false \
     VITE_MULTIHUB_DISCOVERY="" \
     VITE_CONFIG_URL=${VITE_CONFIG_URL} \
@@ -57,6 +57,9 @@ RUN if [ "$VITE_USE_MULTIHUB" != "true" ]; then \
     fi
 
 RUN npm run build
+
+RUN grep -Eq '(src|href)="/assets/' build/index.html \
+    && ! grep -Eq '(src|href)="assets/' build/index.html
 
 # Electron entry points are not part of the web deployment.
 RUN rm -f \
