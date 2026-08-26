@@ -25,6 +25,24 @@ function updateDirectory(directory) {
 
 updateDirectory(sourceRoot);
 
+if (replacementCount > 0) {
+    let remainingCount = 0;
+    function verifyDirectory(directory) {
+        for (const entry of readdirSync(directory, { withFileTypes: true })) {
+            const path = join(directory, entry.name);
+            if (entry.isDirectory()) {
+                verifyDirectory(path);
+            } else if (sourceExtensions.has(extname(entry.name))) {
+                remainingCount += readFileSync(path, "utf8").split(upstreamAvatar).length - 1;
+            }
+        }
+    }
+    verifyDirectory(sourceRoot);
+    if (remainingCount !== 0) {
+        throw new Error("The upstream fallback avatar remains after replacement.");
+    }
+}
+
 if (replacementCount === 0) {
     console.log("Upstream does not contain the known fallback avatar; skip replacement.");
 } else {

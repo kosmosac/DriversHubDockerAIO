@@ -23,8 +23,12 @@ COPY upstream/HubBackend/config_sample.json upstream/HubBackend/openapi.json ./
 COPY backend/docker/client-config.patch ./docker/client-config.patch
 COPY backend/docker/nuitka-jobs.patch ./docker/nuitka-jobs.patch
 
-RUN patch -p1 < docker/client-config.patch \
-    && patch -p1 < docker/nuitka-jobs.patch
+RUN patch --batch --fuzz=0 -p1 < docker/client-config.patch \
+    && test "$(grep -c 'normalize_client_config(json.loads' src/external_plugins/client-config.py)" -eq 2 \
+    && grep -q '"domain": config\["domain"\]' src/external_plugins/client-config.py \
+    && grep -q 'frontend_conf\["domain"\] = config\["domain"\]' src/external_plugins/client-config.py \
+    && patch --batch --fuzz=0 -p1 < docker/nuitka-jobs.patch \
+    && test "$(grep -c -- '--jobs=$(NUITKA_JOBS)' makefile)" -eq 2
 
 ARG BACKEND_BUILD_JOBS=2
 

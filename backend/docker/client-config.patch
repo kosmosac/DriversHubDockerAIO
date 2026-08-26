@@ -1,28 +1,32 @@
 --- a/src/external_plugins/client-config.py
 +++ b/src/external_plugins/client-config.py
-@@ -17,0 +18,7 @@
-+def normalize_client_config(config, plugins, abbr):
+@@ -17,0 +18,9 @@
++def normalize_client_config(config, plugins, abbr, domain):
 +    if not config["api_host"].startswith(("http://", "https://")):
 +        config["api_host"] = f"https://{config['api_host']}"
 +    config["abbr"] = abbr
 +    config["plugins"] = plugins
++    config["domain"] = domain
 +    return config
 +
 +
-@@ -24 +31 @@
+@@ -24 +33 @@
 -        return json.loads(config)
-+        return normalize_client_config(json.loads(config), app.config.plugins, app.config.abbr)
-@@ -37 +44 @@
++        return normalize_client_config(json.loads(config), app.config.plugins, app.config.abbr, app.config.domain)
+@@ -37 +46 @@
 -    config = json.loads(t[0][0])
-+    config = normalize_client_config(json.loads(t[0][0]), app.config.plugins, app.config.abbr)
-@@ -298 +305 @@
++    config = normalize_client_config(json.loads(t[0][0]), app.config.plugins, app.config.abbr, app.config.domain)
+@@ -297,2 +306,2 @@
+-            "domain": urlparse(config["frontend_urls"]["member"]).netloc,
 -            "api_host": config["domain"],
++            "domain": config["domain"],
 +            "api_host": f"https://{config['domain']}",
-@@ -306,0 +314,6 @@
+@@ -306,0 +316,8 @@
 +    else:
 +        frontend_conf = json.loads(t[0][2])
-+        if frontend_conf.get("abbr") != config["abbr"] or frontend_conf.get("plugins") != config["plugins"]:
++        if frontend_conf.get("abbr") != config["abbr"] or frontend_conf.get("plugins") != config["plugins"] or frontend_conf.get("domain") != config["domain"]:
 +            frontend_conf["abbr"] = config["abbr"]
 +            frontend_conf["plugins"] = config["plugins"]
++            frontend_conf["domain"] = config["domain"]
 +            frontend_conf = convertQuotation(json.dumps(frontend_conf))
 +            cur.execute(f"UPDATE settings SET sval = '{frontend_conf}' WHERE skey = 'client-config/meta'")

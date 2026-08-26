@@ -508,8 +508,8 @@ docker compose down
 The deployment applies small compatibility adjustments while it builds the
 upstream source:
 
-- synchronize backend abbreviation and plugin metadata with the frontend
-  configuration,
+- synchronize backend abbreviation, domain, and plugin metadata with the
+  frontend configuration,
 - limit concurrent Nuitka compiler jobs during the backend build,
 - derive the frontend API path from `VITE_CONFIG_URL`,
 - make the hCaptcha site key deployment-specific,

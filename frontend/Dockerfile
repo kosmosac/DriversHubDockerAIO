@@ -21,8 +21,11 @@ COPY frontend/docker/replace-fallback-avatar.mjs /tmp/replace-fallback-avatar.mj
 COPY frontend/docker/use-config-url-api-path.mjs /tmp/use-config-url-api-path.mjs
 
 RUN if grep -q 'sitekey="1788882d-3695-4807-abac-7d7166ec6325"' src/routes/auth/login.js; then \
-        patch -p1 < /tmp/hcaptcha-sitekey.patch; \
-    elif grep -q 'VITE_HCAPTCHA_SITEKEY' src/routes/auth/login.js; then \
+        patch --batch --fuzz=0 -p1 < /tmp/hcaptcha-sitekey.patch; \
+        test "$(grep -c 'VITE_HCAPTCHA_SITEKEY' src/routes/auth/login.js)" -eq 1; \
+        ! grep -q '1788882d-3695-4807-abac-7d7166ec6325' src/routes/auth/login.js; \
+    elif grep -q 'VITE_HCAPTCHA_SITEKEY' src/routes/auth/login.js \
+        && ! grep -q '1788882d-3695-4807-abac-7d7166ec6325' src/routes/auth/login.js; then \
         echo "Upstream already supports VITE_HCAPTCHA_SITEKEY; skip the deployment patch."; \
     else \
         echo "Unsupported upstream hCaptcha configuration." >&2; \
