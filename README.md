@@ -435,7 +435,8 @@ All persistent files are bind-mounted under this repository:
 
 - `config/`: backend configuration
 - `data/mariadb/`: MariaDB data
-- `data/mariadb-external/`: external MariaDB table data from older deployments
+- `data/mariadb-external/`: MariaDB table data stored through
+  `db_data_directory`
 - `data/valkey/`: Valkey append-only data
 - `data/caddy/`: TLS certificates and Caddy state in direct mode
 
