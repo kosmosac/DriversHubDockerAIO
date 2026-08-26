@@ -21,12 +21,23 @@ COPY upstream/HubBackend/requirements.txt upstream/HubBackend/makefile ./
 COPY upstream/HubBackend/src ./src
 COPY upstream/HubBackend/config_sample.json upstream/HubBackend/openapi.json ./
 COPY backend/docker/client-config.patch ./docker/client-config.patch
+COPY backend/docker/client-config-upstream-domain.patch ./docker/client-config-upstream-domain.patch
 COPY backend/docker/nuitka-jobs.patch ./docker/nuitka-jobs.patch
 
-RUN patch --batch --fuzz=0 -p1 < docker/client-config.patch \
+RUN if grep -q 'def normalize_client_config(config, frontend_member_url):' src/external_plugins/client-config.py; then \
+        patch --batch --fuzz=0 -p1 < docker/client-config-upstream-domain.patch; \
+    elif ! grep -q 'def normalize_client_config' src/external_plugins/client-config.py; then \
+        patch --batch --fuzz=0 -p1 < docker/client-config.patch; \
+    else \
+        echo "Unsupported upstream client-config implementation." >&2; \
+        exit 1; \
+    fi \
     && test "$(grep -c 'normalize_client_config(json.loads' src/external_plugins/client-config.py)" -eq 2 \
-    && grep -q '"domain": config\["domain"\]' src/external_plugins/client-config.py \
-    && grep -q 'frontend_conf\["domain"\] = config\["domain"\]' src/external_plugins/client-config.py \
+    && grep -q 'def normalize_client_config(config, plugins, abbr, domain):' src/external_plugins/client-config.py \
+    && grep -q '"api_host": f"https://{config' src/external_plugins/client-config.py \
+    && grep -q 'frontend_conf\["abbr"\] = config\["abbr"\]' src/external_plugins/client-config.py \
+    && grep -q 'frontend_conf\["plugins"\] = config\["plugins"\]' src/external_plugins/client-config.py \
+    && grep -Eq 'frontend_conf\["domain"\] = (config\["domain"\]|frontend_domain)' src/external_plugins/client-config.py \
     && patch --batch --fuzz=0 -p1 < docker/nuitka-jobs.patch \
     && test "$(grep -c -- '--jobs=$(NUITKA_JOBS)' makefile)" -eq 2
 

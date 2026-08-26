@@ -1,0 +1,55 @@
+--- a/src/external_plugins/client-config.py
++++ b/src/external_plugins/client-config.py
+@@ -15,8 +15,12 @@
+ from functions import *
+ 
+ 
+-def normalize_client_config(config, frontend_member_url):
+-    config["domain"] = urlparse(frontend_member_url).netloc
++def normalize_client_config(config, plugins, abbr, domain):
++    if not config["api_host"].startswith(("http://", "https://")):
++        config["api_host"] = f"https://{config['api_host']}"
++    config["abbr"] = abbr
++    config["plugins"] = plugins
++    config["domain"] = domain
+     return config
+ 
+ 
+@@ -26,7 +30,7 @@
+ 
+     config = app.redis.get("client-config:meta")
+     if config is not None:
+-        return normalize_client_config(json.loads(config), app.config.frontend_urls.member)
++        return normalize_client_config(json.loads(config), app.config.plugins, app.config.abbr, urlparse(app.config.frontend_urls.member).netloc)
+ 
+     await app.db.new_conn(dhrid, db_name = app.config.db_name)
+ 
+@@ -39,7 +43,7 @@
+     app.redis.set("client-config:meta", t[0][0])
+     app.redis.expire("client-config:meta", 86400)
+ 
+-    config = normalize_client_config(json.loads(t[0][0]), app.config.frontend_urls.member)
++    config = normalize_client_config(json.loads(t[0][0]), app.config.plugins, app.config.abbr, urlparse(app.config.frontend_urls.member).netloc)
+     return config
+ 
+ async def get_client_assets(request: Request, response: Response, key: str):
+@@ -300,7 +304,7 @@
+             "distance_unit": config["distance_unit"],
+             "use_highest_role_color": False,
+             "domain": urlparse(config["frontend_urls"]["member"]).netloc,
+-            "api_host": config["domain"],
++            "api_host": f"https://{config['domain']}",
+             "plugins": config["plugins"],
+             "truckersmp_vtc_id": 0,
+             "logo_key": "",
+@@ -312,7 +316,9 @@
+     else:
+         frontend_conf = json.loads(t[0][2])
+         frontend_domain = urlparse(config["frontend_urls"]["member"]).netloc
+-        if frontend_conf.get("domain") != frontend_domain:
++        if frontend_conf.get("abbr") != config["abbr"] or frontend_conf.get("plugins") != config["plugins"] or frontend_conf.get("domain") != frontend_domain:
++            frontend_conf["abbr"] = config["abbr"]
++            frontend_conf["plugins"] = config["plugins"]
+             frontend_conf["domain"] = frontend_domain
+             frontend_conf = convertQuotation(json.dumps(frontend_conf))
+             cur.execute(f"UPDATE settings SET sval = '{frontend_conf}' WHERE skey = 'client-config/meta'")
