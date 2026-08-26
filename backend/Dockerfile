@@ -21,14 +21,22 @@ COPY upstream/HubBackend/requirements.txt upstream/HubBackend/makefile ./
 COPY upstream/HubBackend/src ./src
 COPY upstream/HubBackend/config_sample.json upstream/HubBackend/openapi.json ./
 COPY backend/docker/client-config.patch ./docker/client-config.patch
+COPY backend/docker/nuitka-jobs.patch ./docker/nuitka-jobs.patch
 
-RUN patch -p1 < docker/client-config.patch
+RUN patch -p1 < docker/client-config.patch \
+    && patch -p1 < docker/nuitka-jobs.patch
+
+ARG BACKEND_BUILD_JOBS=2
+
+RUN case "$BACKEND_BUILD_JOBS" in \
+        ''|*[!0-9]*|0) echo "BACKEND_BUILD_JOBS must be a positive integer." >&2; exit 1 ;; \
+    esac
 
 # Compile the binaries from the backend source code. Cache the build data.
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=cache,target=/root/.cache/ccache \
     make install-python \
-    && make -j"$(nproc)" build
+    && make -j1 NUITKA_JOBS="$BACKEND_BUILD_JOBS" build
 
 FROM debian:trixie-slim AS runtime
 

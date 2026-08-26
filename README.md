@@ -41,7 +41,11 @@ revisions with the tested revisions above.
 - an hCaptcha site for the public Hub domain
 
 The initial backend build compiles the Python application with Nuitka and can
-take a long time. Later builds normally reuse the Docker build cache.
+take a long time. It uses two concurrent compiler jobs by default and builds
+the backend programs one after another. Set `BACKEND_BUILD_JOBS=1` in `.env` to
+reduce CPU and memory pressure on a small host. A higher value makes the build
+faster but uses more host resources. Later builds normally reuse the Docker
+build cache.
 
 ## Get the source code
 
@@ -404,6 +408,7 @@ upstream source:
 
 - synchronize backend abbreviation and plugin metadata with the frontend
   configuration,
+- limit concurrent Nuitka compiler jobs during the backend build,
 - derive the frontend API path from `VITE_CONFIG_URL`,
 - make the hCaptcha site key deployment-specific,
 - remove the hard-coded upstream Google Analytics integration,
