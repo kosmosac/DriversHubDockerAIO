@@ -445,9 +445,18 @@ and networks but does not remove these directories.
 
 ## Migrate from the separate deployment repositories
 
-Run `docker compose down` in both old deployment repositories before copying
-data. Keep a backup until the new deployment works. Removing the old containers
-also prevents name and port conflicts with the new Compose project.
+This section applies to installations made with the previous separate
+deployment repositories:
+
+- [HubBackendDocker](https://gitea.kosmos.ac/kosmos/HubBackendDocker)
+- [HubFrontendDocker](https://gitea.kosmos.ac/kosmos/HubFrontendDocker)
+
+These repositories remain available for existing installations, but they are
+no longer maintained. Use this combined repository for new installations.
+
+Run `docker compose down` in both previous deployment repositories before
+copying data. Keep a backup until the new deployment works. Removing the old
+containers also prevents name and port conflicts with the new Compose project.
 
 1. Copy the complete backend `config/` directory to this repository.
 2. Copy the complete backend `data/` directory to this repository. This includes
@@ -513,8 +522,9 @@ It stops when an incompatible upstream implementation is detected.
 
 ## Authors and license
 
-This Docker deployment is developed by Kosmos <me@kosmos.ac> and is licensed
-under the GNU Affero General Public License v3.0. See [LICENSE](LICENSE).
+This Docker deployment is developed by [Kosmos](https://kosmos.ac) and is
+licensed under the GNU Affero General Public License v3.0. See
+[LICENSE](LICENSE).
 
 [Drivers Hub: Backend](https://github.com/CharlesWithC/HubBackend) and
 [Drivers Hub: Frontend](https://github.com/CharlesWithC/HubFrontend) are
