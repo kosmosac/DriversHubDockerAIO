@@ -15,6 +15,7 @@ RUN --mount=type=cache,target=/root/.npm npm ci
 
 COPY upstream/HubFrontend/ ./
 COPY frontend/docker/hcaptcha-sitekey.patch /tmp/hcaptcha-sitekey.patch
+COPY frontend/docker/fix-logout-state.mjs /tmp/fix-logout-state.mjs
 COPY frontend/docker/remove-analytics.mjs /tmp/remove-analytics.mjs
 COPY frontend/docker/replace-fallback-avatar.mjs /tmp/replace-fallback-avatar.mjs
 COPY frontend/docker/use-config-url-api-path.mjs /tmp/use-config-url-api-path.mjs
@@ -31,6 +32,7 @@ RUN if grep -q 'sitekey="1788882d-3695-4807-abac-7d7166ec6325"' src/routes/auth/
 RUN node /tmp/remove-analytics.mjs
 RUN node /tmp/replace-fallback-avatar.mjs
 RUN node /tmp/use-config-url-api-path.mjs
+RUN node /tmp/fix-logout-state.mjs
 
 ARG VITE_CONFIG_URL
 ARG VITE_HCAPTCHA_SITEKEY

@@ -515,6 +515,7 @@ upstream source:
 - make the hCaptcha site key deployment-specific,
 - remove the hard-coded upstream Google Analytics integration,
 - use the bundled frontend logo instead of an external fallback avatar,
+- clear the complete frontend profile state after logout,
 - exclude Electron entry points from the web image.
 
 The build checks the expected upstream code before applying these adjustments.
