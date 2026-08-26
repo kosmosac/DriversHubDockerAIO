@@ -63,9 +63,6 @@ services:
       context: .
       dockerfile: frontend/Dockerfile
       args:
-        ASSETS_BASE: ${ASSETS_BASE:-}
-        VITE_USE_MULTIHUB: ${VITE_USE_MULTIHUB:-false}
-        VITE_MULTIHUB_DISCOVERY: ${VITE_MULTIHUB_DISCOVERY:-}
         VITE_CONFIG_URL: ${VITE_CONFIG_URL:?Set VITE_CONFIG_URL in .env}
         VITE_HCAPTCHA_SITEKEY: ${VITE_HCAPTCHA_SITEKEY:?Set VITE_HCAPTCHA_SITEKEY in .env}
     image: drivershub-frontend

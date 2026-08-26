@@ -365,8 +365,8 @@ also prevents name and port conflicts with the new Compose project.
    `mariadb`, `mariadb-external`, and `valkey`.
 3. Copy the backend `DB_NAME`, `DB_PASSWORD`, and `DB_ROOT_PASSWORD` values into
    the new `.env`.
-4. Copy the frontend `VITE_CONFIG_URL`, `VITE_HCAPTCHA_SITEKEY`, `ASSETS_BASE`,
-   `VITE_USE_MULTIHUB`, and `VITE_MULTIHUB_DISCOVERY` values into the new `.env`.
+4. Copy the frontend `VITE_CONFIG_URL` and `VITE_HCAPTCHA_SITEKEY` values into
+   the new `.env`.
 5. Set `HUB_BIND` for an existing reverse proxy, or set `HUB_DOMAIN` for direct
    HTTPS operation.
 6. Build and start the new Compose project.
