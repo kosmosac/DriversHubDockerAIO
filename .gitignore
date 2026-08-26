@@ -1,0 +1,6 @@
+.env
+config/config.json
+data/*
+!data/.gitignore
+upstream/HubBackend/
+upstream/HubFrontend/

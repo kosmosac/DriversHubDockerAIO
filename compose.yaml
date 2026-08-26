@@ -1,0 +1,98 @@
+# Use the source code in upstream/HubBackend and upstream/HubFrontend.
+name: drivershub
+
+x-backend-image: &backend-image
+  build:
+    context: .
+    dockerfile: backend/Dockerfile
+  image: drivershub-backend
+
+services:
+  mariadb:
+    image: mariadb:10.11
+    restart: unless-stopped
+    entrypoint: ["/usr/local/bin/hub-mariadb-entrypoint"]
+    command: ["mariadbd", "--log-warnings=1"]
+    environment:
+      MARIADB_DATABASE: ${DB_NAME:-drivershub}
+      MARIADB_USER: drivershub
+      MARIADB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?Set DB_ROOT_PASSWORD in .env}
+    volumes:
+      - ./data/mariadb:/var/lib/mysql
+      - ./data/mariadb-external:/var/lib/mysqlext
+      - ./backend/docker/mariadb-entrypoint.sh:/usr/local/bin/hub-mariadb-entrypoint:ro
+      - ./backend/docker/mariadb-init.sql:/docker-entrypoint-initdb.d/10-drivershub.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "healthcheck.sh --connect --innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  valkey:
+    image: valkey/valkey:8-alpine
+    restart: unless-stopped
+    command: ["valkey-server", "--appendonly", "yes"]
+    volumes:
+      - ./data/valkey:/data
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  db-init:
+    <<: *backend-image
+    command: ["drivershub", "--config", "/app/config/config.json", "setup", "init-db"]
+    volumes:
+      - ./config:/app/config
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    restart: "no"
+
+  bannergen:
+    <<: *backend-image
+    restart: unless-stopped
+    command: ["bannergen", "--host", "0.0.0.0", "--port", "8700", "--workers", "2"]
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args:
+        ASSETS_BASE: ${ASSETS_BASE:-}
+        VITE_USE_MULTIHUB: ${VITE_USE_MULTIHUB:-false}
+        VITE_MULTIHUB_DISCOVERY: ${VITE_MULTIHUB_DISCOVERY:-}
+        VITE_CONFIG_URL: ${VITE_CONFIG_URL:?Set VITE_CONFIG_URL in .env}
+        VITE_HCAPTCHA_SITEKEY: ${VITE_HCAPTCHA_SITEKEY:?Set VITE_HCAPTCHA_SITEKEY in .env}
+    image: drivershub-frontend
+    restart: unless-stopped
+    environment:
+      CADDY_ADDRESS: http://:8080
+    ports:
+      - "${HUB_BIND:-127.0.0.1:18080}:8080"
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:8080/api/client/config/global"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    <<: *backend-image
+    restart: unless-stopped
+    environment:
+      FORWARDED_ALLOW_IPS: "*"
+    command: ["drivershub", "--config", "/app/config/config.json", "--banner-service-url", "http://bannergen:8700/banner"]
+    volumes:
+      - ./config:/app/config
+    depends_on:
+      frontend:
+        condition: service_started
+        restart: true
+      db-init:
+        condition: service_completed_successfully
+      valkey:
+        condition: service_healthy
+      bannergen:
+        condition: service_started

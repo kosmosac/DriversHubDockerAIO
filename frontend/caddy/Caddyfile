@@ -1,0 +1,32 @@
+{
+    servers {
+        trusted_proxies static private_ranges
+        trusted_proxies_strict
+        client_ip_headers X-Forwarded-For X-Real-IP
+    }
+}
+
+{$CADDY_ADDRESS:http://:8080} {
+    encode zstd gzip
+
+    # Do not publish API schemas or interactive API documentation.
+    # The upstream restart endpoint cannot restart this Docker container.
+    @blocked_api path /api/doc /api/doc/* /api/docs /api/docs/* /api/redoc /api/redoc/* /api/openapi.json /api/restart
+    respond @blocked_api 404
+
+    handle /api/* {
+        reverse_proxy backend:7777
+    }
+
+    @assets path /assets/*
+    header @assets Cache-Control "public, max-age=31536000, immutable"
+
+    handle {
+        root * /srv
+        route {
+            try_files {path} /index.html
+            header /index.html Cache-Control "no-cache"
+            file_server
+        }
+    }
+}
