@@ -1,9 +1,8 @@
 # Upstream compatibility tracking
 
 This file lists the changes that this deployment applies to the Drivers Hub
-source during a build. Review the linked upstream changes before updating an
-upstream checkout. Remove a local adjustment only after the build supports the
-new upstream implementation and the resulting images have been tested.
+source during a build and links them to related upstream discussions and pull
+requests.
 
 ## Changes proposed upstream
 
@@ -26,14 +25,3 @@ implement requirements that are specific to this Docker deployment.
 | Backend | `backend/docker/nuitka-jobs.patch` | Pass `BACKEND_BUILD_JOBS` to Nuitka to limit compiler load on small hosts. |
 | Frontend | `ASSETS_BASE=/` and the post-build check in `frontend/Dockerfile` | Use root-relative assets so that client-side routes such as OAuth callbacks can load the application bundle. |
 | Frontend | Cleanup in `frontend/Dockerfile` | Exclude Electron entry points from the web-only runtime image. Upstream discussion: [Issue #18](https://github.com/CharlesWithC/HubFrontend/issues/18). |
-
-## Update checklist
-
-1. Read the changes in both upstream repositories since the tested revisions.
-2. Check the state and contents of every linked issue and pull request.
-3. Build both images. Compatibility checks intentionally stop the build when a
-   known upstream implementation changed unexpectedly.
-4. Test login, logout, OAuth callbacks, client configuration, enabled plugins,
-   nested frontend routes, and frontend asset loading.
-5. Remove an adjustment only when its behavior is present upstream or is no
-   longer required by this deployment.

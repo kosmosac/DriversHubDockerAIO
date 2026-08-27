@@ -277,9 +277,6 @@ Create an application in the
 2. Set `discord_client_id` in `config/config.json` to the application ID.
 3. Set `discord_client_secret` to the application secret.
 
-The callback points to the frontend. Do not add `/api` to it. The frontend
-requests the `identify`, `email`, and `role_connections.write` OAuth scopes.
-
 A Discord bot is optional. It is only necessary when the Hub must check guild
 membership, use guild nicknames, manage roles, or send Discord messages. For
 these functions, create a bot, set `discord_bot_token` and `discord_guild_id`,
@@ -316,9 +313,7 @@ an API key. After you create the initial administrator, set
 administration interface. Use the numeric ID from the TruckersMP VTC page URL.
 
 A user must connect Steam before connecting TruckersMP. The backend checks that
-both connections use the same Steam ID. The `trackers` section in
-`config/config.json` configures telemetry services such as Trucky or TrackSim.
-It does not configure the TruckersMP account connection.
+both connections use the same Steam ID.
 
 ### Email
 
@@ -352,9 +347,8 @@ for example:
 "from_email": "Drivers Hub <hub@example.com>"
 ```
 
-Secrets in `config/config.json` and `.env` must not be committed. Restart the
-backend after you change SMTP settings. Test registration and password reset
-before you make email registration available to users.
+Restart the backend after you change SMTP settings. Test registration and
+password reset before you make email registration available to users.
 
 ### Registration and required connections
 
@@ -431,8 +425,10 @@ edit these files directly. Do not make the directory writable by all users.
 
 ## Persistent data and backups
 
-All persistent files are bind-mounted under this repository:
+The deployment stores its configuration and persistent data under this
+repository:
 
+- `.env`: deployment settings and database passwords
 - `config/`: backend configuration
 - `data/mariadb/`: MariaDB data
 - `data/mariadb-external/`: MariaDB table data stored through
@@ -440,8 +436,10 @@ All persistent files are bind-mounted under this repository:
 - `data/valkey/`: Valkey append-only data
 - `data/caddy/`: TLS certificates and Caddy state in direct mode
 
-Back up `config/` and `data/` together. `docker compose down` removes containers
-and networks but does not remove these directories.
+Stop the stack before a file-level backup, then back up `.env`, `config/`, and
+`data/` together. Also back up the external reverse proxy configuration when
+the stack does not use direct mode. `docker compose down` removes containers
+and networks but does not remove these files and directories.
 
 ## Migrate from the separate deployment repositories
 
@@ -471,17 +469,25 @@ containers also prevents name and port conflicts with the new Compose project.
 
 ## Update
 
-Update both upstream clones, then rebuild the project:
+Check this AIO deployment repository for updates regularly, even when you do
+not plan to update the upstream applications. Fixes for the Docker setup and
+workarounds for known upstream problems are released here. Always update this
+repository before you update either upstream clone. Rebuild the images after
+any AIO or upstream update so that the changes become part of the running
+containers.
 
 ```bash
+git pull --ff-only
 git -C upstream/HubBackend pull --ff-only
 git -C upstream/HubFrontend pull --ff-only
 docker compose build
 docker compose up -d
 ```
 
-Review the tested revisions near the start of this README before deploying a new
-upstream revision.
+Review the tested revisions near the start of this README and the compatibility
+notes in [UPSTREAM.md](UPSTREAM.md) before you deploy a new upstream revision.
+Direct-mode users must use `docker compose -f compose.direct.yaml` as described
+above.
 
 ## Operate the deployment
 
