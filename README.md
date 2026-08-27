@@ -123,7 +123,8 @@ unchanged. Restart the backend after you change `abbr` or the plugin list.
 
 The optional [roles and permissions guide](ROLES.md) provides a complete role
 model that is compatible with the frontend defaults and the role references in
-the backend samples.
+the backend samples. [APPLICATIONS.md](APPLICATIONS.md) provides short example
+forms for the application types.
 
 ## Start the deployment
 
