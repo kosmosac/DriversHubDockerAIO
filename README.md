@@ -121,6 +121,10 @@ The backend synchronizes `abbr` and the plugin list to the stored frontend
 configuration when it starts. Other frontend settings in MariaDB stay
 unchanged. Restart the backend after you change `abbr` or the plugin list.
 
+The optional [roles and permissions guide](ROLES.md) provides a complete role
+model that is compatible with the frontend defaults and the role references in
+the backend samples.
+
 ## Start the deployment
 
 ### Behind an existing reverse proxy (recommended)
