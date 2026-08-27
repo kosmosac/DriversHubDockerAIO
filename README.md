@@ -121,11 +121,18 @@ The backend synchronizes `abbr` and the plugin list to the stored frontend
 configuration when it starts. Other frontend settings in MariaDB stay
 unchanged. Restart the backend after you change `abbr` or the plugin list.
 
-The optional [roles and permissions guide](ROLES.md) provides a complete role
-model that is compatible with the frontend defaults and the role references in
-the backend samples. [APPLICATIONS.md](APPLICATIONS.md) provides short example
-forms for the application types. [TRACKERS.md](TRACKERS.md) explains how to
-connect the supported job trackers.
+## Optional configuration guides
+
+The backend supports custom role definitions, application forms, and multiple
+job tracker integrations. It does not impose a role model, application
+workflow, or tracker selection. Operators are free to design and configure
+these functions from scratch. The following guides are optional reference
+configurations and can be used, changed, or ignored:
+
+- [ROLES.md](ROLES.md) defines an example role and permission model.
+- [APPLICATIONS.md](APPLICATIONS.md) defines example forms for the standard
+  application types.
+- [TRACKERS.md](TRACKERS.md) documents the supported tracker integrations.
 
 ## Start the deployment
 
