@@ -503,24 +503,12 @@ docker compose up -d frontend
 docker compose down
 ```
 
-## Build-time compatibility adjustments
+## Upstream compatibility
 
-The deployment applies small compatibility adjustments while it builds the
-upstream source:
-
-- synchronize backend abbreviation, domain, and plugin metadata with the
-  frontend configuration,
-- limit concurrent Nuitka compiler jobs during the backend build,
-- derive the frontend API path from `VITE_CONFIG_URL`,
-- make the hCaptcha site key deployment-specific,
-- remove the hard-coded upstream Google Analytics integration,
-- use the bundled frontend logo instead of an external fallback avatar,
-- clear the complete frontend profile state after logout,
-- use root-relative frontend assets on nested application routes,
-- exclude Electron entry points from the web image.
-
-The build checks the expected upstream code before applying these adjustments.
-It stops when an incompatible upstream implementation is detected.
+The deployment applies checked compatibility adjustments while it builds the
+upstream source. [UPSTREAM.md](UPSTREAM.md) lists each adjustment, its upstream
+issue or pull request, and the checks required for an upstream update. The
+build stops when a known upstream implementation changes unexpectedly.
 
 ## Authors and license
 
