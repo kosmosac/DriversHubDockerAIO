@@ -23,6 +23,7 @@ COPY upstream/HubBackend/config_sample.json upstream/HubBackend/openapi.json ./
 COPY upstream/HubBackend/docs/config.jsonc ./docs/config.jsonc
 COPY backend/docker/client-config.patch ./docker/client-config.patch
 COPY backend/docker/client-config-upstream-domain.patch ./docker/client-config-upstream-domain.patch
+COPY backend/docker/frontend-domain.patch ./docker/frontend-domain.patch
 COPY backend/docker/nuitka-jobs.patch ./docker/nuitka-jobs.patch
 COPY backend/docker/smtp-encryption.patch ./docker/smtp-encryption.patch
 
@@ -40,6 +41,12 @@ RUN if grep -q 'def normalize_client_config(config, frontend_member_url):' src/e
     && grep -q 'frontend_conf\["abbr"\] = config\["abbr"\]' src/external_plugins/client-config.py \
     && grep -q 'frontend_conf\["plugins"\] = config\["plugins"\]' src/external_plugins/client-config.py \
     && grep -Eq 'frontend_conf\["domain"\] = (config\["domain"\]|frontend_domain)' src/external_plugins/client-config.py \
+    && if grep -q 'cfg\["frontend_urls"\]\[key\] = cfg\["frontend_urls"\]\[key\].replace("{domain}", cfg\["domain"\])' src/config.py; then \
+        echo "Upstream frontend domain expansion detected; patch is not required."; \
+    else \
+        patch --batch --fuzz=0 -p1 < docker/frontend-domain.patch; \
+    fi \
+    && grep -q 'cfg\["frontend_urls"\]\[key\] = cfg\["frontend_urls"\]\[key\].replace("{domain}", cfg\["domain"\])' src/config.py \
     && patch --batch --fuzz=0 -p1 < docker/nuitka-jobs.patch \
     && test "$(grep -c -- '--jobs=$(NUITKA_JOBS)' makefile)" -eq 2 \
     && if grep -q '"smtp_encryption": "starttls"' src/config.py \
