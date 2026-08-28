@@ -14,6 +14,12 @@ requests.
 | Frontend | `frontend/docker/fix-logout-state.mjs` | Clear all profile state after logout. The script skips the change when upstream contains the corrected implementation. | [Issue #19](https://github.com/CharlesWithC/HubFrontend/issues/19), [PR #20](https://github.com/CharlesWithC/HubFrontend/pull/20) |
 | Backend | `backend/docker/client-config.patch` and `backend/docker/client-config-upstream-domain.patch` | Normalize runtime client metadata and keep database-backed client configuration consistent with backend configuration. The second variant supports the implementation proposed upstream. | [Issue #11](https://github.com/CharlesWithC/HubBackend/issues/11), [PR #12](https://github.com/CharlesWithC/HubBackend/pull/12) |
 
+## Pending upstream validation
+
+| Component | Local implementation | Purpose | Upstream |
+| --- | --- | --- | --- |
+| Backend | `backend/docker/smtp-encryption.patch` | Add explicit `starttls`, `tls`, and `none` SMTP encryption modes, preserve certificate validation, and log SMTP failures. | Create an upstream proposal after deployment testing. |
+
 ## Deployment-specific adjustments
 
 These changes do not currently have matching upstream pull requests. They

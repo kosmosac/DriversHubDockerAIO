@@ -336,13 +336,17 @@ address, or reset a password. Set these values in `config/config.json`:
 ```json
 "smtp_host": "smtp.example.com",
 "smtp_port": "587",
+"smtp_encryption": "starttls",
 "smtp_email": "hub@example.com",
 "smtp_password": "replace with the SMTP password"
 ```
 
 Use the host, submission port, login name, and password supplied by the email
 provider. Some providers use an account name instead of an email address for
-the SMTP login.
+the SMTP login. Set `smtp_encryption` to `starttls` for a required STARTTLS
+upgrade, `tls` for TLS from the start of the connection, or `none` for an
+unencrypted connection to a trusted local relay. The encryption mode is
+independent of the SMTP port.
 
 Set the public confirmation URL and keep the `{secret}` placeholder:
 

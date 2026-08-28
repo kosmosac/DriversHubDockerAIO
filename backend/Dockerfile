@@ -20,9 +20,11 @@ RUN apt-get update \
 COPY upstream/HubBackend/requirements.txt upstream/HubBackend/makefile ./
 COPY upstream/HubBackend/src ./src
 COPY upstream/HubBackend/config_sample.json upstream/HubBackend/openapi.json ./
+COPY upstream/HubBackend/docs/config.jsonc ./docs/config.jsonc
 COPY backend/docker/client-config.patch ./docker/client-config.patch
 COPY backend/docker/client-config-upstream-domain.patch ./docker/client-config-upstream-domain.patch
 COPY backend/docker/nuitka-jobs.patch ./docker/nuitka-jobs.patch
+COPY backend/docker/smtp-encryption.patch ./docker/smtp-encryption.patch
 
 RUN if grep -q 'def normalize_client_config(config, frontend_member_url):' src/external_plugins/client-config.py; then \
         patch --batch --fuzz=0 -p1 < docker/client-config-upstream-domain.patch; \
@@ -39,7 +41,12 @@ RUN if grep -q 'def normalize_client_config(config, frontend_member_url):' src/e
     && grep -q 'frontend_conf\["plugins"\] = config\["plugins"\]' src/external_plugins/client-config.py \
     && grep -Eq 'frontend_conf\["domain"\] = (config\["domain"\]|frontend_domain)' src/external_plugins/client-config.py \
     && patch --batch --fuzz=0 -p1 < docker/nuitka-jobs.patch \
-    && test "$(grep -c -- '--jobs=$(NUITKA_JOBS)' makefile)" -eq 2
+    && test "$(grep -c -- '--jobs=$(NUITKA_JOBS)' makefile)" -eq 2 \
+    && patch --batch --fuzz=0 -p1 < docker/smtp-encryption.patch \
+    && grep -q '"smtp_encryption": "starttls"' src/config.py \
+    && grep -q 'use_tls = smtp_encryption == "tls"' src/functions/mail.py \
+    && grep -q 'start_tls = smtp_encryption == "starttls"' src/functions/mail.py \
+    && grep -q 'hostname=app.config.smtp_host' src/functions/mail.py
 
 ARG BACKEND_BUILD_JOBS=2
 
