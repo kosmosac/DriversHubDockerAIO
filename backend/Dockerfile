@@ -42,7 +42,17 @@ RUN if grep -q 'def normalize_client_config(config, frontend_member_url):' src/e
     && grep -Eq 'frontend_conf\["domain"\] = (config\["domain"\]|frontend_domain)' src/external_plugins/client-config.py \
     && patch --batch --fuzz=0 -p1 < docker/nuitka-jobs.patch \
     && test "$(grep -c -- '--jobs=$(NUITKA_JOBS)' makefile)" -eq 2 \
-    && patch --batch --fuzz=0 -p1 < docker/smtp-encryption.patch \
+    && if grep -q '"smtp_encryption": "starttls"' src/config.py \
+        && grep -q 'use_tls = smtp_encryption == "tls"' src/functions/mail.py \
+        && grep -q 'start_tls = smtp_encryption == "starttls"' src/functions/mail.py; then \
+        echo "Upstream SMTP encryption support detected; patch is not required."; \
+    elif ! grep -q 'smtp_encryption' src/config.py \
+        && ! grep -q 'smtp_encryption' src/functions/mail.py; then \
+        patch --batch --fuzz=0 -p1 < docker/smtp-encryption.patch; \
+    else \
+        echo "Unsupported upstream SMTP implementation." >&2; \
+        exit 1; \
+    fi \
     && grep -q '"smtp_encryption": "starttls"' src/config.py \
     && grep -q 'use_tls = smtp_encryption == "tls"' src/functions/mail.py \
     && grep -q 'start_tls = smtp_encryption == "starttls"' src/functions/mail.py \
