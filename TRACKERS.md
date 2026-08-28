@@ -78,16 +78,15 @@ docker compose restart backend
 Trucky provides the most complete public setup information.
 
 1. Open the company settings in the Trucky VTC Hub.
-2. Open the API or integrations section.
-3. Create a company access token and put it in `api_token`.
-4. Create a webhook secret and put it in `webhook_secret`.
-5. Add `https://hub.example.com/api/trucky/update` as an API webhook.
+2. Open the **API** tab.
+3. Create a company access token in Trucky. Enter it as `api_token` in the
+   Drivers Hub tracker configuration.
+4. Create a webhook secret in Trucky. Enter the same value as
+   `webhook_secret` in the Drivers Hub tracker configuration.
+5. Enter `https://hub.example.com/api/trucky/update` as the webhook URL in
+   Trucky.
 6. Enable the `job_completed` and `job_canceled` events. The backend rejects
    unrelated Trucky event types.
-
-The optional `user_joined_company` event can accept the matching Hub account as
-a member and add its configured driver role. Enable this event only when Trucky
-must control that part of the membership workflow.
 
 The access token lets Drivers Hub add a driver to the Trucky company when a
 Hub role with the `driver` permission is assigned. It also lets the Hub remove
@@ -120,7 +119,7 @@ steps from the TrackSim service or its support channel.
 
 ## UniTracker
 
-Add a `unitracker` object to the list:
+Add a `unitracker` object to the list. Keep all fields other than `type` empty:
 
 ```json
 {
@@ -132,12 +131,11 @@ Add a `unitracker` object to the list:
 }
 ```
 
-Configure the UniTracker webhook URL as
-`https://hub.example.com/api/unitracker/update`. The current backend does not
-verify a UniTracker webhook signature and does not use an API token for this
-integration. Use `ip_whitelist` only when UniTracker gives you a complete list
-of stable webhook sender addresses. Obtain the remaining setup steps from the
-tracker provider.
+Configure the **API Endpoint** in UniTracker as
+`https://hub.example.com/api/unitracker/update`. Leave
+`company_id`, `api_token`, `webhook_secret`, and `ip_whitelist` empty in Drivers
+Hub. The UniTracker integration does not require additional credentials in the
+Hub configuration.
 
 ## Custom tracker
 
@@ -165,11 +163,7 @@ in the `signature` header. Both systems must use the same `webhook_secret`.
 3. Confirm that the user has a connected Steam account and a Hub role with the
    `driver` permission.
 4. Complete a short test job with the tracker.
-5. Check the delivery list and the backend log:
-
-```bash
-docker compose logs --tail=200 backend
-```
+5. Confirm that the job appears in the delivery list.
 
 The audit log records rejected webhook signatures and source IP addresses.
 Delivery rules can also block or discard an otherwise valid job. Review
