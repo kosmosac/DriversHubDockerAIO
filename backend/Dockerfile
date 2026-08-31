@@ -26,6 +26,7 @@ COPY backend/docker/client-config-upstream-domain.patch ./docker/client-config-u
 COPY backend/docker/frontend-domain.patch ./docker/frontend-domain.patch
 COPY backend/docker/nuitka-jobs.patch ./docker/nuitka-jobs.patch
 COPY backend/docker/smtp-encryption.patch ./docker/smtp-encryption.patch
+COPY backend/docker/tracksim-payload-compat.patch ./docker/tracksim-payload-compat.patch
 
 RUN if grep -q 'def normalize_client_config(config, frontend_member_url):' src/external_plugins/client-config.py; then \
         patch --batch --fuzz=0 -p1 < docker/client-config-upstream-domain.patch; \
@@ -63,7 +64,19 @@ RUN if grep -q 'def normalize_client_config(config, frontend_member_url):' src/e
     && grep -q '"smtp_encryption": "starttls"' src/config.py \
     && grep -q 'use_tls = smtp_encryption == "tls"' src/functions/mail.py \
     && grep -q 'start_tls = smtp_encryption == "starttls"' src/functions/mail.py \
-    && grep -q 'hostname=app.config.smtp_host' src/functions/mail.py
+    && grep -q 'hostname=app.config.smtp_host' src/functions/mail.py \
+    && if grep -Fq 'max_speed = eve["meta"].get("max_speed")' src/functions/tracker.py \
+        && grep -Fq 'auto_park = data["events"][-1]["meta"].get("autoParked", False)' src/functions/tracker.py; then \
+        echo "Upstream TrackSim payload compatibility detected; patch is not required."; \
+    elif grep -Fq 'if eve["meta"]["max_speed"] > eve["meta"]["speed_limit"]:' src/functions/tracker.py \
+        && grep -Fq 'auto_park = data["events"][-1]["meta"]["autoParked"]' src/functions/tracker.py; then \
+        patch --batch --fuzz=0 -p1 < docker/tracksim-payload-compat.patch; \
+    else \
+        echo "Unsupported upstream TrackSim payload implementation." >&2; \
+        exit 1; \
+    fi \
+    && grep -Fq 'max_speed = eve["meta"].get("max_speed")' src/functions/tracker.py \
+    && grep -Fq 'auto_park = data["events"][-1]["meta"].get("autoParked", False)' src/functions/tracker.py
 
 ARG BACKEND_BUILD_JOBS=2
 

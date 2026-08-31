@@ -15,6 +15,12 @@ requests.
 | Backend | `backend/docker/client-config.patch`, `backend/docker/client-config-upstream-domain.patch`, and `backend/docker/frontend-domain.patch` | Normalize runtime client metadata, expand `{domain}` in frontend URLs, and keep database-backed client configuration consistent with backend configuration. The build skips changes that upstream already provides. | [Issue #11](https://github.com/CharlesWithC/HubBackend/issues/11), [PR #12](https://github.com/CharlesWithC/HubBackend/pull/12) |
 | Backend | `backend/docker/smtp-encryption.patch` | Add explicit `starttls`, `tls`, and `none` SMTP encryption modes, preserve certificate validation, and log SMTP failures. The build skips the patch when upstream provides this implementation. | [Issue #14](https://github.com/CharlesWithC/HubBackend/issues/14), [PR #15](https://github.com/CharlesWithC/HubBackend/pull/15) |
 
+## Pending upstream validation
+
+| Component | Local implementation | Purpose | Upstream |
+| --- | --- | --- | --- |
+| Backend | `backend/docker/tracksim-payload-compat.patch` | Prevent missing optional TrackSim event fields from rejecting an otherwise valid job. | Propose upstream after deployment testing. |
+
 ## Deployment-specific adjustments
 
 These changes do not currently have matching upstream pull requests. They

@@ -1,0 +1,23 @@
+--- a/src/functions/tracker.py
++++ b/src/functions/tracker.py
+@@ -431,7 +431,7 @@ async def process_challenge(request, userid, logid, data, driven_distance, offen
+                 if not jobreq["allow_overspeed"] and has_overspeed:
+                     continue
+ 
+-                auto_park = data["events"][-1]["meta"]["autoParked"]
++                auto_park = data["events"][-1]["meta"].get("autoParked", False)
+                 auto_load = data["events"][0]["meta"]["autoLoaded"]
+                 if not jobreq["allow_auto_park"] and auto_park:
+                     continue
+@@ -772,7 +773,10 @@ async def handle_new_job(request, original_data, converted_data, tracker, bypass
+         elif eve["type"] in ["tollgate", "ferry", "train"]:
+             totalexpense += int(eve["meta"]["cost"])
+         elif eve["type"] == "speeding":
+-            if eve["meta"]["max_speed"] > eve["meta"]["speed_limit"]:
++            max_speed = eve["meta"].get("max_speed")
++            speed_limit = eve["meta"].get("speed_limit")
++            if max_speed is not None and speed_limit is not None \
++                    and max_speed > speed_limit:
+                 has_overspeed = True
+     revenue = revenue - offence - totalexpense
+ 
