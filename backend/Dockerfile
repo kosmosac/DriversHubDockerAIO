@@ -26,6 +26,7 @@ COPY backend/docker/client-config-upstream-domain.patch ./docker/client-config-u
 COPY backend/docker/frontend-domain.patch ./docker/frontend-domain.patch
 COPY backend/docker/nuitka-jobs.patch ./docker/nuitka-jobs.patch
 COPY backend/docker/smtp-encryption.patch ./docker/smtp-encryption.patch
+COPY backend/docker/tracksim-validation.patch ./docker/tracksim-validation.patch
 
 RUN if grep -q 'def normalize_client_config(config, frontend_member_url):' src/external_plugins/client-config.py; then \
         patch --batch --fuzz=0 -p1 < docker/client-config-upstream-domain.patch; \
@@ -63,7 +64,20 @@ RUN if grep -q 'def normalize_client_config(config, frontend_member_url):' src/e
     && grep -q '"smtp_encryption": "starttls"' src/config.py \
     && grep -q 'use_tls = smtp_encryption == "tls"' src/functions/mail.py \
     && grep -q 'start_tls = smtp_encryption == "starttls"' src/functions/mail.py \
-    && grep -q 'hostname=app.config.smtp_host' src/functions/mail.py
+    && grep -q 'hostname=app.config.smtp_host' src/functions/mail.py \
+    && if grep -q 'def valid_job_payload(data):' src/apis/tracker/tracksim.py \
+        && grep -q '"Invalid TrackSim webhook payload."' src/apis/tracker/tracksim.py; then \
+        echo "Upstream TrackSim payload validation detected; patch is not required."; \
+    elif ! grep -q 'valid_job_payload' src/apis/tracker/tracksim.py \
+        && ! grep -q 'Invalid TrackSim webhook payload' src/apis/tracker/tracksim.py; then \
+        patch --batch --fuzz=0 -p1 < docker/tracksim-validation.patch; \
+    else \
+        echo "Unsupported upstream TrackSim validation implementation." >&2; \
+        exit 1; \
+    fi \
+    && grep -q 'def valid_job_payload(data):' src/apis/tracker/tracksim.py \
+    && grep -q 'response.status_code = 422' src/apis/tracker/tracksim.py \
+    && grep -q '"Invalid TrackSim webhook payload."' src/apis/tracker/tracksim.py
 
 ARG BACKEND_BUILD_JOBS=2
 
