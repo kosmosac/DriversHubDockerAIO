@@ -46,6 +46,21 @@ programs one after another. Set `BACKEND_BUILD_JOBS=1` in `.env` to reduce CPU
 and memory pressure on a small host. A higher value can make the build faster
 but uses more host resources.
 
+For backend development or short-term testing, set
+`BACKEND_BUILD_TARGET=source-runtime` in `.env`. This target runs the patched
+Python source directly and avoids Nuitka compilation. It uses the same Compose
+services, configuration, and AIO compatibility patches as the normal target.
+The source runtime is not recommended for production. Keep
+`BACKEND_BUILD_TARGET=runtime` for a production deployment.
+
+After you change the target or the backend source, rebuild and recreate the
+backend services:
+
+```bash
+docker compose build backend
+docker compose up -d --force-recreate backend bannergen
+```
+
 ## Get the source code
 
 Clone both upstream projects into this deployment repository:
