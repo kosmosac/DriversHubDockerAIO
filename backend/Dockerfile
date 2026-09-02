@@ -44,7 +44,8 @@ RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_doma
         && grep -q 'config\["api_host"\] = api_host' src/external_plugins/client-config.py \
         && grep -q 'frontend_conf\["api_host"\] = api_host' src/external_plugins/client-config.py; then \
         echo "Compatible upstream client-config implementation detected."; \
-    elif grep -q 'def normalize_client_config(config, frontend_member_url):' src/external_plugins/client-config.py; then \
+    elif grep -q 'def normalize_client_config(config, plugins, frontend_domain, api_host):' src/external_plugins/client-config.py \
+        && grep -q 'frontend_conf\["api_host"\] = api_host' src/external_plugins/client-config.py; then \
         patch --batch --fuzz=0 -p1 < docker/client-config-upstream-domain.patch; \
     elif ! grep -q 'def normalize_client_config' src/external_plugins/client-config.py; then \
         patch --batch --fuzz=0 -p1 < docker/client-config.patch; \

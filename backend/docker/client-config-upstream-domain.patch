@@ -1,51 +1,18 @@
 --- a/src/external_plugins/client-config.py
 +++ b/src/external_plugins/client-config.py
-@@ -15,8 +15,11 @@
- from functions import *
- 
- 
--def normalize_client_config(config, frontend_member_url):
--    config["domain"] = urlparse(frontend_member_url).netloc
+@@ -18,2 +18,3 @@
+-def normalize_client_config(config, plugins, frontend_domain, api_host):
 +def normalize_client_config(config, plugins, abbr, frontend_domain, api_host):
 +    config["abbr"] = abbr
-+    config["plugins"] = plugins
-+    config["domain"] = frontend_domain
-+    config["api_host"] = api_host
-     return config
- 
- 
-@@ -26,7 +29,7 @@
- 
-     config = app.redis.get("client-config:meta")
-     if config is not None:
--        return normalize_client_config(json.loads(config), app.config.frontend_urls.member)
+     config["plugins"] = plugins
+@@ -31 +32 @@
+-        return normalize_client_config(json.loads(config), app.config.plugins, urlparse(app.config.frontend_urls.member).netloc, f"https://{app.config.domain}")
 +        return normalize_client_config(json.loads(config), app.config.plugins, app.config.abbr, urlparse(app.config.frontend_urls.member).netloc, f"https://{app.config.domain}")
- 
-     await app.db.new_conn(dhrid, db_name = app.config.db_name)
- 
-@@ -39,7 +42,7 @@
-     app.redis.set("client-config:meta", t[0][0])
-     app.redis.expire("client-config:meta", 86400)
- 
--    config = normalize_client_config(json.loads(t[0][0]), app.config.frontend_urls.member)
+@@ -44 +45 @@
+-    config = normalize_client_config(json.loads(t[0][0]), app.config.plugins, urlparse(app.config.frontend_urls.member).netloc, f"https://{app.config.domain}")
 +    config = normalize_client_config(json.loads(t[0][0]), app.config.plugins, app.config.abbr, urlparse(app.config.frontend_urls.member).netloc, f"https://{app.config.domain}")
-     return config
- 
- async def get_client_assets(request: Request, response: Response, key: str):
-@@ -300,7 +303,7 @@
-             "distance_unit": config["distance_unit"],
-             "use_highest_role_color": False,
-             "domain": urlparse(config["frontend_urls"]["member"]).netloc,
--            "api_host": config["domain"],
-+            "api_host": f"https://{config['domain']}",
-             "plugins": config["plugins"],
-             "truckersmp_vtc_id": 0,
-             "logo_key": "",
-@@ -315,2 +318,6 @@
--        if frontend_conf.get("domain") != frontend_domain:
-+        api_host = f"https://{config['domain']}"
+@@ -318,2 +319,3 @@
+-        if frontend_conf.get("plugins") != config["plugins"] or frontend_conf.get("domain") != frontend_domain or frontend_conf.get("api_host") != api_host:
 +        if frontend_conf.get("abbr") != config["abbr"] or frontend_conf.get("plugins") != config["plugins"] or frontend_conf.get("domain") != frontend_domain or frontend_conf.get("api_host") != api_host:
 +            frontend_conf["abbr"] = config["abbr"]
-+            frontend_conf["plugins"] = config["plugins"]
-             frontend_conf["domain"] = frontend_domain
-+            frontend_conf["api_host"] = api_host
+             frontend_conf["plugins"] = config["plugins"]
