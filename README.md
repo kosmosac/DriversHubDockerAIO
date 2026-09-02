@@ -132,9 +132,10 @@ Set `domain` to the public Hub host name without a protocol or path. Set `abbr`
 to a short VTC identifier. The frontend derives the API base from
 `VITE_CONFIG_URL`, so `abbr` does not have to match `prefix`.
 
-The backend synchronizes `abbr` and the plugin list to the stored frontend
-configuration when it starts. Other frontend settings in MariaDB stay
-unchanged. Restart the backend after you change `abbr` or the plugin list.
+The backend synchronizes `abbr`, `domain`, `api_host`, and the plugin list to
+the stored frontend configuration when it starts. Other frontend settings in
+MariaDB stay unchanged. Restart the backend after you change one of these
+values.
 
 ## Optional configuration guides
 

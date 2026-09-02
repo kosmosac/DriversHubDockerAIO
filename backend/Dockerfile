@@ -46,10 +46,12 @@ RUN if grep -q 'def normalize_client_config(config, frontend_member_url):' src/e
     fi \
     && test "$(grep -c 'normalize_client_config(json.loads' src/external_plugins/client-config.py)" -eq 2 \
     && grep -q 'def normalize_client_config(config, plugins, abbr, domain):' src/external_plugins/client-config.py \
+    && grep -q 'config\["api_host"\] = f"https://{domain}"' src/external_plugins/client-config.py \
     && grep -q '"api_host": f"https://{config' src/external_plugins/client-config.py \
     && grep -q 'frontend_conf\["abbr"\] = config\["abbr"\]' src/external_plugins/client-config.py \
     && grep -q 'frontend_conf\["plugins"\] = config\["plugins"\]' src/external_plugins/client-config.py \
     && grep -Eq 'frontend_conf\["domain"\] = (config\["domain"\]|frontend_domain)' src/external_plugins/client-config.py \
+    && grep -q 'frontend_conf\["api_host"\] = api_host' src/external_plugins/client-config.py \
     && if grep -q 'cfg\["frontend_urls"\]\[key\] = cfg\["frontend_urls"\]\[key\].replace("{domain}", cfg\["domain"\])' src/config.py; then \
         echo "Upstream frontend domain expansion detected; patch is not required."; \
     else \
