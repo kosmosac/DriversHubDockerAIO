@@ -16,6 +16,14 @@ requests.
 | Backend | `backend/docker/smtp-encryption.patch` | Add explicit `starttls`, `tls`, and `none` SMTP encryption modes, preserve certificate validation, and log SMTP failures. The build skips the patch when upstream provides this implementation. | [Issue #14](https://github.com/CharlesWithC/HubBackend/issues/14), [PR #15](https://github.com/CharlesWithC/HubBackend/pull/15) |
 | Backend | `backend/docker/tracksim-validation.patch` | Validate required TrackSim webhook fields before job processing and return HTTP 422 for incomplete payloads. The build skips the patch when upstream provides this implementation. | [Issue #16](https://github.com/CharlesWithC/HubBackend/issues/16), [PR #17](https://github.com/CharlesWithC/HubBackend/pull/17) |
 
+## Additional compatibility fixes
+
+These functional fixes do not currently have matching upstream pull requests.
+
+| Component | Local implementation | Purpose |
+| --- | --- | --- |
+| Backend | `backend/docker/custom-validation.patch`, `backend/docker/trucky-validation.patch`, and `backend/docker/unitracker-validation.patch` | Return HTTP 422 for structurally incomplete webhook payloads before job processing. Extra payload fields remain supported. |
+
 ## Deployment-specific adjustments
 
 These changes do not currently have matching upstream pull requests. They

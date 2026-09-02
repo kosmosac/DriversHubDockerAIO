@@ -1,0 +1,10 @@
+--- a/src/apis/tracker/custom.py
++++ b/src/apis/tracker/custom.py
+@@ -13,0 +14 @@
++from apis.tracker.tracksim import valid_job_payload
+@@ -143,0 +145,4 @@
++    if not valid_job_payload(d):
++        response.status_code = 422
++        return {"error": "Invalid custom tracker webhook payload."}
++
+     result = await handle_new_job(request, copy.deepcopy(d), copy.deepcopy(d), "custom")

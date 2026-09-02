@@ -35,6 +35,9 @@ COPY backend/docker/frontend-domain.patch ./docker/frontend-domain.patch
 COPY backend/docker/nuitka-jobs.patch ./docker/nuitka-jobs.patch
 COPY backend/docker/smtp-encryption.patch ./docker/smtp-encryption.patch
 COPY backend/docker/tracksim-validation.patch ./docker/tracksim-validation.patch
+COPY backend/docker/custom-validation.patch ./docker/custom-validation.patch
+COPY backend/docker/trucky-validation.patch ./docker/trucky-validation.patch
+COPY backend/docker/unitracker-validation.patch ./docker/unitracker-validation.patch
 
 RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_domain, api_host):' src/external_plugins/client-config.py \
         && grep -q 'config\["domain"\] = frontend_domain' src/external_plugins/client-config.py \
@@ -93,7 +96,27 @@ RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_doma
     fi \
     && grep -q 'def valid_job_payload(data):' src/apis/tracker/tracksim.py \
     && grep -q 'response.status_code = 422' src/apis/tracker/tracksim.py \
-    && grep -q '"Invalid TrackSim webhook payload."' src/apis/tracker/tracksim.py
+    && grep -q '"Invalid TrackSim webhook payload."' src/apis/tracker/tracksim.py \
+    && if grep -q '"Invalid custom tracker webhook payload."' src/apis/tracker/custom.py; then \
+        echo "Upstream custom tracker payload validation detected; patch is not required."; \
+    else \
+        patch --batch --fuzz=0 -p1 < docker/custom-validation.patch; \
+    fi \
+    && grep -q 'from apis.tracker.tracksim import valid_job_payload' src/apis/tracker/custom.py \
+    && grep -q '"Invalid custom tracker webhook payload."' src/apis/tracker/custom.py \
+    && if grep -q '"Invalid Trucky webhook payload."' src/apis/tracker/trucky.py; then \
+        echo "Upstream Trucky payload validation detected; patch is not required."; \
+    else \
+        patch --batch --fuzz=0 -p1 < docker/trucky-validation.patch; \
+    fi \
+    && test "$(grep -c '"Invalid Trucky webhook payload."' src/apis/tracker/trucky.py)" -eq 3 \
+    && if grep -q '"Invalid UniTracker webhook payload."' src/apis/tracker/unitracker.py; then \
+        echo "Upstream UniTracker payload validation detected; patch is not required."; \
+    else \
+        patch --batch --fuzz=0 -p1 < docker/unitracker-validation.patch; \
+    fi \
+    && grep -q 'response.status_code = 422' src/apis/tracker/unitracker.py \
+    && grep -q '"Invalid UniTracker webhook payload."' src/apis/tracker/unitracker.py
 
 FROM patched-source AS builder
 

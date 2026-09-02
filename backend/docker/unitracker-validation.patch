@@ -1,0 +1,11 @@
+--- a/src/apis/tracker/unitracker.py
++++ b/src/apis/tracker/unitracker.py
+@@ -271,2 +271,6 @@
+-    original_data = copy.deepcopy(d)
+-    converted_data = convert_format(copy.deepcopy(d))
++    try:
++        original_data = copy.deepcopy(d)
++        converted_data = convert_format(copy.deepcopy(d))
++    except (KeyError, IndexError, TypeError, ValueError, AttributeError):
++        response.status_code = 422
++        return {"error": "Invalid UniTracker webhook payload."}
