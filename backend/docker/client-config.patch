@@ -1,33 +1,34 @@
 --- a/src/external_plugins/client-config.py
 +++ b/src/external_plugins/client-config.py
 @@ -17,0 +18,8 @@
-+def normalize_client_config(config, plugins, abbr, domain):
-+    config["api_host"] = f"https://{domain}"
++def normalize_client_config(config, plugins, abbr, frontend_domain, api_host):
 +    config["abbr"] = abbr
 +    config["plugins"] = plugins
-+    config["domain"] = domain
++    config["domain"] = frontend_domain
++    config["api_host"] = api_host
 +    return config
 +
 +
 @@ -24 +32 @@
 -        return json.loads(config)
-+        return normalize_client_config(json.loads(config), app.config.plugins, app.config.abbr, app.config.domain)
++        return normalize_client_config(json.loads(config), app.config.plugins, app.config.abbr, urlparse(app.config.frontend_urls.member).netloc, f"https://{app.config.domain}")
 @@ -37 +45 @@
 -    config = json.loads(t[0][0])
-+    config = normalize_client_config(json.loads(t[0][0]), app.config.plugins, app.config.abbr, app.config.domain)
++    config = normalize_client_config(json.loads(t[0][0]), app.config.plugins, app.config.abbr, urlparse(app.config.frontend_urls.member).netloc, f"https://{app.config.domain}")
 @@ -297,2 +305,2 @@
 -            "domain": urlparse(config["frontend_urls"]["member"]).netloc,
 -            "api_host": config["domain"],
-+            "domain": config["domain"],
++            "domain": urlparse(config["frontend_urls"]["member"]).netloc,
 +            "api_host": f"https://{config['domain']}",
-@@ -306,0 +315,10 @@
+@@ -306,0 +315,11 @@
 +    else:
 +        frontend_conf = json.loads(t[0][2])
++        frontend_domain = urlparse(config["frontend_urls"]["member"]).netloc
 +        api_host = f"https://{config['domain']}"
-+        if frontend_conf.get("abbr") != config["abbr"] or frontend_conf.get("plugins") != config["plugins"] or frontend_conf.get("domain") != config["domain"] or frontend_conf.get("api_host") != api_host:
++        if frontend_conf.get("abbr") != config["abbr"] or frontend_conf.get("plugins") != config["plugins"] or frontend_conf.get("domain") != frontend_domain or frontend_conf.get("api_host") != api_host:
 +            frontend_conf["abbr"] = config["abbr"]
 +            frontend_conf["plugins"] = config["plugins"]
-+            frontend_conf["domain"] = config["domain"]
++            frontend_conf["domain"] = frontend_domain
 +            frontend_conf["api_host"] = api_host
 +            frontend_conf = convertQuotation(json.dumps(frontend_conf))
 +            cur.execute(f"UPDATE settings SET sval = '{frontend_conf}' WHERE skey = 'client-config/meta'")

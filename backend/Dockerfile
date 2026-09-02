@@ -36,7 +36,12 @@ COPY backend/docker/nuitka-jobs.patch ./docker/nuitka-jobs.patch
 COPY backend/docker/smtp-encryption.patch ./docker/smtp-encryption.patch
 COPY backend/docker/tracksim-validation.patch ./docker/tracksim-validation.patch
 
-RUN if grep -q 'def normalize_client_config(config, frontend_member_url):' src/external_plugins/client-config.py; then \
+RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_domain, api_host):' src/external_plugins/client-config.py \
+        && grep -q 'config\["domain"\] = frontend_domain' src/external_plugins/client-config.py \
+        && grep -q 'config\["api_host"\] = api_host' src/external_plugins/client-config.py \
+        && grep -q 'frontend_conf\["api_host"\] = api_host' src/external_plugins/client-config.py; then \
+        echo "Compatible upstream client-config implementation detected."; \
+    elif grep -q 'def normalize_client_config(config, frontend_member_url):' src/external_plugins/client-config.py; then \
         patch --batch --fuzz=0 -p1 < docker/client-config-upstream-domain.patch; \
     elif ! grep -q 'def normalize_client_config' src/external_plugins/client-config.py; then \
         patch --batch --fuzz=0 -p1 < docker/client-config.patch; \
@@ -45,12 +50,13 @@ RUN if grep -q 'def normalize_client_config(config, frontend_member_url):' src/e
         exit 1; \
     fi \
     && test "$(grep -c 'normalize_client_config(json.loads' src/external_plugins/client-config.py)" -eq 2 \
-    && grep -q 'def normalize_client_config(config, plugins, abbr, domain):' src/external_plugins/client-config.py \
-    && grep -q 'config\["api_host"\] = f"https://{domain}"' src/external_plugins/client-config.py \
+    && grep -q 'def normalize_client_config(config, plugins, abbr, frontend_domain, api_host):' src/external_plugins/client-config.py \
+    && grep -q 'config\["domain"\] = frontend_domain' src/external_plugins/client-config.py \
+    && grep -q 'config\["api_host"\] = api_host' src/external_plugins/client-config.py \
     && grep -q '"api_host": f"https://{config' src/external_plugins/client-config.py \
     && grep -q 'frontend_conf\["abbr"\] = config\["abbr"\]' src/external_plugins/client-config.py \
     && grep -q 'frontend_conf\["plugins"\] = config\["plugins"\]' src/external_plugins/client-config.py \
-    && grep -Eq 'frontend_conf\["domain"\] = (config\["domain"\]|frontend_domain)' src/external_plugins/client-config.py \
+    && grep -q 'frontend_conf\["domain"\] = frontend_domain' src/external_plugins/client-config.py \
     && grep -q 'frontend_conf\["api_host"\] = api_host' src/external_plugins/client-config.py \
     && if grep -q 'cfg\["frontend_urls"\]\[key\] = cfg\["frontend_urls"\]\[key\].replace("{domain}", cfg\["domain"\])' src/config.py; then \
         echo "Upstream frontend domain expansion detected; patch is not required."; \
