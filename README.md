@@ -139,16 +139,17 @@ values.
 
 ## Optional configuration guides
 
-The backend supports custom role definitions, application forms, and multiple
-job tracker integrations. It does not impose a role model, application
-workflow, or tracker selection. Operators are free to design and configure
-these functions from scratch. The following guides are optional reference
-configurations and can be used, changed, or ignored:
+The backend supports custom role definitions, application forms, multiple job
+tracker integrations, and frontend branding. It does not impose a role model,
+application workflow, tracker selection, or visual identity. Operators are
+free to design and configure these functions from scratch. The following
+guides are optional references and can be used, changed, or ignored:
 
 - [ROLES.md](ROLES.md) defines an example role and permission model.
 - [APPLICATIONS.md](APPLICATIONS.md) defines example forms for the standard
   application types.
 - [TRACKERS.md](TRACKERS.md) documents the supported tracker integrations.
+- [BRANDING.md](BRANDING.md) documents the frontend branding options.
 
 ## Start the deployment
 
