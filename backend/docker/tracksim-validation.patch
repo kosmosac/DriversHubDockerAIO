@@ -1,6 +1,6 @@
 --- a/src/apis/tracker/tracksim.py
 +++ b/src/apis/tracker/tracksim.py
-@@ -13,6 +13,56 @@
+@@ -13,6 +13,60 @@
  from api import tracebackHandler
  from functions import *
  
@@ -38,8 +38,12 @@
 +        if event_type == "job.delivered":
 +            float(events[-1]["meta"]["revenue"])
 +            float(events[-1]["meta"]["distance"])
-+        elif "penalty" in events[-1]["meta"]:
-+            float(events[-1]["meta"]["penalty"])
++        else:
++            event_meta = events[-1].get("meta", {})
++            if not isinstance(event_meta, dict):
++                return False
++            if "penalty" in event_meta:
++                float(event_meta["penalty"])
 +
 +        for event in events:
 +            if event["type"] == "fine":
@@ -57,7 +61,7 @@
  async def FetchRoute(app, gameid, userid, logid, trackerid, request, dhrid = None):
      r = None
      for tracker in app.config.trackers:
-@@ -175,6 +225,10 @@
+@@ -175,6 +229,10 @@
          await AuditLog(request, -999, "tracker", ml.ctr(request, "rejected_tracker_webhook_post_signature", var = {"tracker": "TrackSim", "ip": request.client.host}))
          return {"error": "Validation failed."}
  

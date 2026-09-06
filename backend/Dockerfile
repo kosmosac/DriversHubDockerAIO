@@ -35,6 +35,7 @@ COPY backend/docker/frontend-domain.patch ./docker/frontend-domain.patch
 COPY backend/docker/nuitka-jobs.patch ./docker/nuitka-jobs.patch
 COPY backend/docker/smtp-encryption.patch ./docker/smtp-encryption.patch
 COPY backend/docker/tracksim-validation.patch ./docker/tracksim-validation.patch
+COPY backend/docker/tracksim-cancelled-meta.patch ./docker/tracksim-cancelled-meta.patch
 COPY backend/docker/custom-validation.patch ./docker/custom-validation.patch
 COPY backend/docker/trucky-validation.patch ./docker/trucky-validation.patch
 COPY backend/docker/unitracker-validation.patch ./docker/unitracker-validation.patch
@@ -98,6 +99,15 @@ RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_doma
     && grep -q 'def valid_job_payload(data):' src/apis/tracker/tracksim.py \
     && grep -q 'response.status_code = 422' src/apis/tracker/tracksim.py \
     && grep -q '"Invalid TrackSim webhook payload."' src/apis/tracker/tracksim.py \
+    && if grep -q 'event_meta = data\["events"\]\[-1\].get("meta", {})' src/functions/tracker.py; then \
+        echo "Upstream TrackSim cancellation metadata handling detected; patch is not required."; \
+    elif grep -q 'if "penalty" in data\["events"\]\[-1\]\["meta"\].keys():' src/functions/tracker.py; then \
+        patch --batch --fuzz=0 -p1 < docker/tracksim-cancelled-meta.patch; \
+    else \
+        echo "Unsupported upstream TrackSim cancellation metadata implementation." >&2; \
+        exit 1; \
+    fi \
+    && grep -q 'event_meta = data\["events"\]\[-1\].get("meta", {})' src/functions/tracker.py \
     && if grep -q '"Invalid custom tracker webhook payload."' src/apis/tracker/custom.py; then \
         echo "Upstream custom tracker payload validation detected; patch is not required."; \
     else \
