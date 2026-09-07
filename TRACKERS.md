@@ -137,6 +137,169 @@ Configure the **API Endpoint** in UniTracker as
 Hub. The UniTracker integration does not require additional credentials in the
 Hub configuration.
 
+### UniTracker example payload
+
+This example contains the fields read by the current UniTracker converter. Set
+`steamID` to the Steam ID of a Hub member who selected UniTracker. Use a unique
+value for `id` and `jobID` for each job.
+
+```json
+{
+    "JobData": {
+        "id": "100001",
+        "jobID": "example-unitracker-job-100001",
+        "steamID": "76561198000000000",
+        "realTimeStarted": "2026-09-07 18:00:00",
+        "realTimeEnded": "2026-09-07 18:45:00",
+        "realTimeTaken": "2700",
+        "plannedDistance": "120",
+        "distanceDriven": "125",
+        "fuelStartJob": "500",
+        "truckRefueledAmount": "0",
+        "fuelEndJob": "455",
+        "isSpecial": "0",
+        "isLate": "0",
+        "jobMarket": "cargo_market",
+        "cargoID": "apples",
+        "cargo": "Apples",
+        "cargoMass": "18000",
+        "cargoDamage": "0",
+        "gameID": "ETS2",
+        "hasPoliceEnabled": "1",
+        "isMultiplayer": "0",
+        "serverName": "",
+        "sourceCityID": "berlin",
+        "sourceCity": "Berlin",
+        "sourceCompanyID": "eurogoodies",
+        "sourceCompany": "EuroGoodies",
+        "destinationCityID": "dresden",
+        "destinationCity": "Dresden",
+        "destinationCompanyID": "tradeaux",
+        "destinationCompany": "Tradeaux",
+        "truckModelID": "vehicle.scania.s_2016",
+        "truck": "S",
+        "truckMakeID": "scania",
+        "truckMake": "Scania",
+        "truckRealConsumption": "36.0",
+        "odometerStartJob": "100000",
+        "odometerEndJob": "100125",
+        "truckWheelsCount": "6",
+        "truckLicensePlate": "EXAMPLE",
+        "truckLicensePlateCountryID": "germany",
+        "truckLicensePlateCountry": "Germany",
+        "topSpeed": "90",
+        "truckRealAverageSpeed": "70",
+        "trailerModelID": "trailer.scs.box",
+        "trailerModel": "Box Trailer",
+        "trailerBodyType": "dryvan",
+        "trailerChainType": "single",
+        "trailerWheelsCount": "6",
+        "trailerMakeID": "",
+        "trailerLicensePlate": "TRAILER",
+        "trailerLicensePlateCountryID": "germany",
+        "trailerLicensePlateCountry": "Germany",
+        "autoLoadUsed": "0",
+        "autoParkUsed": "0",
+        "income": "12500",
+        "earnedXP": "650",
+        "job_damage": "{\"truck_cabin\":0,\"truck_chassis\":0,\"truck_engine\":0,\"truck_transmission\":0,\"truck_wheels\":0,\"trailer_body\":0,\"trailer_cargo\":0,\"trailer_chassis\":0,\"trailer_wheels\":0}",
+        "current_damage": "{\"truck_cabin\":0,\"truck_chassis\":0,\"truck_engine\":0,\"truck_transmission\":0,\"truck_wheels\":0,\"trailer_body\":0,\"trailer_cargo\":0,\"trailer_chassis\":0,\"trailer_wheels\":0}"
+    },
+    "Events": [
+        {
+            "name": "player.job.started",
+            "mapX": 1000,
+            "mapZ": 2000,
+            "currentTime": "2026-09-07 18:00:00"
+        },
+        {
+            "name": "player.job.delivered",
+            "mapX": 1100,
+            "mapZ": 2100,
+            "currentTime": "2026-09-07 18:45:00"
+        }
+    ]
+}
+```
+
+### Minimal UniTracker payload
+
+The UniTracker converter reads most job fields directly. Its minimum payload is
+therefore still comparatively large. This example removes the separate job
+start event and all route data, but contains the fields required to convert a
+completed job.
+
+```json
+{
+    "JobData": {
+        "id": "100002",
+        "jobID": "example-unitracker-job-100002",
+        "steamID": "76561198000000000",
+        "realTimeStarted": "2026-09-07 18:00:00",
+        "realTimeEnded": "2026-09-07 18:45:00",
+        "realTimeTaken": "2700",
+        "plannedDistance": "120",
+        "distanceDriven": "125",
+        "fuelStartJob": "500",
+        "truckRefueledAmount": "0",
+        "fuelEndJob": "455",
+        "isSpecial": "0",
+        "isLate": "0",
+        "jobMarket": "cargo_market",
+        "cargoID": "apples",
+        "cargo": "Apples",
+        "cargoMass": "18000",
+        "cargoDamage": "0",
+        "gameID": "ETS2",
+        "hasPoliceEnabled": "1",
+        "isMultiplayer": "0",
+        "sourceCityID": "berlin",
+        "sourceCity": "Berlin",
+        "sourceCompanyID": "eurogoodies",
+        "sourceCompany": "EuroGoodies",
+        "destinationCityID": "dresden",
+        "destinationCity": "Dresden",
+        "destinationCompanyID": "tradeaux",
+        "destinationCompany": "Tradeaux",
+        "truckModelID": "vehicle.scania.s_2016",
+        "truck": "S",
+        "truckMakeID": "scania",
+        "truckMake": "Scania",
+        "truckRealConsumption": "36",
+        "odometerStartJob": "100000",
+        "odometerEndJob": "100125",
+        "truckWheelsCount": "6",
+        "truckLicensePlate": "EXAMPLE",
+        "truckLicensePlateCountryID": "germany",
+        "truckLicensePlateCountry": "Germany",
+        "topSpeed": "90",
+        "truckRealAverageSpeed": "70",
+        "trailerModelID": "trailer.scs.box",
+        "trailerModel": "Box Trailer",
+        "trailerBodyType": "dryvan",
+        "trailerChainType": "single",
+        "trailerWheelsCount": "6",
+        "trailerMakeID": "",
+        "trailerLicensePlate": "TRAILER",
+        "trailerLicensePlateCountryID": "germany",
+        "trailerLicensePlateCountry": "Germany",
+        "autoParkUsed": "0",
+        "income": "12500",
+        "earnedXP": "650",
+        "job_damage": "{\"truck_cabin\":0,\"truck_chassis\":0,\"truck_engine\":0,\"truck_transmission\":0,\"truck_wheels\":0,\"trailer_body\":0,\"trailer_cargo\":0,\"trailer_chassis\":0,\"trailer_wheels\":0}",
+        "current_damage": "{\"truck_cabin\":0,\"truck_chassis\":0,\"truck_engine\":0,\"truck_transmission\":0,\"truck_wheels\":0,\"trailer_body\":0,\"trailer_cargo\":0,\"trailer_chassis\":0,\"trailer_wheels\":0}"
+    },
+    "Events": [
+        {
+            "name": "player.job.delivered",
+            "mapX": 1100,
+            "mapZ": 2100,
+            "currentTime": "2026-09-07 18:45:00"
+        }
+    ]
+}
+```
+
 ## Custom tracker
 
 A custom tracker must send the TrackSim-compatible payload documented in the
@@ -155,6 +318,159 @@ upstream backend's `docs/dlog.md`. Configure its endpoint as
 
 For signed requests, the sender must put the hexadecimal HMAC-SHA256 signature
 in the `signature` header. Both systems must use the same `webhook_secret`.
+
+### Custom tracker example payload
+
+The Custom Tracker endpoint accepts the TrackSim webhook format. Set
+`steam_id` to the Steam ID of a Hub member who selected Custom as the tracker.
+Use a unique job `id` for each request. Speeds are supplied in metres per
+second and distances in kilometres.
+
+```json
+{
+    "object": "event",
+    "type": "job.delivered",
+    "data": {
+        "object": {
+            "id": 100001,
+            "uuid": "9ea49330-7e9a-4ea7-b655-50b5b4129241",
+            "object": "job",
+            "driver": {
+                "steam_id": "76561198000000000",
+                "username": "ExampleDriver",
+                "profile_photo_url": "https://example.com/avatar.png"
+            },
+            "start_time": "2026-09-07T18:00:00Z",
+            "stop_time": "2026-09-07T18:45:00Z",
+            "time_spent": 2700,
+            "planned_distance": 120,
+            "driven_distance": 125,
+            "adblue_used": 2.5,
+            "fuel_used": 45,
+            "is_special": false,
+            "is_late": false,
+            "market": "cargo_market",
+            "cargo": {
+                "unique_id": "apples",
+                "name": "Apples",
+                "mass": 18000,
+                "damage": 0
+            },
+            "game": {
+                "short_name": "eut2",
+                "language": "en_gb",
+                "had_police_enabled": true,
+                "realistic_settings": {}
+            },
+            "multiplayer": null,
+            "source_city": {
+                "unique_id": "berlin",
+                "name": "Berlin"
+            },
+            "source_company": {
+                "unique_id": "eurogoodies",
+                "name": "EuroGoodies"
+            },
+            "destination_city": {
+                "unique_id": "dresden",
+                "name": "Dresden"
+            },
+            "destination_company": {
+                "unique_id": "tradeaux",
+                "name": "Tradeaux"
+            },
+            "truck": {
+                "unique_id": "vehicle.scania.s_2016",
+                "name": "S",
+                "brand": {
+                    "unique_id": "scania",
+                    "name": "Scania"
+                },
+                "odometer": 100125,
+                "initial_odometer": 100000,
+                "total_damage": {
+                    "cabin": 0,
+                    "chassis": 0,
+                    "engine": 0,
+                    "transmission": 0,
+                    "wheels": 0
+                },
+                "top_speed": 25,
+                "average_speed": 19.4
+            },
+            "trailers": [],
+            "events": [
+                {
+                    "type": "job.started",
+                    "time": 1788804000,
+                    "real_time": "2026-09-07T18:00:00Z",
+                    "location": null,
+                    "meta": {
+                        "autoLoaded": false
+                    }
+                },
+                {
+                    "type": "job.delivered",
+                    "time": 1788806700,
+                    "real_time": "2026-09-07T18:45:00Z",
+                    "location": null,
+                    "meta": {
+                        "revenue": 12500,
+                        "distance": 125,
+                        "earnedXP": 650,
+                        "autoParked": false
+                    }
+                }
+            ],
+            "mods": []
+        }
+    }
+}
+```
+
+### Minimal Custom Tracker payload
+
+This is the minimum TrackSim-compatible structure accepted and stored by the
+current AIO implementation for a completed job. It omits optional descriptive
+data. Integrations that want jobs to participate fully in challenges, economy,
+notifications, and other plugin features should send the complete structure
+shown above.
+
+```json
+{
+    "type": "job.delivered",
+    "data": {
+        "object": {
+            "id": 100002,
+            "driver": {
+                "steam_id": "76561198000000000"
+            },
+            "driven_distance": 125,
+            "fuel_used": 45,
+            "game": {
+                "short_name": "eut2"
+            },
+            "truck": {
+                "top_speed": 25
+            },
+            "source_city": null,
+            "source_company": null,
+            "destination_city": null,
+            "destination_company": null,
+            "cargo": null,
+            "events": [
+                {
+                    "type": "job.delivered",
+                    "meta": {
+                        "revenue": 12500,
+                        "distance": 125
+                    }
+                }
+            ]
+        }
+    }
+}
+```
 
 ## Verify the integration
 
