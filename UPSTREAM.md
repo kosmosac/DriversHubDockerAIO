@@ -14,16 +14,10 @@ requests.
 | Frontend | `frontend/docker/fix-logout-state.mjs` | Clear all profile state after logout. The script skips the change when upstream contains the corrected implementation. | [Issue #19](https://github.com/CharlesWithC/HubFrontend/issues/19), [PR #20](https://github.com/CharlesWithC/HubFrontend/pull/20) |
 | Backend | `backend/docker/client-config.patch`, `backend/docker/client-config-upstream-domain.patch`, and `backend/docker/frontend-domain.patch` | Normalize runtime client metadata, expand `{domain}` in frontend URLs, and keep database-backed client configuration consistent with backend configuration. The build skips changes that upstream already provides. | [Issue #11](https://github.com/CharlesWithC/HubBackend/issues/11), [PR #12](https://github.com/CharlesWithC/HubBackend/pull/12) |
 | Backend | `backend/docker/smtp-encryption.patch` | Add explicit `starttls`, `tls`, and `none` SMTP encryption modes, preserve certificate validation, and log SMTP failures. The build skips the patch when upstream provides this implementation. | [Issue #14](https://github.com/CharlesWithC/HubBackend/issues/14), [PR #15](https://github.com/CharlesWithC/HubBackend/pull/15) |
-| Backend | `backend/docker/tracksim-validation.patch` | Validate required TrackSim webhook fields before job processing and return HTTP 422 for incomplete payloads. The build skips the patch when upstream provides this implementation. | [Issue #16](https://github.com/CharlesWithC/HubBackend/issues/16), [PR #17](https://github.com/CharlesWithC/HubBackend/pull/17) |
+| Backend | `backend/docker/tracksim-validation.patch` and `backend/docker/custom-validation.patch` | Validate required TrackSim-compatible webhook fields before job processing and return HTTP 422 for incomplete payloads. The build skips the patches when upstream provides this implementation. | [Issue #16](https://github.com/CharlesWithC/HubBackend/issues/16), [PR #17](https://github.com/CharlesWithC/HubBackend/pull/17) |
 | Backend | `backend/docker/tracksim-cancelled-meta.patch` | Accept TrackSim `job.cancelled` events that omit an empty `meta` object. The build skips the patch when upstream provides this implementation. | [Issue #16](https://github.com/CharlesWithC/HubBackend/issues/16), [PR #18](https://github.com/CharlesWithC/HubBackend/pull/18) |
-
-## Additional compatibility fixes
-
-These functional fixes do not currently have matching upstream pull requests.
-
-| Component | Local implementation | Purpose |
-| --- | --- | --- |
-| Backend | `backend/docker/custom-validation.patch`, `backend/docker/trucky-validation.patch`, and `backend/docker/unitracker-validation.patch` | Return HTTP 422 for structurally incomplete webhook payloads before job processing. Extra payload fields remain supported. |
+| Backend | `backend/docker/trucky-validation.patch` | Return HTTP 422 when a Trucky webhook is structurally invalid or cannot be converted. Extra payload fields remain supported. | [PR #19](https://github.com/CharlesWithC/HubBackend/pull/19) |
+| Backend | `backend/docker/unitracker-validation.patch` | Return HTTP 422 when a UniTracker webhook cannot be converted because required data is missing or invalid. Extra payload fields remain supported. | [PR #20](https://github.com/CharlesWithC/HubBackend/pull/20) |
 
 ## Deployment-specific adjustments
 
