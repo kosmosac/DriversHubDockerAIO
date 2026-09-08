@@ -6,6 +6,11 @@ if [ "$(id -u)" = "0" ] && [ -d /app/config ]; then
     chown -R drivershub:drivershub /app/config
 fi
 
+if [ "$(id -u)" = "0" ] && [ -d /app/external_plugins ]; then
+    cp -a /usr/local/share/drivershub/external_plugins/. /app/external_plugins/
+    chown -R drivershub:drivershub /app/external_plugins
+fi
+
 if [ "${1:-}" = "drivershub" ]; then
     shift
     if [ "${DRIVERSHUB_SOURCE_RUNTIME:-0}" = "1" ]; then

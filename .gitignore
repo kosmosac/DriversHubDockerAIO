@@ -2,5 +2,7 @@
 config/config.json
 data/*
 !data/.gitignore
+external_plugins/*
+!external_plugins/.gitignore
 upstream/HubBackend/
 upstream/HubFrontend/

@@ -86,6 +86,7 @@ services:
     command: ["drivershub", "--config", "/app/config/config.json", "--banner-service-url", "http://bannergen:8700/banner"]
     volumes:
       - ./config:/app/config
+      - ./external_plugins:/app/external_plugins
     depends_on:
       frontend:
         condition: service_started

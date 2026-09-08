@@ -155,8 +155,11 @@ RUN apt-get update \
 WORKDIR /app
 
 COPY --from=builder --chown=drivershub:drivershub /build/dist/ ./
-COPY --from=builder --chown=drivershub:drivershub /build/src/external_plugins/ ./external_plugins/
+COPY --from=builder --chown=drivershub:drivershub /build/src/external_plugins/ /usr/local/share/drivershub/external_plugins/
 COPY --chown=root:root backend/docker/entrypoint.sh /usr/local/bin/drivershub-entrypoint
+
+RUN mkdir -p /app/external_plugins \
+    && chown drivershub:drivershub /app/external_plugins
 
 EXPOSE 7777 8700
 
@@ -177,6 +180,12 @@ COPY --from=dependencies --chown=drivershub:drivershub /build/.venv-build/ ./.ve
 COPY --from=patched-source --chown=drivershub:drivershub /build/src/ ./
 COPY --from=patched-source --chown=drivershub:drivershub /build/openapi.json ./openapi.json
 COPY --chown=root:root backend/docker/entrypoint.sh /usr/local/bin/drivershub-entrypoint
+
+RUN mkdir -p /usr/local/share/drivershub/external_plugins \
+    && cp -a /app/external_plugins/. /usr/local/share/drivershub/external_plugins/ \
+    && rm -rf /app/external_plugins \
+    && mkdir /app/external_plugins \
+    && chown -R drivershub:drivershub /app/external_plugins /usr/local/share/drivershub/external_plugins
 
 ENV DRIVERSHUB_SOURCE_RUNTIME=1
 

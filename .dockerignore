@@ -12,6 +12,7 @@ upstream/HubFrontend/build
 upstream/HubFrontend/dist
 upstream/HubFrontend/build-electron/output
 data
+external_plugins
 config/config.json
 **/__pycache__
 **/*.py[cod]
