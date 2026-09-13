@@ -18,6 +18,7 @@ requests.
 | Backend | `backend/docker/tracksim-cancelled-meta.patch` | Accept TrackSim `job.cancelled` events that omit an empty `meta` object. The build skips the patch when upstream provides this implementation. | [Issue #16](https://github.com/CharlesWithC/HubBackend/issues/16), [PR #18](https://github.com/CharlesWithC/HubBackend/pull/18) |
 | Backend | `backend/docker/trucky-validation.patch` | Return HTTP 422 when a Trucky webhook is structurally invalid or cannot be converted. Extra payload fields remain supported. | [PR #19](https://github.com/CharlesWithC/HubBackend/pull/19) |
 | Backend | `backend/docker/unitracker-validation.patch` | Return HTTP 422 when a UniTracker webhook cannot be converted because required data is missing or invalid. Extra payload fields remain supported. | [PR #20](https://github.com/CharlesWithC/HubBackend/pull/20) |
+| Backend | `backend/docker/dlog-export-multiplayer.patch` | Keep delivery CSV exports working when an optional `multiplayer.type` field is missing. The build skips the patch when upstream provides this implementation. | [Issue #21](https://github.com/CharlesWithC/HubBackend/issues/21), [PR #22](https://github.com/CharlesWithC/HubBackend/pull/22) |
 
 ## Deployment-specific adjustments
 

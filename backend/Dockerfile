@@ -39,6 +39,7 @@ COPY backend/docker/tracksim-cancelled-meta.patch ./docker/tracksim-cancelled-me
 COPY backend/docker/custom-validation.patch ./docker/custom-validation.patch
 COPY backend/docker/trucky-validation.patch ./docker/trucky-validation.patch
 COPY backend/docker/unitracker-validation.patch ./docker/unitracker-validation.patch
+COPY backend/docker/dlog-export-multiplayer.patch ./docker/dlog-export-multiplayer.patch
 
 RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_domain, api_host):' src/external_plugins/client-config.py \
         && grep -q 'config\["domain"\] = frontend_domain' src/external_plugins/client-config.py \
@@ -127,7 +128,16 @@ RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_doma
         patch --batch --fuzz=0 -p1 < docker/unitracker-validation.patch; \
     fi \
     && grep -q 'response.status_code = 422' src/apis/tracker/unitracker.py \
-    && grep -q '"Invalid UniTracker webhook payload."' src/apis/tracker/unitracker.py
+    && grep -q '"Invalid UniTracker webhook payload."' src/apis/tracker/unitracker.py \
+    && if grep -q 'data\["multiplayer"\] is not None and "type" in data\["multiplayer"\].keys()' src/apis/dlog/export.py; then \
+        echo "Upstream delivery export multiplayer handling detected; patch is not required."; \
+    elif grep -q 'if data\["multiplayer"\] is not None:' src/apis/dlog/export.py; then \
+        patch --batch --fuzz=0 -p1 < docker/dlog-export-multiplayer.patch; \
+    else \
+        echo "Unsupported upstream delivery export multiplayer handling." >&2; \
+        exit 1; \
+    fi \
+    && grep -q 'data\["multiplayer"\] is not None and "type" in data\["multiplayer"\].keys()' src/apis/dlog/export.py
 
 FROM patched-source AS builder
 
