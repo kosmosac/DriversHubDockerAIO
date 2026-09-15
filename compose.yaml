@@ -1,6 +1,4 @@
 # Use the source code in upstream/HubBackend and upstream/HubFrontend.
-name: drivershub
-
 x-backend-image: &backend-image
   build:
     context: .

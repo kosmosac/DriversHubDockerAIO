@@ -1,6 +1,4 @@
 # Use this complete Compose file when Caddy must provide public HTTPS.
-name: drivershub
-
 x-backend-image: &backend-image
   build:
     context: .
