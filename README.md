@@ -479,7 +479,14 @@ proxy configuration when the stack does not use direct mode. `docker compose
 down` removes containers and networks but does not remove these files and
 directories.
 
-## Migrate from the separate deployment repositories
+## Migrate an existing Hub
+
+[DriversHubMigrationTools](https://github.com/kosmosac/DriversHubMigrationTools)
+can transfer supported data through the source Hub's API when no shell or
+database access to the source installation is available. This AIO deployment
+is supported as a migration destination.
+
+### Migrate from the separate deployment repositories
 
 This section applies to installations made with the previous separate
 deployment repositories:
