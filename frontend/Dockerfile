@@ -70,6 +70,7 @@ RUN rm -f \
 FROM caddy:2-alpine AS runtime
 
 COPY frontend/caddy/Caddyfile /etc/caddy/Caddyfile
+COPY config/caddy/sites/00-placeholder.caddy /etc/caddy/sites/00-placeholder.caddy
 COPY --from=builder /build/build/ /srv/
 
 EXPOSE 80 443 443/udp 8080

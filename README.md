@@ -186,6 +186,42 @@ docker compose -f compose.direct.yaml ps -a
 Caddy obtains and renews the TLS certificate automatically. It redirects HTTP
 to HTTPS and stores its persistent certificate data under `data/caddy/`.
 
+### Additional sites in direct mode
+
+Direct mode can serve additional domains without changing the included
+`Caddyfile`. Add one or more files ending in `.caddy` to
+`config/caddy/sites/`. Each file must contain a complete Caddy site block.
+
+To serve a static site, place its files below `config/caddy/www/` and create a
+site definition such as:
+
+```caddy
+site.example.com {
+    root * /srv/custom/site
+    file_server
+}
+```
+
+An additional service listening on a host port can be proxied through the
+provided `host.docker.internal` address:
+
+```caddy
+service.example.com {
+    reverse_proxy host.docker.internal:9000
+}
+```
+
+The disabled example at `config/caddy/sites/example.caddy.disabled` contains
+both variants. Ensure that every additional domain points to this host. Then
+validate and reload the running configuration:
+
+```bash
+docker compose -f compose.direct.yaml exec frontend \
+  caddy validate --config /etc/caddy/Caddyfile
+docker compose -f compose.direct.yaml exec frontend \
+  caddy reload --config /etc/caddy/Caddyfile
+```
+
 The two Compose files are complete alternatives. Do not combine them. For all
 later commands in this README, direct-mode users must replace `docker compose`
 with `docker compose -f compose.direct.yaml`.
@@ -466,6 +502,8 @@ repository:
 
 - `.env`: deployment settings and database passwords
 - `config/`: backend configuration
+- `config/caddy/`: optional additional Caddy sites and static files in direct
+  mode
 - `external_plugins/`: operator-supplied backend plugins
 - `data/mariadb/`: MariaDB data
 - `data/mariadb-external/`: MariaDB table data stored through

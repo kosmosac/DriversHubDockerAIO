@@ -75,6 +75,10 @@ services:
     volumes:
       - ./data/caddy/data:/data
       - ./data/caddy/config:/config
+      - ./config/caddy/sites:/etc/caddy/sites:ro
+      - ./config/caddy/www:/srv/custom:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   backend:
     <<: *backend-image

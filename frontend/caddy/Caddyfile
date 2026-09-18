@@ -30,3 +30,6 @@
         }
     }
 }
+
+# Optional operator-defined sites used by compose.direct.yaml.
+import /etc/caddy/sites/*.caddy

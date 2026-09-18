@@ -1,5 +1,9 @@
 .env
 config/config.json
+config/caddy/sites/*.caddy
+!config/caddy/sites/00-placeholder.caddy
+config/caddy/www/*
+!config/caddy/www/.gitignore
 data/*
 !data/.gitignore
 external_plugins/*

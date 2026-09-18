@@ -1,0 +1,11 @@
+# Replace the example domains before renaming or copying the required examples
+# to a file ending in .caddy.
+
+site.example.com {
+    root * /srv/custom/site
+    file_server
+}
+
+service.example.com {
+    reverse_proxy host.docker.internal:9000
+}

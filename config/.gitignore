@@ -1,2 +1,11 @@
 *
 !.gitignore
+!caddy/
+caddy/*
+!caddy/sites/
+!caddy/www/
+caddy/sites/*
+!caddy/sites/00-placeholder.caddy
+!caddy/sites/example.caddy.disabled
+caddy/www/*
+!caddy/www/.gitignore
