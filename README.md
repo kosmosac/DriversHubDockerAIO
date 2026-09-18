@@ -176,11 +176,13 @@ container address or Docker subnet.
 Use `compose.direct.yaml` when this stack must terminate TLS itself. Set
 `HUB_DOMAIN` in `.env` to the public Hub domain. Its DNS records must point to
 the Docker host, and public TCP ports 80 and 443 must be free and reachable.
+Uncomment `COMPOSE_FILE=compose.direct.yaml` in `.env` so all subsequent
+`docker compose` commands automatically use the direct configuration.
 
 ```bash
-docker compose -f compose.direct.yaml build
-docker compose -f compose.direct.yaml up -d
-docker compose -f compose.direct.yaml ps -a
+docker compose build
+docker compose up -d
+docker compose ps -a
 ```
 
 Caddy obtains and renews the TLS certificate automatically. It redirects HTTP
@@ -216,15 +218,15 @@ both variants. Ensure that every additional domain points to this host. Then
 validate and reload the running configuration:
 
 ```bash
-docker compose -f compose.direct.yaml exec frontend \
+docker compose exec frontend \
   caddy validate --config /etc/caddy/Caddyfile
-docker compose -f compose.direct.yaml exec frontend \
+docker compose exec frontend \
   caddy reload --config /etc/caddy/Caddyfile
 ```
 
-The two Compose files are complete alternatives. Do not combine them. For all
-later commands in this README, direct-mode users must replace `docker compose`
-with `docker compose -f compose.direct.yaml`.
+The two Compose files are complete alternatives. Do not combine them. If you
+do not set `COMPOSE_FILE`, add `-f compose.direct.yaml` to every Compose
+command instead.
 
 ## Configure a reverse proxy
 
@@ -569,8 +571,8 @@ docker compose up -d
 
 Review the tested revisions near the start of this README and the compatibility
 notes in [UPSTREAM.md](UPSTREAM.md) before you deploy a new upstream revision.
-Direct-mode users must use `docker compose -f compose.direct.yaml` as described
-above.
+Direct-mode users must keep `COMPOSE_FILE=compose.direct.yaml` in `.env` or add
+the explicit `-f compose.direct.yaml` option as described above.
 
 ## Operate the deployment
 
