@@ -40,6 +40,7 @@ COPY backend/docker/custom-validation.patch ./docker/custom-validation.patch
 COPY backend/docker/trucky-validation.patch ./docker/trucky-validation.patch
 COPY backend/docker/unitracker-validation.patch ./docker/unitracker-validation.patch
 COPY backend/docker/dlog-export-multiplayer.patch ./docker/dlog-export-multiplayer.patch
+COPY backend/docker/proxy-auth.patch ./docker/proxy-auth.patch
 
 RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_domain, api_host):' src/external_plugins/client-config.py \
         && grep -q 'config\["domain"\] = frontend_domain' src/external_plugins/client-config.py \
@@ -137,7 +138,21 @@ RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_doma
         echo "Unsupported upstream delivery export multiplayer handling." >&2; \
         exit 1; \
     fi \
-    && grep -q 'data\["multiplayer"\] is not None and "type" in data\["multiplayer"\].keys()' src/apis/dlog/export.py
+    && grep -q 'data\["multiplayer"\] is not None and "type" in data\["multiplayer"\].keys()' src/apis/dlog/export.py \
+    && if grep -q 'DOMAIN_WHITELIST = \["api.truckersmp.com"\]' src/external_plugins/proxy.py \
+        && grep -q 'authorization: str = Header(None)' src/external_plugins/proxy.py \
+        && grep -q 'au = await auth(authorization, request)' src/external_plugins/proxy.py; then \
+        echo "Upstream authenticated TruckersMP proxy support detected; patch is not required."; \
+    elif grep -q 'DOMAIN_WHITELIST = \[\]' src/external_plugins/proxy.py \
+        && ! grep -q 'authorization: str = Header(None)' src/external_plugins/proxy.py; then \
+        patch --batch --fuzz=0 -p1 < docker/proxy-auth.patch; \
+    else \
+        echo "Unsupported upstream proxy implementation." >&2; \
+        exit 1; \
+    fi \
+    && grep -q 'DOMAIN_WHITELIST = \["api.truckersmp.com"\]' src/external_plugins/proxy.py \
+    && grep -q 'authorization: str = Header(None)' src/external_plugins/proxy.py \
+    && grep -q 'au = await auth(authorization, request)' src/external_plugins/proxy.py
 
 FROM patched-source AS builder
 

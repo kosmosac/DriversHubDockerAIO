@@ -15,6 +15,7 @@ RUN --mount=type=cache,target=/root/.npm npm ci
 
 COPY upstream/HubFrontend/ ./
 COPY frontend/docker/hcaptcha-sitekey.patch /tmp/hcaptcha-sitekey.patch
+COPY frontend/docker/proxy-auth.patch /tmp/proxy-auth.patch
 COPY frontend/docker/fix-logout-state.mjs /tmp/fix-logout-state.mjs
 COPY frontend/docker/remove-analytics.mjs /tmp/remove-analytics.mjs
 COPY frontend/docker/replace-fallback-avatar.mjs /tmp/replace-fallback-avatar.mjs
@@ -31,6 +32,19 @@ RUN if grep -q 'sitekey="1788882d-3695-4807-abac-7d7166ec6325"' src/routes/auth/
         echo "Unsupported upstream hCaptcha configuration." >&2; \
         exit 1; \
     fi
+
+RUN if grep -q 'headers: config.headers' src/functions.js \
+        && test "$(grep -h 'proxy?url=' src/routes/announcement.js src/routes/application/all.js src/routes/event.js src/routes/member-list.js | grep -c 'Authorization:')" -eq 4; then \
+        echo "Upstream authenticated proxy requests detected; patch is not required."; \
+    elif ! grep -q 'headers: config.headers' src/functions.js \
+        && test "$(grep -h 'proxy?url=' src/routes/announcement.js src/routes/application/all.js src/routes/event.js src/routes/member-list.js | grep -c 'Authorization:')" -eq 0; then \
+        patch --batch --fuzz=0 -p1 < /tmp/proxy-auth.patch; \
+    else \
+        echo "Unsupported upstream proxy request implementation." >&2; \
+        exit 1; \
+    fi \
+    && grep -q 'headers: config.headers' src/functions.js \
+    && test "$(grep -h 'proxy?url=' src/routes/announcement.js src/routes/application/all.js src/routes/event.js src/routes/member-list.js | grep -c 'Authorization:')" -eq 4
 
 RUN node /tmp/remove-analytics.mjs
 RUN node /tmp/replace-fallback-avatar.mjs

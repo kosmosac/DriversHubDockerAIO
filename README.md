@@ -117,12 +117,17 @@ Set at least these values in `config/config.json`:
         "route",
         "task"
     ],
-    "external_plugins": ["client-config"]
+    "external_plugins": ["client-config", "proxy"]
 }
 ```
 
 The example shows only values that you must review. Keep all other values from
 `config_sample.json`.
+
+Keep both listed external plugins enabled. `client-config` supplies frontend
+metadata. The patched `proxy` enables the frontend's TruckersMP imports and
+member comparison for authenticated Hub members. Add `proxy` when updating an
+existing configuration created before this integration was included.
 
 Use the same database name and password in `.env` and `config/config.json`.
 The configured external MariaDB table directory is stored in

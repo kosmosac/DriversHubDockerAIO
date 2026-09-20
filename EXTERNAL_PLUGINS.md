@@ -19,12 +19,15 @@ Add the entry file name without `.py` to `external_plugins` in
 ```json
 "external_plugins": [
     "client-config",
+    "proxy",
     "example-plugin"
 ]
 ```
 
-Keep `client-config`; the web frontend depends on it. Restart the backend after
-you add, remove, or update an external plugin:
+Keep `client-config` and `proxy`; the web frontend depends on them. The patched
+proxy permits authenticated Hub members to use the frontend's TruckersMP
+imports and comparisons. Restart the backend after you add, remove, or update
+an external plugin:
 
 ```bash
 docker compose restart backend
