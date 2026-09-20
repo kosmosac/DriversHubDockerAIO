@@ -4,14 +4,18 @@ This file lists the changes that this deployment applies to the Drivers Hub
 source during a build and links them to related upstream discussions and pull
 requests.
 
-## Changes proposed upstream
+Local compatibility patches remain in the repository after an upstream fix is
+merged. The build skips them when the checked-out upstream source already
+contains the fix and still applies them to older source checkouts.
+
+## Upstream changes and proposals
 
 | Component | Local implementation | Purpose | Upstream |
 | --- | --- | --- | --- |
-| Frontend | `frontend/docker/hcaptcha-sitekey.patch` | Read the hCaptcha site key from `VITE_HCAPTCHA_SITEKEY`. The build skips the patch when upstream provides the variable. | [Issue #12](https://github.com/CharlesWithC/HubFrontend/issues/12), [PR #13](https://github.com/CharlesWithC/HubFrontend/pull/13) |
+| Frontend | `frontend/docker/hcaptcha-sitekey.patch` | Read the hCaptcha site key from `VITE_HCAPTCHA_SITEKEY`. The build skips the patch when upstream provides the variable. | [Issue #12](https://github.com/CharlesWithC/HubFrontend/issues/12), [merged PR #13](https://github.com/CharlesWithC/HubFrontend/pull/13) |
 | Frontend | `frontend/docker/remove-analytics.mjs` | Remove Google Analytics and its consent dialog. The upstream proposal makes Analytics optional; this deployment intentionally keeps it disabled. | [Issue #14](https://github.com/CharlesWithC/HubFrontend/issues/14), [PR #15](https://github.com/CharlesWithC/HubFrontend/pull/15) |
-| Frontend | `frontend/docker/replace-fallback-avatar.mjs` | Replace the external fallback avatar with the bundled `logo.png`. The script skips the replacement when the known URL is absent. | [Issue #16](https://github.com/CharlesWithC/HubFrontend/issues/16), [PR #17](https://github.com/CharlesWithC/HubFrontend/pull/17) |
-| Frontend | `frontend/docker/fix-logout-state.mjs` | Clear all profile state after logout. The script skips the change when upstream contains the corrected implementation. | [Issue #19](https://github.com/CharlesWithC/HubFrontend/issues/19), [PR #20](https://github.com/CharlesWithC/HubFrontend/pull/20) |
+| Frontend | `frontend/docker/replace-fallback-avatar.mjs` | Replace the external fallback avatar with the bundled `logo.png`. The script skips the replacement when the known URL is absent. | [Issue #16](https://github.com/CharlesWithC/HubFrontend/issues/16), [merged PR #17](https://github.com/CharlesWithC/HubFrontend/pull/17) |
+| Frontend | `frontend/docker/fix-logout-state.mjs` | Clear all profile state after logout. The script skips the change when upstream contains the corrected implementation. | [Issue #19](https://github.com/CharlesWithC/HubFrontend/issues/19), [merged PR #20](https://github.com/CharlesWithC/HubFrontend/pull/20) |
 | Frontend and backend | `frontend/docker/proxy-auth.patch` and `backend/docker/proxy-auth.patch` | Enable the TruckersMP proxy for its existing frontend integrations while requiring an authenticated Hub member. The build skips both patches when compatible upstream implementations are present. | [Backend issue #23](https://github.com/CharlesWithC/HubBackend/issues/23), [Backend PR #24](https://github.com/CharlesWithC/HubBackend/pull/24), [Frontend PR #21](https://github.com/CharlesWithC/HubFrontend/pull/21) |
 | Backend | `backend/docker/client-config.patch`, `backend/docker/client-config-upstream-domain.patch`, and `backend/docker/frontend-domain.patch` | Normalize runtime client metadata, expand `{domain}` in frontend URLs, and keep database-backed client configuration consistent with backend configuration. The build skips changes that upstream already provides. | [Issue #11](https://github.com/CharlesWithC/HubBackend/issues/11), [PR #12](https://github.com/CharlesWithC/HubBackend/pull/12) |
 | Backend | `backend/docker/smtp-encryption.patch` | Add explicit `starttls`, `tls`, and `none` SMTP encryption modes, preserve certificate validation, and log SMTP failures. The build skips the patch when upstream provides this implementation. | [Issue #14](https://github.com/CharlesWithC/HubBackend/issues/14), [PR #15](https://github.com/CharlesWithC/HubBackend/pull/15) |

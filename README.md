@@ -25,7 +25,7 @@ This deployment is tested with:
   [`v2.12.1`](https://github.com/CharlesWithC/HubBackend/releases/tag/v2.12.1)
   at commit `a460eed`.
 - Drivers Hub: Frontend `main` at commit
-  [`7bf7cfb`](https://github.com/CharlesWithC/HubFrontend/commit/7bf7cfba5474f8699aa475a3e19b5ab4ec2d38fb),
+  [`b7ab22a`](https://github.com/CharlesWithC/HubFrontend/commit/b7ab22a876153f216e1c733fecbf026aa2468653),
   which declares package version `3.6.0`.
 
 The clone commands below get the current upstream default branches. A newer
