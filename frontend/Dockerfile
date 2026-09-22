@@ -20,6 +20,9 @@ COPY frontend/docker/fix-logout-state.mjs /tmp/fix-logout-state.mjs
 COPY frontend/docker/remove-analytics.mjs /tmp/remove-analytics.mjs
 COPY frontend/docker/replace-fallback-avatar.mjs /tmp/replace-fallback-avatar.mjs
 COPY frontend/docker/use-config-url-api-path.mjs /tmp/use-config-url-api-path.mjs
+COPY frontend/docker/enable-frontend-plugins.mjs /tmp/enable-frontend-plugins.mjs
+COPY frontend/docker/plugin-registry.jsx /tmp/plugin-registry.jsx
+COPY frontend_plugins/ ./src/external_plugins/
 
 RUN if grep -q 'sitekey="1788882d-3695-4807-abac-7d7166ec6325"' src/routes/auth/login.js; then \
         patch --batch --fuzz=0 -p1 < /tmp/hcaptcha-sitekey.patch; \
@@ -50,6 +53,8 @@ RUN node /tmp/remove-analytics.mjs
 RUN node /tmp/replace-fallback-avatar.mjs
 RUN node /tmp/use-config-url-api-path.mjs
 RUN node /tmp/fix-logout-state.mjs
+RUN cp /tmp/plugin-registry.jsx src/frontend-plugin-registry.jsx \
+    && node /tmp/enable-frontend-plugins.mjs
 
 ARG VITE_CONFIG_URL
 ARG VITE_HCAPTCHA_SITEKEY

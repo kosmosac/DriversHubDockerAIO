@@ -157,6 +157,8 @@ guides are optional references and can be used, changed, or ignored:
 - [BRANDING.md](BRANDING.md) documents the frontend branding options.
 - [EXTERNAL_PLUGINS.md](EXTERNAL_PLUGINS.md) explains how to install external
   backend plugins.
+- [FRONTEND_PLUGINS.md](FRONTEND_PLUGINS.md) explains how to add independent
+  frontend pages for external plugins.
 
 ## Start the deployment
 
@@ -512,6 +514,7 @@ repository:
 - `config/caddy/`: optional additional Caddy sites and static files in direct
   mode
 - `external_plugins/`: operator-supplied backend plugins
+- `frontend_plugins/`: optional frontend plugin source bundled at build time
 - `data/mariadb/`: MariaDB data
 - `data/mariadb-external/`: MariaDB table data stored through
   `db_data_directory`
@@ -519,10 +522,10 @@ repository:
 - `data/caddy/`: TLS certificates and Caddy state in direct mode
 
 Stop the stack before a file-level backup, then back up `.env`, `config/`,
-`external_plugins/`, and `data/` together. Also back up the external reverse
-proxy configuration when the stack does not use direct mode. `docker compose
-down` removes containers and networks but does not remove these files and
-directories.
+`external_plugins/`, `frontend_plugins/`, and `data/` together. Also back up
+the external reverse proxy configuration when the stack does not use direct
+mode. `docker compose down` removes containers and networks but does not
+remove these files and directories.
 
 ## Migrate an existing Hub
 

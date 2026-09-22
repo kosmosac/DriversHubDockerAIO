@@ -1,0 +1,17 @@
+--- a/src/external_plugins/client-config.py
++++ b/src/external_plugins/client-config.py
+@@ -18,6 +18,7 @@
+-def normalize_client_config(config, plugins, abbr, frontend_domain, api_host):
++def normalize_client_config(config, plugins, abbr, frontend_domain, api_host, external_plugins):
+     config["abbr"] = abbr
+     config["plugins"] = plugins
+     config["domain"] = frontend_domain
+     config["api_host"] = api_host
++    config["external_plugins"] = external_plugins
+     return config
+@@ -32 +33 @@
+-        return normalize_client_config(json.loads(config), app.config.plugins, app.config.abbr, urlparse(app.config.frontend_urls.member).netloc, f"https://{app.config.domain}")
++        return normalize_client_config(json.loads(config), app.config.plugins, app.config.abbr, urlparse(app.config.frontend_urls.member).netloc, f"https://{app.config.domain}", app.loaded_external_plugins)
+@@ -45 +46 @@
+-    config = normalize_client_config(json.loads(t[0][0]), app.config.plugins, app.config.abbr, urlparse(app.config.frontend_urls.member).netloc, f"https://{app.config.domain}")
++    config = normalize_client_config(json.loads(t[0][0]), app.config.plugins, app.config.abbr, urlparse(app.config.frontend_urls.member).netloc, f"https://{app.config.domain}", app.loaded_external_plugins)

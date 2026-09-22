@@ -32,6 +32,7 @@ implement requirements that are specific to this Docker deployment.
 
 | Component | Local implementation | Purpose |
 | --- | --- | --- |
+| Frontend and backend | `frontend/docker/enable-frontend-plugins.mjs`, `frontend/docker/plugin-registry.jsx`, and `backend/docker/client-config-frontend-plugins.patch` | Add frontend pages and menu entries for loaded external plugins. `frontend-plugin-example` demonstrates the integration. |
 | Frontend | `frontend/docker/use-config-url-api-path.mjs` | Derive the API base path from `VITE_CONFIG_URL` for a single-hub deployment instead of treating the VTC abbreviation as the API prefix. |
 | Backend | `backend/docker/nuitka-jobs.patch` | Pass `BACKEND_BUILD_JOBS` to Nuitka to limit compiler load on small hosts. |
 | Frontend | `ASSETS_BASE=/` and the post-build check in `frontend/Dockerfile` | Use root-relative assets so that client-side routes such as OAuth callbacks can load the application bundle. |

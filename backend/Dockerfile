@@ -31,6 +31,7 @@ COPY upstream/HubBackend/config_sample.json upstream/HubBackend/openapi.json ./
 COPY upstream/HubBackend/docs/config.jsonc ./docs/config.jsonc
 COPY backend/docker/client-config.patch ./docker/client-config.patch
 COPY backend/docker/client-config-upstream-domain.patch ./docker/client-config-upstream-domain.patch
+COPY backend/docker/client-config-frontend-plugins.patch ./docker/client-config-frontend-plugins.patch
 COPY backend/docker/frontend-domain.patch ./docker/frontend-domain.patch
 COPY backend/docker/nuitka-jobs.patch ./docker/nuitka-jobs.patch
 COPY backend/docker/smtp-encryption.patch ./docker/smtp-encryption.patch
@@ -65,6 +66,8 @@ RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_doma
     && grep -q 'frontend_conf\["plugins"\] = config\["plugins"\]' src/external_plugins/client-config.py \
     && grep -q 'frontend_conf\["domain"\] = frontend_domain' src/external_plugins/client-config.py \
     && grep -q 'frontend_conf\["api_host"\] = api_host' src/external_plugins/client-config.py \
+    && patch --batch --fuzz=0 -p1 < docker/client-config-frontend-plugins.patch \
+    && grep -q 'config\["external_plugins"\] = external_plugins' src/external_plugins/client-config.py \
     && if grep -q 'cfg\["frontend_urls"\]\[key\] = cfg\["frontend_urls"\]\[key\].replace("{domain}", cfg\["domain"\])' src/config.py; then \
         echo "Upstream frontend domain expansion detected; patch is not required."; \
     else \

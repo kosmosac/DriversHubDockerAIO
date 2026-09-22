@@ -8,5 +8,6 @@ data/*
 !data/.gitignore
 external_plugins/*
 !external_plugins/.gitignore
+!external_plugins/frontend-plugin-example.py
 upstream/HubBackend/
 upstream/HubFrontend/
