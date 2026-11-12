@@ -35,6 +35,7 @@ COPY backend/docker/frontend-domain.patch ./docker/frontend-domain.patch
 COPY backend/docker/nuitka-jobs.patch ./docker/nuitka-jobs.patch
 COPY backend/docker/smtp-encryption.patch ./docker/smtp-encryption.patch
 COPY backend/docker/tracksim-validation.patch ./docker/tracksim-validation.patch
+COPY backend/docker/tracksim-validation-normalized.patch ./docker/tracksim-validation-normalized.patch
 COPY backend/docker/tracksim-cancelled-meta.patch ./docker/tracksim-cancelled-meta.patch
 COPY backend/docker/custom-validation.patch ./docker/custom-validation.patch
 COPY backend/docker/trucky-validation.patch ./docker/trucky-validation.patch
@@ -91,6 +92,10 @@ RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_doma
     && if grep -q 'def valid_job_payload(data):' src/apis/tracker/tracksim.py \
         && grep -q '"Invalid TrackSim webhook payload."' src/apis/tracker/tracksim.py; then \
         echo "Upstream TrackSim payload validation detected; patch is not required."; \
+    elif grep -q 'def normalize_job_payload(data):' src/apis/tracker/tracksim.py \
+        && ! grep -q 'valid_job_payload' src/apis/tracker/tracksim.py \
+        && ! grep -q 'Invalid TrackSim webhook payload' src/apis/tracker/tracksim.py; then \
+        patch --batch --fuzz=0 -p1 < docker/tracksim-validation-normalized.patch; \
     elif ! grep -q 'valid_job_payload' src/apis/tracker/tracksim.py \
         && ! grep -q 'Invalid TrackSim webhook payload' src/apis/tracker/tracksim.py; then \
         patch --batch --fuzz=0 -p1 < docker/tracksim-validation.patch; \
