@@ -1,6 +1,6 @@
 --- a/src/apis/tracker/tracksim.py
 +++ b/src/apis/tracker/tracksim.py
-@@ -82,6 +82,59 @@
+@@ -93,6 +93,59 @@
          case _:
              return normalized
  
@@ -57,10 +57,10 @@
 +
 +    return True
 +
- async def FetchRoute(app, gameid, userid, logid, trackerid, request, dhrid = None):
-     r = None
-     for tracker in app.config.trackers:
-@@ -244,7 +297,12 @@
+ async def FetchRoute(app, gameid, userid, logid, trackerid, request, dhrid = None, job_type = None):
+     route_trackerid = trackerid
+     match job_type:
+@@ -262,7 +315,12 @@
          await AuditLog(request, -999, "tracker", ml.ctr(request, "rejected_tracker_webhook_post_signature", var = {"tracker": "TrackSim", "ip": request.client.host}))
          return {"error": "Validation failed."}
  
