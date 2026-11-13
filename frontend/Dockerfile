@@ -18,6 +18,7 @@ COPY frontend/docker/hcaptcha-sitekey.patch /tmp/hcaptcha-sitekey.patch
 COPY frontend/docker/proxy-auth.patch /tmp/proxy-auth.patch
 COPY frontend/docker/fix-logout-state.mjs /tmp/fix-logout-state.mjs
 COPY frontend/docker/remove-analytics.mjs /tmp/remove-analytics.mjs
+COPY frontend/docker/remove-obsolete-radios.mjs /tmp/remove-obsolete-radios.mjs
 COPY frontend/docker/replace-fallback-avatar.mjs /tmp/replace-fallback-avatar.mjs
 COPY frontend/docker/use-config-url-api-path.mjs /tmp/use-config-url-api-path.mjs
 COPY frontend/docker/configure-map-base-url.mjs /tmp/configure-map-base-url.mjs
@@ -48,6 +49,7 @@ RUN if grep -q 'headers: config.headers' src/functions.js \
     && test "$(grep -h 'proxy?url=' src/routes/announcement.js src/routes/application/all.js src/routes/event.js src/routes/member-list.js | grep -c 'Authorization:')" -eq 4
 
 RUN node /tmp/remove-analytics.mjs
+RUN node /tmp/remove-obsolete-radios.mjs
 RUN node /tmp/replace-fallback-avatar.mjs
 RUN node /tmp/use-config-url-api-path.mjs
 RUN node /tmp/fix-logout-state.mjs
