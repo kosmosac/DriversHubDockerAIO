@@ -20,6 +20,7 @@ COPY frontend/docker/fix-logout-state.mjs /tmp/fix-logout-state.mjs
 COPY frontend/docker/remove-analytics.mjs /tmp/remove-analytics.mjs
 COPY frontend/docker/replace-fallback-avatar.mjs /tmp/replace-fallback-avatar.mjs
 COPY frontend/docker/use-config-url-api-path.mjs /tmp/use-config-url-api-path.mjs
+COPY frontend/docker/configure-map-base-url.mjs /tmp/configure-map-base-url.mjs
 
 RUN if grep -q 'sitekey="1788882d-3695-4807-abac-7d7166ec6325"' src/routes/auth/login.js; then \
         patch --batch --fuzz=0 -p1 < /tmp/hcaptcha-sitekey.patch; \
@@ -53,15 +54,22 @@ RUN node /tmp/fix-logout-state.mjs
 
 ARG VITE_CONFIG_URL
 ARG VITE_HCAPTCHA_SITEKEY
+ARG VITE_MAP_BASE_URL=https://map.charlws.com
 
 ENV ASSETS_BASE="/" \
     VITE_USE_MULTIHUB=false \
     VITE_MULTIHUB_DISCOVERY="" \
     VITE_CONFIG_URL=${VITE_CONFIG_URL} \
-    VITE_HCAPTCHA_SITEKEY=${VITE_HCAPTCHA_SITEKEY}
+    VITE_HCAPTCHA_SITEKEY=${VITE_HCAPTCHA_SITEKEY} \
+    VITE_MAP_BASE_URL=${VITE_MAP_BASE_URL}
 
 RUN test -n "$VITE_HCAPTCHA_SITEKEY" \
     || (echo "VITE_HCAPTCHA_SITEKEY must be set." >&2; exit 1)
+
+RUN test -n "$VITE_MAP_BASE_URL" \
+    || (echo "VITE_MAP_BASE_URL must be set." >&2; exit 1)
+
+RUN node /tmp/configure-map-base-url.mjs
 
 RUN if [ "$VITE_USE_MULTIHUB" != "true" ]; then \
         case "$VITE_CONFIG_URL" in \

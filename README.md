@@ -78,10 +78,12 @@ Set secure MariaDB passwords in `.env`. Replace `hub.example.com` in
 `VITE_CONFIG_URL` with the public Hub domain. Set `VITE_HCAPTCHA_SITEKEY` to the
 public hCaptcha site key for the same domain. The site key is included in the
 frontend files and is not a secret. The related `captcha.secret` value in
-`config/config.json` must remain secret.
+`config/config.json` must remain secret. `VITE_MAP_BASE_URL` selects the map
+tile service and normally remains at its upstream default.
 
 Vite includes these values when it builds the frontend. Rebuild the frontend
-image after you change `VITE_CONFIG_URL` or `VITE_HCAPTCHA_SITEKEY`.
+image after you change `VITE_CONFIG_URL`, `VITE_HCAPTCHA_SITEKEY`, or
+`VITE_MAP_BASE_URL`.
 
 Set at least these values in `config/config.json`:
 
