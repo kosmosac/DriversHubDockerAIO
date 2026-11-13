@@ -89,7 +89,7 @@ RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_doma
     && grep -q 'hostname=app.config.smtp_host' src/functions/mail.py \
     && if grep -q 'case "car_job.delivered" | "car_job.cancelled":' src/apis/tracker/tracksim.py \
         && grep -q 'case "bus_job.completed" | "bus_job.cancelled":' src/apis/tracker/tracksim.py \
-        && grep -q 'tracksim/routes/{job_uuid}.json' src/apis/tracker/tracksim.py; then \
+        && grep -q 'api.tracksim.app/v2/jobs/{trackerid}/route?job_type={route_job_type}' src/apis/tracker/tracksim.py; then \
         echo "Compatible upstream TrackSim job-type support detected; patch is not required."; \
     elif ! grep -q 'def normalize_job_payload(data):' src/apis/tracker/tracksim.py; then \
         patch --batch --fuzz=0 -p1 < docker/tracksim-job-types.patch; \
@@ -99,7 +99,7 @@ RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_doma
     fi \
     && grep -q 'case "car_job.delivered" | "car_job.cancelled":' src/apis/tracker/tracksim.py \
     && grep -q 'case "bus_job.completed" | "bus_job.cancelled":' src/apis/tracker/tracksim.py \
-    && grep -q 'tracksim/routes/{job_uuid}.json' src/apis/tracker/tracksim.py \
+    && grep -q 'api.tracksim.app/v2/jobs/{trackerid}/route?job_type={route_job_type}' src/apis/tracker/tracksim.py \
     && grep -q 'event\["meta"\].setdefault("max_speed", event\["meta"\].get("speed"))' src/apis/tracker/tracksim.py \
     && if grep -q 'event_meta = data\["events"\]\[-1\].get("meta", {})' src/functions/tracker.py; then \
         echo "Upstream TrackSim cancellation metadata handling detected; patch is not required."; \
