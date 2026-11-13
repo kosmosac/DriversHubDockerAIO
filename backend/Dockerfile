@@ -34,10 +34,8 @@ COPY backend/docker/client-config-upstream-domain.patch ./docker/client-config-u
 COPY backend/docker/frontend-domain.patch ./docker/frontend-domain.patch
 COPY backend/docker/nuitka-jobs.patch ./docker/nuitka-jobs.patch
 COPY backend/docker/smtp-encryption.patch ./docker/smtp-encryption.patch
-COPY backend/docker/tracksim-validation.patch ./docker/tracksim-validation.patch
-COPY backend/docker/tracksim-validation-normalized.patch ./docker/tracksim-validation-normalized.patch
+COPY backend/docker/tracksim-job-types.patch ./docker/tracksim-job-types.patch
 COPY backend/docker/tracksim-cancelled-meta.patch ./docker/tracksim-cancelled-meta.patch
-COPY backend/docker/custom-validation.patch ./docker/custom-validation.patch
 COPY backend/docker/trucky-validation.patch ./docker/trucky-validation.patch
 COPY backend/docker/unitracker-validation.patch ./docker/unitracker-validation.patch
 COPY backend/docker/dlog-export-multiplayer.patch ./docker/dlog-export-multiplayer.patch
@@ -89,23 +87,20 @@ RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_doma
     && grep -q 'use_tls = smtp_encryption == "tls"' src/functions/mail.py \
     && grep -q 'start_tls = smtp_encryption == "starttls"' src/functions/mail.py \
     && grep -q 'hostname=app.config.smtp_host' src/functions/mail.py \
-    && if grep -q 'def valid_job_payload(data):' src/apis/tracker/tracksim.py \
-        && grep -q '"Invalid TrackSim webhook payload."' src/apis/tracker/tracksim.py; then \
-        echo "Upstream TrackSim payload validation detected; patch is not required."; \
-    elif grep -q 'def normalize_job_payload(data):' src/apis/tracker/tracksim.py \
-        && ! grep -q 'valid_job_payload' src/apis/tracker/tracksim.py \
-        && ! grep -q 'Invalid TrackSim webhook payload' src/apis/tracker/tracksim.py; then \
-        patch --batch --fuzz=0 -p1 < docker/tracksim-validation-normalized.patch; \
-    elif ! grep -q 'valid_job_payload' src/apis/tracker/tracksim.py \
-        && ! grep -q 'Invalid TrackSim webhook payload' src/apis/tracker/tracksim.py; then \
-        patch --batch --fuzz=0 -p1 < docker/tracksim-validation.patch; \
+    && if grep -q 'case "car_job.delivered" | "car_job.cancelled":' src/apis/tracker/tracksim.py \
+        && grep -q 'case "bus_job.completed" | "bus_job.cancelled":' src/apis/tracker/tracksim.py \
+        && grep -q 'tracksim/routes/{job_uuid}.json' src/apis/tracker/tracksim.py; then \
+        echo "Compatible upstream TrackSim job-type support detected; patch is not required."; \
+    elif ! grep -q 'def normalize_job_payload(data):' src/apis/tracker/tracksim.py; then \
+        patch --batch --fuzz=0 -p1 < docker/tracksim-job-types.patch; \
     else \
-        echo "Unsupported upstream TrackSim validation implementation." >&2; \
+        echo "Unsupported upstream TrackSim job-type implementation." >&2; \
         exit 1; \
     fi \
-    && grep -q 'def valid_job_payload(data):' src/apis/tracker/tracksim.py \
-    && grep -q 'response.status_code = 422' src/apis/tracker/tracksim.py \
-    && grep -q '"Invalid TrackSim webhook payload."' src/apis/tracker/tracksim.py \
+    && grep -q 'case "car_job.delivered" | "car_job.cancelled":' src/apis/tracker/tracksim.py \
+    && grep -q 'case "bus_job.completed" | "bus_job.cancelled":' src/apis/tracker/tracksim.py \
+    && grep -q 'tracksim/routes/{job_uuid}.json' src/apis/tracker/tracksim.py \
+    && grep -q 'event\["meta"\].setdefault("max_speed", event\["meta"\].get("speed"))' src/apis/tracker/tracksim.py \
     && if grep -q 'event_meta = data\["events"\]\[-1\].get("meta", {})' src/functions/tracker.py; then \
         echo "Upstream TrackSim cancellation metadata handling detected; patch is not required."; \
     elif grep -q 'if "penalty" in data\["events"\]\[-1\]\["meta"\].keys():' src/functions/tracker.py; then \
@@ -115,13 +110,6 @@ RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_doma
         exit 1; \
     fi \
     && grep -q 'event_meta = data\["events"\]\[-1\].get("meta", {})' src/functions/tracker.py \
-    && if grep -q '"Invalid custom tracker webhook payload."' src/apis/tracker/custom.py; then \
-        echo "Upstream custom tracker payload validation detected; patch is not required."; \
-    else \
-        patch --batch --fuzz=0 -p1 < docker/custom-validation.patch; \
-    fi \
-    && grep -q 'from apis.tracker.tracksim import valid_job_payload' src/apis/tracker/custom.py \
-    && grep -q '"Invalid custom tracker webhook payload."' src/apis/tracker/custom.py \
     && if grep -q '"Invalid Trucky webhook payload."' src/apis/tracker/trucky.py; then \
         echo "Upstream Trucky payload validation detected; patch is not required."; \
     else \
