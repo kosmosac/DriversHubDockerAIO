@@ -27,6 +27,7 @@ COPY frontend/docker/remove-obsolete-radios.mjs /tmp/remove-obsolete-radios.mjs
 COPY frontend/docker/replace-fallback-avatar.mjs /tmp/replace-fallback-avatar.mjs
 COPY frontend/docker/use-config-url-api-path.mjs /tmp/use-config-url-api-path.mjs
 COPY frontend/docker/configure-map-base-url.mjs /tmp/configure-map-base-url.mjs
+COPY frontend/docker/fit-dlog-route.mjs /tmp/fit-dlog-route.mjs
 
 RUN if grep -q 'sitekey="1788882d-3695-4807-abac-7d7166ec6325"' src/routes/auth/login.js; then \
         patch --batch --fuzz=0 -p1 < /tmp/hcaptcha-sitekey.patch; \
@@ -102,6 +103,10 @@ RUN test -n "$VITE_MAP_BASE_URL" \
     || (echo "VITE_MAP_BASE_URL must be set." >&2; exit 1)
 
 RUN node /tmp/configure-map-base-url.mjs
+RUN node /tmp/fit-dlog-route.mjs \
+    && grep -q 'fitRoute = false' src/components/tilemap.js \
+    && grep -q 'getView().fit(routeGeometry' src/components/tilemap.js \
+    && grep -q 'fitRoute' src/routes/delivery.js
 
 RUN if [ "$VITE_USE_MULTIHUB" != "true" ]; then \
         case "$VITE_CONFIG_URL" in \
