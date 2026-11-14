@@ -18,6 +18,7 @@ COPY frontend/docker/hcaptcha-sitekey.patch /tmp/hcaptcha-sitekey.patch
 COPY frontend/docker/proxy-auth.patch /tmp/proxy-auth.patch
 COPY frontend/docker/configure-privacy.mjs /tmp/configure-privacy.mjs
 COPY frontend/docker/fix-logout-state.mjs /tmp/fix-logout-state.mjs
+COPY frontend/docker/fix-crash-handler.mjs /tmp/fix-crash-handler.mjs
 COPY frontend/docker/handle-invalid-session.mjs /tmp/handle-invalid-session.mjs
 COPY frontend/docker/remove-obsolete-radios.mjs /tmp/remove-obsolete-radios.mjs
 COPY frontend/docker/replace-fallback-avatar.mjs /tmp/replace-fallback-avatar.mjs
@@ -60,6 +61,10 @@ RUN node /tmp/remove-obsolete-radios.mjs
 RUN node /tmp/replace-fallback-avatar.mjs
 RUN node /tmp/use-config-url-api-path.mjs
 RUN node /tmp/fix-logout-state.mjs
+RUN node /tmp/fix-crash-handler.mjs \
+    && grep -q 'useMemo, useContext, useEffect' src/components/crashed.js \
+    && grep -q 'componentDidCatch(error, errorInfo)' src/index.js \
+    && grep -q 'Drivers Hub rendering failed' src/index.js
 RUN node /tmp/handle-invalid-session.mjs \
     && grep -q 'function clearInvalidSession(errorResponse)' src/functions.js \
     && grep -q 'eraseCookie("auth-mode")' src/functions.js \
