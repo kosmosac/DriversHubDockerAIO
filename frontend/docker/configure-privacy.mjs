@@ -161,7 +161,7 @@ const creditsFooter = `                                <footer style={{ display:
                                             </Typography>
                                         </DialogContent>
                                         <DialogActions>
-                                            <Button onClick={() => setCreditsOpen(false)}>{tr("close")}</Button>
+                                            <Button variant="contained" color="primary" onClick={() => setCreditsOpen(false)}>{tr("close")}</Button>
                                         </DialogActions>
                                     </Dialog>
                                 </footer>`;
