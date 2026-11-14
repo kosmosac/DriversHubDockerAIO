@@ -1,5 +1,5 @@
 diff --git a/src/apis/tracker/tracksim.py b/src/apis/tracker/tracksim.py
-index c70df29..00c5ed2 100644
+index c70df29..f5a5e4d 100644
 --- a/src/apis/tracker/tracksim.py
 +++ b/src/apis/tracker/tracksim.py
 @@ -6,6 +6,7 @@ import hashlib
@@ -10,7 +10,7 @@ index c70df29..00c5ed2 100644
  
  from fastapi import Header, Request, Response
  
-@@ -13,13 +14,310 @@ import multilang as ml
+@@ -13,13 +14,312 @@ import multilang as ml
  from api import tracebackHandler
  from functions import *
  
@@ -230,7 +230,9 @@ index c70df29..00c5ed2 100644
 +            stop_count = stops.get("planned") if isinstance(stops, dict) else None
 +            if not isinstance(stop_count, (int, float)):
 +                stop_count = len(stop_items)
-+            stop_count = int(stop_count)
++            # TrackSim counts route legs/destination stops. Include the
++            # departure stop in the user-facing total as ETS2 does.
++            stop_count = int(stop_count) + 1
 +
 +            if event_type == "bus_job.completed":
 +                passenger_count = int(job.get("passengers_planned", 0))
@@ -323,7 +325,7 @@ index c70df29..00c5ed2 100644
          except:
              return {"error": f"{TRACKER['tracksim']} {ml.ctr(request, 'api_timeout')}"}
          if r.status_code == 200:
-@@ -175,14 +473,15 @@ async def post_update(response: Response, request: Request):
+@@ -175,14 +475,15 @@ async def post_update(response: Response, request: Request):
          await AuditLog(request, -999, "tracker", ml.ctr(request, "rejected_tracker_webhook_post_signature", var = {"tracker": "TrackSim", "ip": request.client.host}))
          return {"error": "Validation failed."}
  
@@ -341,7 +343,7 @@ index c70df29..00c5ed2 100644
  
      return Response(status_code = 204)
  
-@@ -213,12 +512,12 @@ async def post_update_route(response: Response, request: Request, authorization:
+@@ -213,12 +514,12 @@ async def post_update_route(response: Response, request: Request, authorization:
          response.status_code = 400
          return {"error": ml.tr(request, "bad_json", force_lang = au["language"])}
  
@@ -356,7 +358,7 @@ index c70df29..00c5ed2 100644
  
      if tracker_type != 2:
          response.status_code = 404
-@@ -230,7 +529,16 @@ async def post_update_route(response: Response, request: Request, authorization:
+@@ -230,7 +531,16 @@ async def post_update_route(response: Response, request: Request, authorization:
          response.status_code = 409
          return {"error": ml.tr(request, "route_already_fetched", force_lang = au["language"])}
  
