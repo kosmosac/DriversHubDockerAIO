@@ -31,6 +31,7 @@ replacements = [
         '        legal_urls = newconfig.get("legal_urls", {})\n'
         '        if type(legal_urls) != dict:\n'
         '            raise ValueError("legal_urls must be an object")\n'
+        '        normalized_legal_urls = {}\n'
         '        for key in LEGAL_URL_KEYS:\n'
         '            url = legal_urls.get(key, "")\n'
         '            if type(url) != str or len(url) > 2048:\n'
@@ -38,8 +39,8 @@ replacements = [
         '            url = url.strip()\n'
         '            if url and not (isurl(url) and (url.startswith("https://") or url.startswith("http://localhost"))):\n'
         '                raise ValueError("Legal URLs must use HTTPS")\n'
-        '            legal_urls[key] = url\n'
-        '        newconfig["legal_urls"] = legal_urls\n'
+        '            normalized_legal_urls[key] = url\n'
+        '        newconfig["legal_urls"] = normalized_legal_urls\n'
         '        whitelist = ["abbr", "name", "color",',
     ),
     (
@@ -65,7 +66,7 @@ compile(source, str(path), "exec")
 required = [
     "LEGAL_URL_KEYS =",
     'config["legal_urls"] =',
-    'newconfig["legal_urls"] = legal_urls',
+    'newconfig["legal_urls"] = normalized_legal_urls',
     '"truckersmp_vtc_id", "legal_urls", "gallery"',
     '"legal_urls": {key: "" for key in LEGAL_URL_KEYS}',
 ]

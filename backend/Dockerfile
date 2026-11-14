@@ -151,7 +151,7 @@ RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_doma
     && grep -q 'au = await auth(authorization, request)' src/external_plugins/proxy.py \
     && python docker/configure-legal-links.py \
     && grep -q 'LEGAL_URL_KEYS =' src/external_plugins/client-config.py \
-    && grep -q 'newconfig\["legal_urls"\] = legal_urls' src/external_plugins/client-config.py \
+    && grep -q 'newconfig\["legal_urls"\] = normalized_legal_urls' src/external_plugins/client-config.py \
     && python docker/update-economy-garages.py \
         --garages docker/economy-garages.json \
         --config config_sample.json \
