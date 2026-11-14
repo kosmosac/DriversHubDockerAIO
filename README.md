@@ -164,6 +164,8 @@ guides are optional references and can be used, changed, or ignored:
   backend plugins.
 - [ECONOMY.md](ECONOMY.md) provides the current ETS2 and ATS garage catalogue
   and explains how to merge it into an existing configuration.
+- [PRIVACY.md](PRIVACY.md) explains the essential-cookie notice and the
+  configurable links to externally hosted legal documents.
 
 ## Start the deployment
 

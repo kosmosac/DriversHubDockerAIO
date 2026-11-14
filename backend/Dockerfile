@@ -30,6 +30,7 @@ COPY upstream/HubBackend/src ./src
 COPY upstream/HubBackend/config_sample.json upstream/HubBackend/openapi.json ./
 COPY upstream/HubBackend/docs/config.jsonc ./docs/config.jsonc
 COPY examples/economy-garages.json ./docker/economy-garages.json
+COPY backend/docker/configure-legal-links.py ./docker/configure-legal-links.py
 COPY backend/docker/update-economy-garages.py ./docker/update-economy-garages.py
 COPY backend/docker/client-config.patch ./docker/client-config.patch
 COPY backend/docker/client-config-upstream-domain.patch ./docker/client-config-upstream-domain.patch
@@ -148,6 +149,9 @@ RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_doma
     && grep -q 'DOMAIN_WHITELIST = \["api.truckersmp.com"\]' src/external_plugins/proxy.py \
     && grep -q 'authorization: str = Header(None)' src/external_plugins/proxy.py \
     && grep -q 'au = await auth(authorization, request)' src/external_plugins/proxy.py \
+    && python docker/configure-legal-links.py \
+    && grep -q 'LEGAL_URL_KEYS =' src/external_plugins/client-config.py \
+    && grep -q 'newconfig\["legal_urls"\] = legal_urls' src/external_plugins/client-config.py \
     && python docker/update-economy-garages.py \
         --garages docker/economy-garages.json \
         --config config_sample.json \

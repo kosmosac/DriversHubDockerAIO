@@ -16,8 +16,8 @@ RUN --mount=type=cache,target=/root/.npm npm ci
 COPY upstream/HubFrontend/ ./
 COPY frontend/docker/hcaptcha-sitekey.patch /tmp/hcaptcha-sitekey.patch
 COPY frontend/docker/proxy-auth.patch /tmp/proxy-auth.patch
+COPY frontend/docker/configure-privacy.mjs /tmp/configure-privacy.mjs
 COPY frontend/docker/fix-logout-state.mjs /tmp/fix-logout-state.mjs
-COPY frontend/docker/remove-analytics.mjs /tmp/remove-analytics.mjs
 COPY frontend/docker/remove-obsolete-radios.mjs /tmp/remove-obsolete-radios.mjs
 COPY frontend/docker/replace-fallback-avatar.mjs /tmp/replace-fallback-avatar.mjs
 COPY frontend/docker/use-config-url-api-path.mjs /tmp/use-config-url-api-path.mjs
@@ -48,7 +48,11 @@ RUN if grep -q 'headers: config.headers' src/functions.js \
     && grep -q 'headers: config.headers' src/functions.js \
     && test "$(grep -h 'proxy?url=' src/routes/announcement.js src/routes/application/all.js src/routes/event.js src/routes/member-list.js | grep -c 'Authorization:')" -eq 4
 
-RUN node /tmp/remove-analytics.mjs
+RUN node /tmp/configure-privacy.mjs \
+    && grep -q 'const LEGAL_LINK_KEYS =' src/App.js \
+    && grep -q 'essential_cookies_notice' src/App.js \
+    && grep -q 'legal_urls' src/routes/config.js \
+    && ! grep -Eq 'googletagmanager|google-analytics|G-SLZ5TY9MVN|GOOGLE_ANALYTICS_ID' src/App.js
 RUN node /tmp/remove-obsolete-radios.mjs
 RUN node /tmp/replace-fallback-avatar.mjs
 RUN node /tmp/use-config-url-api-path.mjs
