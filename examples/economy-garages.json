@@ -1,0 +1,3612 @@
+[
+  {
+    "id": "texas.abilene",
+    "name": "Abilene, Texas",
+    "game": "ats",
+    "x": -19201.86,
+    "z": 36399.293,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "colorado.alamosa",
+    "name": "Alamosa, Colorado",
+    "game": "ats",
+    "x": -43449.28,
+    "z": 6119.8125,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "newmexico.albuquerque",
+    "name": "Albuquerque, New Mexico",
+    "game": "ats",
+    "x": -49200.2344,
+    "z": 20686.1719,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "louisiana.alexandria",
+    "name": "Alexandria, Louisiana",
+    "game": "ats",
+    "x": 16209.293,
+    "z": 42883.9063,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "texas.amarillo",
+    "name": "Amarillo, Texas",
+    "game": "ats",
+    "x": -25810.4883,
+    "z": 21524.6445,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "texas.austin",
+    "name": "Austin, Texas",
+    "game": "ats",
+    "x": -8943.039,
+    "z": 50190.9648,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "california.bakersfield",
+    "name": "Bakersfield, California",
+    "game": "ats",
+    "x": -104970.445,
+    "z": 6327.801,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "louisiana.batonrouge",
+    "name": "Baton Rouge, Louisiana",
+    "game": "ats",
+    "x": 24931.668,
+    "z": 44973.6172,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "texas.beaumont",
+    "name": "Beaumont, Texas",
+    "game": "ats",
+    "x": 7843.633,
+    "z": 50400.6875,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "oregon.bend",
+    "name": "Bend, Oregon",
+    "game": "ats",
+    "x": -101200.719,
+    "z": -43335.6172,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "montana.billings",
+    "name": "Billings, Montana",
+    "game": "ats",
+    "x": -47291.41,
+    "z": -43022.1055,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "idaho.boise",
+    "name": "Boise, Idaho",
+    "game": "ats",
+    "x": -80876.4844,
+    "z": -34136.4766,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "missouri.capegirarde",
+    "name": "Cape Girardeau, Missouri",
+    "game": "ats",
+    "x": 29250.7813,
+    "z": 7993.40234,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "nevada.carsoncity",
+    "name": "Carson City, Nevada",
+    "game": "ats",
+    "x": -102136.984,
+    "z": -10988.52,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "wyoming.casper",
+    "name": "Casper, Wyoming",
+    "game": "ats",
+    "x": -41447.18,
+    "z": -24489.5547,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "illinois.champaign",
+    "name": "Champaign, Illinois",
+    "game": "ats",
+    "x": 33058.3477,
+    "z": -5647.715,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "wyoming.cheyenne",
+    "name": "Cheyenne, Wyoming",
+    "game": "ats",
+    "x": -36119.3672,
+    "z": -15179.7656,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "illinois.chicago",
+    "name": "Chicago, Illinois",
+    "game": "ats",
+    "x": 32524.0586,
+    "z": -19519.41,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "idaho.coeurdalene",
+    "name": "Coeur d'Alene, Idaho",
+    "game": "ats",
+    "x": -78844.43,
+    "z": -59482.3359,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "colorado.coloradospr",
+    "name": "Colorado Springs, Colorado",
+    "game": "ats",
+    "x": -38323.1641,
+    "z": -2094.5625,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "texas.corpuschris",
+    "name": "Corpus Christi, Texas",
+    "game": "ats",
+    "x": -9431.809,
+    "z": 63998.31,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "iowa.councilbluf",
+    "name": "Council Bluffs, Iowa",
+    "game": "ats",
+    "x": 1895.46484,
+    "z": -13780.32,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "texas.dallas",
+    "name": "Dallas, Texas",
+    "game": "ats",
+    "x": -2619.05078,
+    "z": 36547.56,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "texas.delrio",
+    "name": "Del Rio, Texas",
+    "game": "ats",
+    "x": -24737.1641,
+    "z": 55008.06,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "colorado.denver",
+    "name": "Denver, Colorado",
+    "game": "ats",
+    "x": -37937.7266,
+    "z": -6038.23828,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "iowa.desmoines",
+    "name": "Des Moines, Iowa",
+    "game": "ats",
+    "x": 10484.5742,
+    "z": -16347.4453,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "arkansas.eldorado",
+    "name": "El Dorado, Arkansas",
+    "game": "ats",
+    "x": 16356.3711,
+    "z": 31448.9375,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "texas.elpaso",
+    "name": "El Paso, Texas",
+    "game": "ats",
+    "x": -46798.88,
+    "z": 40614.61,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "nevada.elko",
+    "name": "Elko, Nevada",
+    "game": "ats",
+    "x": -83318.875,
+    "z": -19849.2148,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "oregon.eugene",
+    "name": "Eugene, Oregon",
+    "game": "ats",
+    "x": -107298.82,
+    "z": -45554.9,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "wyoming.evanston",
+    "name": "Evanston, Wyoming",
+    "game": "ats",
+    "x": -62915.37,
+    "z": -18963.0625,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "newmexico.farmington",
+    "name": "Farmington, New Mexico",
+    "game": "ats",
+    "x": -54148.39,
+    "z": 9093.629,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "arkansas.fayetteville",
+    "name": "Fayetteville, Arkansas",
+    "game": "ats",
+    "x": 9973.707,
+    "z": 15395.9922,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "arizona.flagstaff",
+    "name": "Flagstaff, Arizona",
+    "game": "ats",
+    "x": -69776.39,
+    "z": 13510.4961,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "colorado.fortcollins",
+    "name": "Fort Collins, Colorado",
+    "game": "ats",
+    "x": -38932.6836,
+    "z": -11653.4609,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "arkansas.fortsmith",
+    "name": "Fort Smith, Arkansas",
+    "game": "ats",
+    "x": 9475.859,
+    "z": 19681.61,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "texas.fortstockto",
+    "name": "Fort Stockton, Texas",
+    "game": "ats",
+    "x": -34237.0039,
+    "z": 44895.3477,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "california.fresno",
+    "name": "Fresno, California",
+    "game": "ats",
+    "x": -105459.875,
+    "z": 1478.17969,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "kansas.gardencity",
+    "name": "Garden City, Kansas",
+    "game": "ats",
+    "x": -22510.5039,
+    "z": 5613.51953,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "wyoming.gillette",
+    "name": "Gillette, Wyoming",
+    "game": "ats",
+    "x": -37170.17,
+    "z": -32047.93,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "nebraska.grandisland",
+    "name": "Grand Island, Nebraska",
+    "game": "ats",
+    "x": -9371.359,
+    "z": -12173.9844,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "montana.greatfalls",
+    "name": "Great Falls, Montana",
+    "game": "ats",
+    "x": -57214.543,
+    "z": -54346.3867,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "kansas.hays",
+    "name": "Hays, Kansas",
+    "game": "ats",
+    "x": -14420.8711,
+    "z": -77.99609,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "montana.helena",
+    "name": "Helena, Montana",
+    "game": "ats",
+    "x": -61170.53,
+    "z": -48677.7461,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "texas.houston",
+    "name": "Houston, Texas",
+    "game": "ats",
+    "x": 4242.47656,
+    "z": 51143.06,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "idaho.idahofalls",
+    "name": "Idaho Falls, Idaho",
+    "game": "ats",
+    "x": -64005.0234,
+    "z": -33137.7656,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "iowa.iowacity",
+    "name": "Iowa City, Iowa",
+    "game": "ats",
+    "x": 18560.2461,
+    "z": -14995.4375,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "wyoming.jackson",
+    "name": "Jackson, Wyoming",
+    "game": "ats",
+    "x": -59975.2539,
+    "z": -30397.3281,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "missouri.jeffersonci",
+    "name": "Jefferson City, Missouri",
+    "game": "ats",
+    "x": 17107.7188,
+    "z": 1559.35156,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "arkansas.jonesboro",
+    "name": "Jonesboro, Arkansas",
+    "game": "ats",
+    "x": 24705.3711,
+    "z": 17100.7148,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "montana.kalispell",
+    "name": "Kalispell, Montana",
+    "game": "ats",
+    "x": -69019.91,
+    "z": -60973.7,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "missouri.kansascimo",
+    "name": "Kansas City, Missouri",
+    "game": "ats",
+    "x": 9160.891,
+    "z": -1621.19141,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "washington.kennewick",
+    "name": "Kennewick, Washington",
+    "game": "ats",
+    "x": -89643.84,
+    "z": -52149.41,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "missouri.kirksville",
+    "name": "Kirksville, Missouri",
+    "game": "ats",
+    "x": 15022.5234,
+    "z": -7239.80859,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "louisiana.lakecharles",
+    "name": "Lake Charles, Louisiana",
+    "game": "ats",
+    "x": 13379.0469,
+    "z": 48129.0,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "colorado.lamar",
+    "name": "Lamar, Colorado",
+    "game": "ats",
+    "x": -29303.5547,
+    "z": 3241.28516,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "texas.laredo",
+    "name": "Laredo, Texas",
+    "game": "ats",
+    "x": -16855.2773,
+    "z": 66054.89,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "newmexico.lascruces",
+    "name": "Las Cruces, New Mexico",
+    "game": "ats",
+    "x": -52157.5,
+    "z": 34729.53,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "nevada.lasvegas",
+    "name": "Las Vegas, Nevada",
+    "game": "ats",
+    "x": -85929.69,
+    "z": 6801.42969,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "oklahoma.lawton",
+    "name": "Lawton, Oklahoma",
+    "game": "ats",
+    "x": -10758.7813,
+    "z": 23783.55,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "nebraska.lincoln",
+    "name": "Lincoln, Nebraska",
+    "game": "ats",
+    "x": -5067.676,
+    "z": -9113.602,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "arkansas.littlerock",
+    "name": "Little Rock, Arkansas",
+    "game": "ats",
+    "x": 19681.1875,
+    "z": 20502.9961,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "california.losangeles",
+    "name": "Los Angeles, California",
+    "game": "ats",
+    "x": -102956.93,
+    "z": 16860.91,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "texas.lufkin",
+    "name": "Lufkin, Texas",
+    "game": "ats",
+    "x": 6835.453,
+    "z": 42380.62,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "illinois.marion",
+    "name": "Marion, Illinois",
+    "game": "ats",
+    "x": 32300.6211,
+    "z": 5622.51563,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "iowa.masoncity",
+    "name": "Mason City, Iowa",
+    "game": "ats",
+    "x": 11946.2539,
+    "z": -22922.0859,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "oklahoma.mcalester",
+    "name": "McAlester, Oklahoma",
+    "game": "ats",
+    "x": 1891.64844,
+    "z": 23045.8711,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "texas.mcallen",
+    "name": "McAllen, Texas",
+    "game": "ats",
+    "x": -12948.1328,
+    "z": 72620.7,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "oregon.medford",
+    "name": "Medford, Oregon",
+    "game": "ats",
+    "x": -110853.555,
+    "z": -35854.8477,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "montana.milescity",
+    "name": "Miles City, Montana",
+    "game": "ats",
+    "x": -39122.1445,
+    "z": -46065.7148,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "montana.missoula",
+    "name": "Missoula, Montana",
+    "game": "ats",
+    "x": -69523.09,
+    "z": -51962.1055,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "utah.moab",
+    "name": "Moab, Utah",
+    "game": "ats",
+    "x": -58799.13,
+    "z": -1987.49609,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "southdakota.mobridge",
+    "name": "Mobridge, South Dakota",
+    "game": "ats",
+    "x": -17720.9727,
+    "z": -38002.05,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "louisiana.monroe",
+    "name": "Monroe, Louisiana",
+    "game": "ats",
+    "x": 20117.04,
+    "z": 35572.4922,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "colorado.montrose",
+    "name": "Montrose, Colorado",
+    "game": "ats",
+    "x": -52749.9844,
+    "z": -1062.61328,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "louisiana.neworleans",
+    "name": "New Orleans, Louisiana",
+    "game": "ats",
+    "x": 31119.8984,
+    "z": 50939.8047,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "nebraska.northplatte",
+    "name": "North Platte, Nebraska",
+    "game": "ats",
+    "x": -19786.0156,
+    "z": -11659.8789,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "texas.odessa",
+    "name": "Odessa, Texas",
+    "game": "ats",
+    "x": -28637.3359,
+    "z": 39349.9,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "oklahoma.oklahomacit",
+    "name": "Oklahoma City, Oklahoma",
+    "game": "ats",
+    "x": -6481.996,
+    "z": 20342.4727,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "washington.olympia",
+    "name": "Olympia, Washington",
+    "game": "ats",
+    "x": -101759.375,
+    "z": -60563.4531,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "nebraska.omaha",
+    "name": "Omaha, Nebraska",
+    "game": "ats",
+    "x": -1616.92188,
+    "z": -12163.7422,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "oregon.ontario",
+    "name": "Ontario, Oregon",
+    "game": "ats",
+    "x": -84212.26,
+    "z": -37976.2,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "illinois.peoria",
+    "name": "Peoria, Illinois",
+    "game": "ats",
+    "x": 27550.5039,
+    "z": -11479.3945,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "arizona.phoenix",
+    "name": "Phoenix, Arizona",
+    "game": "ats",
+    "x": -76490.7344,
+    "z": 22844.5547,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "southdakota.pierre",
+    "name": "Pierre, South Dakota",
+    "game": "ats",
+    "x": -16881.5039,
+    "z": -31073.2578,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "arkansas.pinebluff",
+    "name": "Pine Bluff, Arkansas",
+    "game": "ats",
+    "x": 21432.1563,
+    "z": 25600.3672,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "oregon.portland",
+    "name": "Portland, Oregon",
+    "game": "ats",
+    "x": -105672.672,
+    "z": -53701.0039,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "utah.price",
+    "name": "Price, Utah",
+    "game": "ats",
+    "x": -62929.2656,
+    "z": -8808.18,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "southdakota.rapidcity",
+    "name": "Rapid City, South Dakota",
+    "game": "ats",
+    "x": -28794.6641,
+    "z": -30314.1055,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "california.redding",
+    "name": "Redding, California",
+    "game": "ats",
+    "x": -110166.0,
+    "z": -24180.6758,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "nevada.reno",
+    "name": "Reno, Nevada",
+    "game": "ats",
+    "x": -101483.219,
+    "z": -16230.4063,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "newmexico.roswell",
+    "name": "Roswell, New Mexico",
+    "game": "ats",
+    "x": -39663.32,
+    "z": 28810.5469,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "california.sacramento",
+    "name": "Sacramento, California",
+    "game": "ats",
+    "x": -112270.516,
+    "z": -14650.3008,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "oregon.salem",
+    "name": "Salem, Oregon",
+    "game": "ats",
+    "x": -106627.625,
+    "z": -49344.2852,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "kansas.salinaks",
+    "name": "Salina, Kansas",
+    "game": "ats",
+    "x": -6963.39844,
+    "z": 2085.67969,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "idaho.salmon",
+    "name": "Salmon, Idaho",
+    "game": "ats",
+    "x": -70690.98,
+    "z": -42693.0352,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "utah.saltlake",
+    "name": "Salt Lake City, Utah",
+    "game": "ats",
+    "x": -67782.42,
+    "z": -16459.0859,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "texas.sanantonio",
+    "name": "San Antonio, Texas",
+    "game": "ats",
+    "x": -10544.7891,
+    "z": 54062.79,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "california.sandiego",
+    "name": "San Diego, California",
+    "game": "ats",
+    "x": -98658.3,
+    "z": 23078.2383,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "california.sanfrancisc",
+    "name": "San Francisco, California",
+    "game": "ats",
+    "x": -115448.32,
+    "z": -8726.652,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "newmexico.santafe",
+    "name": "Santa Fe, New Mexico",
+    "game": "ats",
+    "x": -44720.8555,
+    "z": 16109.8828,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "nebraska.scottsbluff",
+    "name": "Scottsbluff, Nebraska",
+    "game": "ats",
+    "x": -31607.61,
+    "z": -18536.7,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "washington.seattle",
+    "name": "Seattle, Washington",
+    "game": "ats",
+    "x": -98627.9141,
+    "z": -61643.5664,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "louisiana.shreveport",
+    "name": "Shreveport, Louisiana",
+    "game": "ats",
+    "x": 11779.9688,
+    "z": 34551.76,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "iowa.siouxcity",
+    "name": "Sioux City, Iowa",
+    "game": "ats",
+    "x": -1142.56641,
+    "z": -18074.6484,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "southdakota.siouxfalls",
+    "name": "Sioux Falls, South Dakota",
+    "game": "ats",
+    "x": -4397.09375,
+    "z": -25243.3242,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "washington.spokane",
+    "name": "Spokane, Washington",
+    "game": "ats",
+    "x": -80149.26,
+    "z": -59198.78,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "illinois.springfieil",
+    "name": "Springfield, Illinois",
+    "game": "ats",
+    "x": 27976.8789,
+    "z": -5147.535,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "missouri.springfield",
+    "name": "Springfield, Missouri",
+    "game": "ats",
+    "x": 13375.6563,
+    "z": 9225.223,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "utah.stgeorge",
+    "name": "St. George, Utah",
+    "game": "ats",
+    "x": -78447.4453,
+    "z": 3964.26563,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "missouri.stlouis",
+    "name": "St. Louis, Missouri",
+    "game": "ats",
+    "x": 25544.6367,
+    "z": 3319.29688,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "colorado.steamboatsp",
+    "name": "Steamboat Springs, Colorado",
+    "game": "ats",
+    "x": -46784.12,
+    "z": -11690.75,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "colorado.sterling",
+    "name": "Sterling, Colorado",
+    "game": "ats",
+    "x": -31640.1133,
+    "z": -10062.6367,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "texas.texarkana",
+    "name": "Texarkana, Texas",
+    "game": "ats",
+    "x": 8716.598,
+    "z": 31438.9258,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "kansas.topeka",
+    "name": "Topeka, Kansas",
+    "game": "ats",
+    "x": 934.0156,
+    "z": 525.207031,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "arizona.tucson",
+    "name": "Tucson, Arizona",
+    "game": "ats",
+    "x": -71468.59,
+    "z": 31636.418,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "oklahoma.tulsa",
+    "name": "Tulsa, Oklahoma",
+    "game": "ats",
+    "x": -1190.29688,
+    "z": 15888.1914,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "idaho.twinfalls",
+    "name": "Twin Falls, Idaho",
+    "game": "ats",
+    "x": -75181.63,
+    "z": -27773.0117,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "utah.vernal",
+    "name": "Vernal, Utah",
+    "game": "ats",
+    "x": -57173.41,
+    "z": -13195.5352,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "southdakota.watertown",
+    "name": "Watertown, South Dakota",
+    "game": "ats",
+    "x": -5539.492,
+    "z": -33552.0664,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "washington.wenatchee",
+    "name": "Wenatchee, Washington",
+    "game": "ats",
+    "x": -92644.94,
+    "z": -60637.8633,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "kansas.wichita",
+    "name": "Wichita, Kansas",
+    "game": "ats",
+    "x": -5908.64453,
+    "z": 5905.621,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "oklahoma.woodward",
+    "name": "Woodward, Oklahoma",
+    "game": "ats",
+    "x": -16641.4336,
+    "z": 13870.0547,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "arizona.yuma",
+    "name": "Yuma, Arizona",
+    "game": "ats",
+    "x": -88081.56,
+    "z": 26441.6953,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "spain.acoruna",
+    "name": "A Coruña, Spain",
+    "game": "ets2",
+    "x": -83861.375,
+    "z": 27097.9766,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "denmark.aalborg",
+    "name": "Aalborg, Denmark",
+    "game": "ets2",
+    "x": 926.8906,
+    "z": -36099.47,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "denmark.aarhus",
+    "name": "Aarhus, Danmark",
+    "game": "ets2",
+    "x": 1390.74609,
+    "z": -31499.18,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "unitedkingdom.aberdeen",
+    "name": "Aberdeen, United Kingdom",
+    "game": "ets2",
+    "x": -38941.7656,
+    "z": -54842.96,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.ajaccio",
+    "name": "Ajaccio, France",
+    "game": "ets2",
+    "x": -10321.0352,
+    "z": 48462.4766,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "iceland.akureyri",
+    "name": "Akureyri, Iceland",
+    "game": "ets2",
+    "x": -61389.9063,
+    "z": -104437.25,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "spain.albacete",
+    "name": "Albacete, Spain",
+    "game": "ets2",
+    "x": -59083.3555,
+    "z": 57993.11,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "spain.algeciras",
+    "name": "Algeciras, Spain",
+    "game": "ets2",
+    "x": -80415.63,
+    "z": 69330.42,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "spain.almeria",
+    "name": "Almería, Spain",
+    "game": "ets2",
+    "x": -62476.7148,
+    "z": 70259.95,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "netherlands.amsterdam",
+    "name": "Amsterdam, Netherlands",
+    "game": "ets2",
+    "x": -19167.418,
+    "z": -12122.1211,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.ancona",
+    "name": "Ancona, Italy",
+    "game": "ets2",
+    "x": 10230.2813,
+    "z": 40054.3945,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "greece.athens",
+    "name": "Athens, Greece",
+    "game": "ets2",
+    "x": 55366.2031,
+    "z": 69194.375,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "bosnia.banjaluka",
+    "name": "Banja Luka, Bosnia and Herzegovina",
+    "game": "ets2",
+    "x": 26171.79,
+    "z": 32935.5352,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "slovakia.banskabystrica",
+    "name": "Banská Bystrica, Slovakia",
+    "game": "ets2",
+    "x": 32773.34,
+    "z": 10736.3906,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "spain.barcelona",
+    "name": "Barcelona, Spain",
+    "game": "ets2",
+    "x": -39057.582,
+    "z": 48237.6133,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.bari",
+    "name": "Bari, Italy",
+    "game": "ets2",
+    "x": 23855.0156,
+    "z": 55132.9648,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.bastia",
+    "name": "Bastia, France",
+    "game": "ets2",
+    "x": -7263.05469,
+    "z": 44088.7461,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "serbia.beograd",
+    "name": "Belgrade, Serbia",
+    "game": "ets2",
+    "x": 39181.8633,
+    "z": 31634.9336,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "norway.bergen",
+    "name": "Bergen, Norway",
+    "game": "ets2",
+    "x": -10467.3555,
+    "z": -56021.6,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.berlin",
+    "name": "Berlin, Germany",
+    "game": "ets2",
+    "x": 10370.1094,
+    "z": -9117.68,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "switzerland.bern",
+    "name": "Bern, Switzerland",
+    "game": "ets2",
+    "x": -12754.9961,
+    "z": 20198.3516,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "poland.bialystok",
+    "name": "Białystok, Poland",
+    "game": "ets2",
+    "x": 43861.98,
+    "z": -15181.6133,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "spain.bilbao",
+    "name": "Bilbao, Spain",
+    "game": "ets2",
+    "x": -57469.4023,
+    "z": 34050.08,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "unitedkingdom.birmingham",
+    "name": "Birmingham, United Kingdom",
+    "game": "ets2",
+    "x": -46069.99,
+    "z": -20207.5234,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "norway.bodo",
+    "name": "Bodø, Norge",
+    "game": "ets2",
+    "x": 15095.5117,
+    "z": -94384.375,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.bologna",
+    "name": "Bologna, Italy",
+    "game": "ets2",
+    "x": 3464.375,
+    "z": 35240.0,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.bordeaux",
+    "name": "Bordeaux, France",
+    "game": "ets2",
+    "x": -47175.3047,
+    "z": 26643.96,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "slovakia.bratislava",
+    "name": "Bratislava, Slovakia",
+    "game": "ets2",
+    "x": 24944.2422,
+    "z": 14735.1914,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "romania.brasov",
+    "name": "Brașov, Romania",
+    "game": "ets2",
+    "x": 58137.8867,
+    "z": 23568.6563,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.bremen",
+    "name": "Bremen, Germany",
+    "game": "ets2",
+    "x": -5637.953,
+    "z": -14603.41,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.brest",
+    "name": "Brest, France",
+    "game": "ets2",
+    "x": -56891.07,
+    "z": 3986.64063,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "czechrepublic.brno",
+    "name": "Brno, Czech Republic",
+    "game": "ets2",
+    "x": 21991.8438,
+    "z": 10030.207,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "belgium.brussel",
+    "name": "Brussel, Belgium",
+    "game": "ets2",
+    "x": -22208.54,
+    "z": -2505.039,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "romania.bucuresti",
+    "name": "București, Romania",
+    "game": "ets2",
+    "x": 61462.3828,
+    "z": 30055.4023,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "hungary.budapest",
+    "name": "Budapest, Hungary",
+    "game": "ets2",
+    "x": 32627.96,
+    "z": 17537.9063,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "bulgaria.burgas",
+    "name": "Burgas, Bulgaria",
+    "game": "ets2",
+    "x": 68787.58,
+    "z": 40993.1445,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "spain.burgos",
+    "name": "Burgos, Spain",
+    "game": "ets2",
+    "x": -61999.7539,
+    "z": 37260.77,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.cagliari",
+    "name": "Cagliari, Italy",
+    "game": "ets2",
+    "x": -10024.7578,
+    "z": 63594.082,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.calais",
+    "name": "Calais, France",
+    "game": "ets2",
+    "x": -30146.1758,
+    "z": -4763.47656,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.calvi",
+    "name": "Calvi, France",
+    "game": "ets2",
+    "x": -10242.7383,
+    "z": 45788.2461,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "unitedkingdom.cambridge",
+    "name": "Cambridge, United Kingdom",
+    "game": "ets2",
+    "x": -36738.04,
+    "z": -16226.7539,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "unitedkingdom.cardiff",
+    "name": "Cardiff, United Kingdom",
+    "game": "ets2",
+    "x": -53814.5625,
+    "z": -14532.7188,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "unitedkingdom.carlisle",
+    "name": "Carlisle, United Kingdom",
+    "game": "ets2",
+    "x": -45697.05,
+    "z": -39566.72,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.catania",
+    "name": "Catania, Italy",
+    "game": "ets2",
+    "x": 16548.18,
+    "z": 76008.24,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.catanzaro",
+    "name": "Catanzaro, Italy",
+    "game": "ets2",
+    "x": 23904.8125,
+    "z": 67176.03,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.clermont-ferrand",
+    "name": "Clermont-Ferrand, France",
+    "game": "ets2",
+    "x": -30261.0586,
+    "z": 24653.543,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "romania.cluj-napoca",
+    "name": "Cluj-Napoca, Romania",
+    "game": "ets2",
+    "x": 51089.1445,
+    "z": 19167.3438,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "portugal.coimbra",
+    "name": "Coimbra, Portugal",
+    "game": "ets2",
+    "x": -86596.82,
+    "z": 44326.92,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "romania.constanta",
+    "name": "Constanța, Romania",
+    "game": "ets2",
+    "x": 71707.5,
+    "z": 30792.3867,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "romania.craiova",
+    "name": "Craiova, Romania",
+    "game": "ets2",
+    "x": 52290.2734,
+    "z": 32574.5547,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "spain.cordoba",
+    "name": "Córdoba, Spain",
+    "game": "ets2",
+    "x": -74286.92,
+    "z": 61992.78,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "latvia.daugavpils",
+    "name": "Daugavpils, Latvia",
+    "game": "ets2",
+    "x": 53353.03,
+    "z": -31404.46,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "hungary.debrecen",
+    "name": "Debrecen, Hungary",
+    "game": "ets2",
+    "x": 41688.0977,
+    "z": 17919.2422,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.dijon",
+    "name": "Dijon, France",
+    "game": "ets2",
+    "x": -22553.6758,
+    "z": 16436.23,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.dortmund",
+    "name": "Dortmund, Germany",
+    "game": "ets2",
+    "x": -10589.6563,
+    "z": -6046.85156,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "unitedkingdom.dover",
+    "name": "Dover, United Kingdom",
+    "game": "ets2",
+    "x": -33404.1055,
+    "z": -7392.28125,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.dresden",
+    "name": "Dresden, Germany",
+    "game": "ets2",
+    "x": 12145.4219,
+    "z": -1926.86328,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.duisburg",
+    "name": "Duisburg, Germany",
+    "game": "ets2",
+    "x": -14102.1563,
+    "z": -7025.35938,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.dusseldorf",
+    "name": "Düsseldorf, Germany",
+    "game": "ets2",
+    "x": -12509.2227,
+    "z": -4252.703,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "unitedkingdom.edinburgh",
+    "name": "Edinburgh, United Kingdom",
+    "game": "ets2",
+    "x": -44824.793,
+    "z": -46871.6953,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "turkey.edirne",
+    "name": "Edirne, Turkey",
+    "game": "ets2",
+    "x": 65082.99,
+    "z": 46979.418,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "iceland.egilsstadir",
+    "name": "Egilsstaðir, Iceland",
+    "game": "ets2",
+    "x": -54474.81,
+    "z": -97351.06,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.erfurt",
+    "name": "Erfurt, Germany",
+    "game": "ets2",
+    "x": 2692.85156,
+    "z": -2976.43359,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "unitedkingdom.felixstowe",
+    "name": "Felixstowe, United Kingdom",
+    "game": "ets2",
+    "x": -31516.9258,
+    "z": -14008.7266,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.firenze",
+    "name": "Firenze, Italy",
+    "game": "ets2",
+    "x": 1177.72266,
+    "z": 38808.19,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.frankfurtammain",
+    "name": "Frankfurt am Main, Germany",
+    "game": "ets2",
+    "x": -5111.69141,
+    "z": 2733.60547,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "romania.galati",
+    "name": "Galați, Romania",
+    "game": "ets2",
+    "x": 67362.3,
+    "z": 24088.1719,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "poland.gdansk",
+    "name": "Gdańsk, Poland",
+    "game": "ets2",
+    "x": 28173.2148,
+    "z": -20813.6836,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.genova",
+    "name": "Genova, Italy",
+    "game": "ets2",
+    "x": -8815.449,
+    "z": 35293.9336,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "switzerland.geneve",
+    "name": "Genève, Switzerland",
+    "game": "ets2",
+    "x": -17817.0117,
+    "z": 24146.2539,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "unitedkingdom.glasgow",
+    "name": "Glasgow, United Kingdom",
+    "game": "ets2",
+    "x": -50253.16,
+    "z": -48352.34,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "austria.graz",
+    "name": "Graz, Austria",
+    "game": "ets2",
+    "x": 18022.39,
+    "z": 21411.8477,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "unitedkingdom.grimsby",
+    "name": "Grimsby, United Kingdom",
+    "game": "ets2",
+    "x": -36424.6172,
+    "z": -26835.2656,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "netherlands.groningen",
+    "name": "Groningen, Netherlands",
+    "game": "ets2",
+    "x": -12348.0313,
+    "z": -15942.9727,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "sweden.goteborg",
+    "name": "Göteborg, Sweden",
+    "game": "ets2",
+    "x": 8323.594,
+    "z": -39672.58,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.hamburg",
+    "name": "Hamburg, Germany",
+    "game": "ets2",
+    "x": -1087.57031,
+    "z": -16718.8555,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.hannover",
+    "name": "Hannover, Germany",
+    "game": "ets2",
+    "x": -95.83984,
+    "z": -8907.832,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "sweden.helsingborg",
+    "name": "Helsingborg, Sweden",
+    "game": "ets2",
+    "x": 9316.582,
+    "z": -30148.582,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "finland.helsinki",
+    "name": "Helsinki, Finland",
+    "game": "ets2",
+    "x": 43451.76,
+    "z": -56319.168,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "romania.iasi",
+    "name": "Iași, Romania",
+    "game": "ets2",
+    "x": 65607.41,
+    "z": 15718.0859,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "austria.innsbruck",
+    "name": "Innsbruck, Austria",
+    "game": "ets2",
+    "x": 3043.78125,
+    "z": 19395.1758,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "turkey.istanbul",
+    "name": "İstanbul, Turkey",
+    "game": "ets2",
+    "x": 74005.2344,
+    "z": 46942.81,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "finland.jyvaskyla",
+    "name": "Jyväskylä, Suomi",
+    "game": "ets2",
+    "x": 44452.67,
+    "z": -66706.31,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "sweden.jonkoping",
+    "name": "Jönköping, Sweden",
+    "game": "ets2",
+    "x": 14268.7188,
+    "z": -39636.01,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "greece.kalamata",
+    "name": "Kalamata, Greece",
+    "game": "ets2",
+    "x": 51462.4727,
+    "z": 76437.98,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "russia.kaliningrad",
+    "name": "Kaliningrad, Russia",
+    "game": "ets2",
+    "x": 34841.67,
+    "z": -22031.9141,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "sweden.kalmar",
+    "name": "Kalmar, Sweden",
+    "game": "ets2",
+    "x": 20247.1953,
+    "z": -34046.3828,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "sweden.karlskrona",
+    "name": "Karlskrona, Sweden",
+    "game": "ets2",
+    "x": 17092.2852,
+    "z": -31071.9648,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "sweden.karlstad",
+    "name": "Karlstad, Sverige",
+    "game": "ets2",
+    "x": 13760.77,
+    "z": -47920.6836,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.kassel",
+    "name": "Kassel, Germany",
+    "game": "ets2",
+    "x": -3766.73828,
+    "z": -4166.582,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "poland.katowice",
+    "name": "Katowice, Poland",
+    "game": "ets2",
+    "x": 30783.0586,
+    "z": 2492.73438,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "lithuania.kaunas",
+    "name": "Kaunas, Lithuania",
+    "game": "ets2",
+    "x": 46359.36,
+    "z": -25021.6836,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.kiel",
+    "name": "Kiel, Germany",
+    "game": "ets2",
+    "x": 1173.85547,
+    "z": -21717.2422,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "austria.klagenfurtamworthersee",
+    "name": "Klagenfurt am Wörthersee, Austria",
+    "game": "ets2",
+    "x": 14010.0,
+    "z": 23567.6172,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "lithuania.klaipeda",
+    "name": "Klaipėda, Lithuania",
+    "game": "ets2",
+    "x": 36755.4375,
+    "z": -29088.9961,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "finland.kotka",
+    "name": "Kotka, Finland",
+    "game": "ets2",
+    "x": 50351.2344,
+    "z": -58534.3828,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "finland.kouvola",
+    "name": "Kouvola, Finland",
+    "game": "ets2",
+    "x": 49022.9453,
+    "z": -60413.3242,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "slovakia.kosice",
+    "name": "Košice, Slovakia",
+    "game": "ets2",
+    "x": 39672.32,
+    "z": 10365.9688,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "serbia.kragujevac",
+    "name": "Kragujevac, Serbia",
+    "game": "ets2",
+    "x": 41583.0469,
+    "z": 36303.15,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "poland.krakow",
+    "name": "Kraków, Poland",
+    "game": "ets2",
+    "x": 34627.7148,
+    "z": 2999.41016,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "norway.kristiansand",
+    "name": "Kristiansand, Norway",
+    "game": "ets2",
+    "x": -5551.60156,
+    "z": -42743.02,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "finland.kuopio",
+    "name": "Kuopio, Suomi",
+    "game": "ets2",
+    "x": 48600.8359,
+    "z": -71279.0,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.koln",
+    "name": "Köln, Germany",
+    "game": "ets2",
+    "x": -11920.6719,
+    "z": -1855.77734,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "denmark.kobenhavn",
+    "name": "København, Denmark",
+    "game": "ets2",
+    "x": 8683.641,
+    "z": -28489.4258,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.larochelle",
+    "name": "La Rochelle, France",
+    "game": "ets2",
+    "x": -46407.63,
+    "z": 18899.3477,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "finland.lahti",
+    "name": "Lahti, Finland",
+    "game": "ets2",
+    "x": 45755.8828,
+    "z": -60282.05,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "greece.lamia",
+    "name": "Lamia, Greece",
+    "game": "ets2",
+    "x": 50075.7578,
+    "z": 66088.69,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.lehavre",
+    "name": "Le Havre, France",
+    "game": "ets2",
+    "x": -36906.8555,
+    "z": 1518.39063,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.lemans",
+    "name": "Le Mans, France",
+    "game": "ets2",
+    "x": -39781.71,
+    "z": 9953.773,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.leipzig",
+    "name": "Leipzig, Germany",
+    "game": "ets2",
+    "x": 7103.633,
+    "z": -3525.94922,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "latvia.liepaja",
+    "name": "Liepāja, Latvia",
+    "game": "ets2",
+    "x": 35696.0078,
+    "z": -33803.8359,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.lille",
+    "name": "Lille, France",
+    "game": "ets2",
+    "x": -26402.6836,
+    "z": -2134.76953,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.limoges",
+    "name": "Limoges, France",
+    "game": "ets2",
+    "x": -37603.8477,
+    "z": 23818.6758,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "sweden.linkoping",
+    "name": "Linköping, Sweden",
+    "game": "ets2",
+    "x": 18339.57,
+    "z": -43199.3945,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "austria.linz",
+    "name": "Linz, Austria",
+    "game": "ets2",
+    "x": 14470.3477,
+    "z": 14991.9727,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "portugal.lisboa",
+    "name": "Lisboa, Portugal",
+    "game": "ets2",
+    "x": -90037.125,
+    "z": 53184.9766,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "unitedkingdom.liverpool",
+    "name": "Liverpool, United Kingdom",
+    "game": "ets2",
+    "x": -48628.9258,
+    "z": -28575.6758,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.livorno",
+    "name": "Livorno, Italy",
+    "game": "ets2",
+    "x": -2179.04688,
+    "z": 40170.0039,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "belgium.liege",
+    "name": "Liège, Belgium",
+    "game": "ets2",
+    "x": -17152.82,
+    "z": -1243.06641,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "slovenia.ljubljana",
+    "name": "Ljubljana, Slovenia",
+    "game": "ets2",
+    "x": 15755.5508,
+    "z": 25854.5547,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "unitedkingdom.london",
+    "name": "London, United Kingdom",
+    "game": "ets2",
+    "x": -39058.8828,
+    "z": -11668.1211,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "poland.lublin",
+    "name": "Lublin, Poland",
+    "game": "ets2",
+    "x": 43014.12,
+    "z": -4177.59,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "russia.luga",
+    "name": "Luga, Russia",
+    "game": "ets2",
+    "x": 60482.42,
+    "z": -49880.84,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "sweden.lulea",
+    "name": "Lulea, Sverige",
+    "game": "ets2",
+    "x": 32323.0586,
+    "z": -86622.58,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "luxembourg.luxembourg",
+    "name": "Luxembourg, Luxembourg",
+    "game": "ets2",
+    "x": -16426.0352,
+    "z": 3353.914,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.lyon",
+    "name": "Lyon, France",
+    "game": "ets2",
+    "x": -22204.91,
+    "z": 25803.2813,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "spain.madrid",
+    "name": "Madrid, Spain",
+    "game": "ets2",
+    "x": -65925.09,
+    "z": 51347.06,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.magdeburg",
+    "name": "Magdeburg, Germany",
+    "game": "ets2",
+    "x": 4306.30859,
+    "z": -8476.387,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "sweden.malmo",
+    "name": "Malmö, Sweden",
+    "game": "ets2",
+    "x": 11083.77,
+    "z": -27138.2031,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "unitedkingdom.manchester",
+    "name": "Manchester, United Kingdom",
+    "game": "ets2",
+    "x": -45312.1,
+    "z": -27787.79,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.mannheim",
+    "name": "Mannheim, Germany",
+    "game": "ets2",
+    "x": -7873.621,
+    "z": 6890.31641,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "slovenia.maribor",
+    "name": "Maribor, Slovenia",
+    "game": "ets2",
+    "x": 19254.2969,
+    "z": 23578.3438,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.marseille",
+    "name": "Marseille, France",
+    "game": "ets2",
+    "x": -23131.0859,
+    "z": 39186.77,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.messina",
+    "name": "Messina, Italy",
+    "game": "ets2",
+    "x": 18713.2656,
+    "z": 70897.42,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.metz",
+    "name": "Metz, France",
+    "game": "ets2",
+    "x": -16241.0352,
+    "z": 7467.69141,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.milano",
+    "name": "Milano, Italy",
+    "game": "ets2",
+    "x": -6574.30859,
+    "z": 29373.7461,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.montpellier",
+    "name": "Montpellier, France",
+    "game": "ets2",
+    "x": -29663.0547,
+    "z": 35849.1758,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "spain.murcia",
+    "name": "Murcia, Spain",
+    "game": "ets2",
+    "x": -56178.25,
+    "z": 63960.1,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "spain.malaga",
+    "name": "Málaga, Spain",
+    "game": "ets2",
+    "x": -74794.67,
+    "z": 67117.7,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.munchen",
+    "name": "München, Germany",
+    "game": "ets2",
+    "x": 2441.57422,
+    "z": 13190.0391,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.nantes",
+    "name": "Nantes, France",
+    "game": "ets2",
+    "x": -48386.2031,
+    "z": 12868.9414,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.napoli",
+    "name": "Napoli, Italy",
+    "game": "ets2",
+    "x": 13421.2773,
+    "z": 56629.7148,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "unitedkingdom.newcastle-upon-tyne",
+    "name": "Newcastle-upon-Tyne, United Kingdom",
+    "game": "ets2",
+    "x": -39807.06,
+    "z": -38560.1563,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.nice",
+    "name": "Nice, France",
+    "game": "ets2",
+    "x": -16149.8633,
+    "z": 37115.332,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "serbia.novisad",
+    "name": "Novi Sad, Serbia",
+    "game": "ets2",
+    "x": 36270.9336,
+    "z": 28704.8438,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.nurnberg",
+    "name": "Nürnberg, Germany",
+    "game": "ets2",
+    "x": 1665.66406,
+    "z": 6508.85938,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "denmark.odense",
+    "name": "Odense, Denmark",
+    "game": "ets2",
+    "x": 1288.69922,
+    "z": -26517.9023,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.olbia",
+    "name": "Olbia, Italy",
+    "game": "ets2",
+    "x": -7288.22656,
+    "z": 55389.8633,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "poland.olsztyn",
+    "name": "Olsztyn, Poland",
+    "game": "ets2",
+    "x": 34945.2422,
+    "z": -17717.668,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "norway.oslo",
+    "name": "Oslo, Norway",
+    "game": "ets2",
+    "x": 4902.07031,
+    "z": -51866.59,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.osnabruck",
+    "name": "Osnabrück, Germany",
+    "game": "ets2",
+    "x": -8360.141,
+    "z": -9462.551,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "czechrepublic.ostrava",
+    "name": "Ostrava, Czech Republic",
+    "game": "ets2",
+    "x": 27991.02,
+    "z": 5104.10938,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "finland.oulu",
+    "name": "Oulu, Suomi",
+    "game": "ets2",
+    "x": 41229.9531,
+    "z": -81883.0,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.palermo",
+    "name": "Palermo, Italy",
+    "game": "ets2",
+    "x": 8928.906,
+    "z": 71221.91,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "lithuania.panevezys",
+    "name": "Panevėžys, Lithuania",
+    "game": "ets2",
+    "x": 46911.4023,
+    "z": -31017.8633,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.paris",
+    "name": "Paris, France",
+    "game": "ets2",
+    "x": -31927.1367,
+    "z": 4850.14063,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "greece.patras",
+    "name": "Patras, Greece",
+    "game": "ets2",
+    "x": 46612.793,
+    "z": 71839.85,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.pescara",
+    "name": "Pescara, Italy",
+    "game": "ets2",
+    "x": 12701.668,
+    "z": 46831.75,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "romania.pitesti",
+    "name": "Pitești, Romania",
+    "game": "ets2",
+    "x": 56236.7422,
+    "z": 29823.1875,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "bulgaria.pleven",
+    "name": "Pleven, Bulgaria",
+    "game": "ets2",
+    "x": 58084.03,
+    "z": 37267.2227,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "bulgaria.plovdiv",
+    "name": "Plovdiv, Bulgaria",
+    "game": "ets2",
+    "x": 58382.5977,
+    "z": 47041.74,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "unitedkingdom.plymouth",
+    "name": "Plymouth, United Kingdom",
+    "game": "ets2",
+    "x": -60238.5039,
+    "z": -7801.5,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "montenegro.podgorica",
+    "name": "Podgorica, Montenegro",
+    "game": "ets2",
+    "x": 34731.0859,
+    "z": 46065.7773,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "finland.pori",
+    "name": "Pori, Finland",
+    "game": "ets2",
+    "x": 34664.26,
+    "z": -61734.57,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "portugal.porto",
+    "name": "Porto, Portugal",
+    "game": "ets2",
+    "x": -85436.625,
+    "z": 36023.5664,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "poland.poznan",
+    "name": "Poznań, Poland",
+    "game": "ets2",
+    "x": 23065.48,
+    "z": -9189.293,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "czechrepublic.praha",
+    "name": "Praha, Czech Republic",
+    "game": "ets2",
+    "x": 14473.3711,
+    "z": 3611.86328,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "kosovo.pristina",
+    "name": "Pristina, Kosovo",
+    "game": "ets2",
+    "x": 42405.9258,
+    "z": 43747.77,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "russia.pskov",
+    "name": "Pskov, Russia",
+    "game": "ets2",
+    "x": 56186.2422,
+    "z": -44517.7969,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "estonia.parnu",
+    "name": "Pärnu, Estonia",
+    "game": "ets2",
+    "x": 44276.332,
+    "z": -45480.5039,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "hungary.pecs",
+    "name": "Pécs, Hungary",
+    "game": "ets2",
+    "x": 29034.7461,
+    "z": 26135.5,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.reims",
+    "name": "Reims, France",
+    "game": "ets2",
+    "x": -24025.1133,
+    "z": 6351.8125,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.rennes",
+    "name": "Rennes, France",
+    "game": "ets2",
+    "x": -46167.3945,
+    "z": 8658.672,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "iceland.reykjavik",
+    "name": "Reykjavík, Iceland",
+    "game": "ets2",
+    "x": -72569.13,
+    "z": -99078.21,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "croatia.rijeka",
+    "name": "Rijeka, Croatia",
+    "game": "ets2",
+    "x": 16036.0938,
+    "z": 30117.2578,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.roma",
+    "name": "Roma, Italy",
+    "game": "ets2",
+    "x": 6611.508,
+    "z": 50071.918,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.rostock",
+    "name": "Rostock, Germany",
+    "game": "ets2",
+    "x": 7335.26563,
+    "z": -18802.4961,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "netherlands.rotterdam",
+    "name": "Rotterdam, Netherlands",
+    "game": "ets2",
+    "x": -18412.1523,
+    "z": -9644.645,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "finland.rovaniemi",
+    "name": "Rovaniemi, Suomi",
+    "game": "ets2",
+    "x": 39888.7344,
+    "z": -90730.34,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "bulgaria.ruse",
+    "name": "Ruse, Bulgaria",
+    "game": "ets2",
+    "x": 60857.6328,
+    "z": 35402.47,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "latvia.rezekne",
+    "name": "Rēzekne, Latvia",
+    "game": "ets2",
+    "x": 55370.45,
+    "z": -35534.76,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "latvia.riga",
+    "name": "Rīga, Latvia",
+    "game": "ets2",
+    "x": 44916.2734,
+    "z": -36997.46,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "russia.saintpetersburg",
+    "name": "Saint Petersburg, Russia",
+    "game": "ets2",
+    "x": 61209.5547,
+    "z": -56641.31,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "spain.salamanca",
+    "name": "Salamanca, Spain",
+    "game": "ets2",
+    "x": -73210.2344,
+    "z": 44267.47,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "austria.salzburg",
+    "name": "Salzburg, Austria",
+    "game": "ets2",
+    "x": 9632.98,
+    "z": 14749.4961,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "bosnia.sarajevo",
+    "name": "Sarajevo, Bosnia and Herzegovina",
+    "game": "ets2",
+    "x": 30001.9414,
+    "z": 37798.52,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.sassari",
+    "name": "Sassari, Italy",
+    "game": "ets2",
+    "x": -10880.8633,
+    "z": 55372.2,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "spain.sevilla",
+    "name": "Sevilla, Spain",
+    "game": "ets2",
+    "x": -78117.26,
+    "z": 63156.0664,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "unitedkingdom.sheffield",
+    "name": "Sheffield, United Kingdom",
+    "game": "ets2",
+    "x": -42925.2227,
+    "z": -26573.11,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "northmacedonia.skopje",
+    "name": "Skopje, North Macedonia",
+    "game": "ets2",
+    "x": 45736.13,
+    "z": 47273.9766,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "bulgaria.sofia",
+    "name": "Sofia, Bulgaria",
+    "game": "ets2",
+    "x": 51487.28,
+    "z": 44086.8945,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "unitedkingdom.southampton",
+    "name": "Southampton, United Kingdom",
+    "game": "ets2",
+    "x": -46519.9,
+    "z": -7632.09,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "croatia.split",
+    "name": "Split, Croatia",
+    "game": "ets2",
+    "x": 23530.293,
+    "z": 38979.0234,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "norway.stavanger",
+    "name": "Stavanger, Norway",
+    "game": "ets2",
+    "x": -10672.27,
+    "z": -48033.2148,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "sweden.stockholm",
+    "name": "Stockholm, Sweden",
+    "game": "ets2",
+    "x": 24695.8984,
+    "z": -48052.14,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.strasbourg",
+    "name": "Strasbourg, France",
+    "game": "ets2",
+    "x": -11040.6836,
+    "z": 11572.3867,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "germany.stuttgart",
+    "name": "Stuttgart, Germany",
+    "game": "ets2",
+    "x": -5315.80469,
+    "z": 10532.5977,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "unitedkingdom.swansea",
+    "name": "Swansea, United Kingdom",
+    "game": "ets2",
+    "x": -56766.0078,
+    "z": -16899.0313,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "poland.szczecin",
+    "name": "Szczecin, Poland",
+    "game": "ets2",
+    "x": 15032.582,
+    "z": -14933.457,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "hungary.szeged",
+    "name": "Szeged, Hungary",
+    "game": "ets2",
+    "x": 36855.1875,
+    "z": 24886.1484,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "estonia.tallinn",
+    "name": "Tallinn, Estonia",
+    "game": "ets2",
+    "x": 46205.9336,
+    "z": -51407.0859,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "finland.tampere",
+    "name": "Tampere, Finland",
+    "game": "ets2",
+    "x": 39021.1367,
+    "z": -62912.3125,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.taranto",
+    "name": "Taranto, Italy",
+    "game": "ets2",
+    "x": 25837.11,
+    "z": 57937.6328,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "estonia.tartu",
+    "name": "Tartu, Estonia",
+    "game": "ets2",
+    "x": 51480.49,
+    "z": -45718.03,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "turkey.tekirdag",
+    "name": "Tekirdağ, Turkey",
+    "game": "ets2",
+    "x": 68196.3047,
+    "z": 49762.52,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "greece.thessaloniki",
+    "name": "Thessaloniki, Greece",
+    "game": "ets2",
+    "x": 52156.5,
+    "z": 55612.543,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "romania.timisoara",
+    "name": "Timișoara, Romania",
+    "game": "ets2",
+    "x": 42200.4531,
+    "z": 27447.2266,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "albania.tirana",
+    "name": "Tirana, Albania",
+    "game": "ets2",
+    "x": 37925.64,
+    "z": 50765.3,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.torino",
+    "name": "Torino, Italy",
+    "game": "ets2",
+    "x": -13140.043,
+    "z": 31277.7578,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "france.toulouse",
+    "name": "Toulouse, France",
+    "game": "ets2",
+    "x": -38847.7227,
+    "z": 35626.5469,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "norway.tromso",
+    "name": "Tromsø, Norge",
+    "game": "ets2",
+    "x": 25405.8438,
+    "z": -110718.2,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "norway.trondheim",
+    "name": "Trondheim, Norge",
+    "game": "ets2",
+    "x": 3844.75,
+    "z": -72659.6641,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "finland.turku",
+    "name": "Turku, Finland",
+    "game": "ets2",
+    "x": 37737.7344,
+    "z": -56581.7969,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "romania.targumures",
+    "name": "Târgu Mureș, Romania",
+    "game": "ets2",
+    "x": 53694.4141,
+    "z": 20316.7578,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "sweden.umea",
+    "name": "Umeå, Sverige",
+    "game": "ets2",
+    "x": 29262.918,
+    "z": -75910.13,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "sweden.uppsala",
+    "name": "Uppsala, Sweden",
+    "game": "ets2",
+    "x": 23924.7852,
+    "z": -51536.81,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "spain.valladolid",
+    "name": "Valladolid, Spain",
+    "game": "ets2",
+    "x": -66757.14,
+    "z": 40879.0664,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "latvia.valmiera",
+    "name": "Valmiera, Latvia",
+    "game": "ets2",
+    "x": 48009.4063,
+    "z": -40915.14,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "spain.valencia",
+    "name": "València, Spain",
+    "game": "ets2",
+    "x": -53356.2031,
+    "z": 56293.6523,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "bulgaria.varna",
+    "name": "Varna, Bulgaria",
+    "game": "ets2",
+    "x": 70305.22,
+    "z": 35670.0039,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.venezia",
+    "name": "Venezia, Italy",
+    "game": "ets2",
+    "x": 4792.51953,
+    "z": 30032.1172,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "italy.verona",
+    "name": "Verona, Italy",
+    "game": "ets2",
+    "x": -216.773438,
+    "z": 29616.1836,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "spain.vigo",
+    "name": "Vigo, Spain",
+    "game": "ets2",
+    "x": -82576.75,
+    "z": 33496.49,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "lithuania.vilnius",
+    "name": "Vilnius, Lithuania",
+    "game": "ets2",
+    "x": 49639.9922,
+    "z": -24273.1641,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "sweden.vasteras",
+    "name": "Västerås, Sweden",
+    "game": "ets2",
+    "x": 21183.2656,
+    "z": -50516.3359,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "sweden.vaxjo",
+    "name": "Växjö, Sweden",
+    "game": "ets2",
+    "x": 16079.582,
+    "z": -35082.75,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "poland.warszawa",
+    "name": "Warszawa, Poland",
+    "game": "ets2",
+    "x": 36944.2,
+    "z": -9532.0,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "austria.wien",
+    "name": "Wien, Austria",
+    "game": "ets2",
+    "x": 21220.8164,
+    "z": 16975.8164,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "poland.wroclaw",
+    "name": "Wrocław, Poland",
+    "game": "ets2",
+    "x": 23706.3,
+    "z": -1699.16016,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "croatia.zagreb",
+    "name": "Zagreb, Croatia",
+    "game": "ets2",
+    "x": 21356.5469,
+    "z": 26911.2383,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "spain.zaragoza",
+    "name": "Zaragoza, Spain",
+    "game": "ets2",
+    "x": -53246.5078,
+    "z": 43893.69,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "switzerland.zurich",
+    "name": "Zürich, Switzerland",
+    "game": "ets2",
+    "x": -9735.043,
+    "z": 18348.7734,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "norway.alesund",
+    "name": "Ålesund, Norge",
+    "game": "ets2",
+    "x": -6417.52734,
+    "z": -67233.5156,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "sweden.orebro",
+    "name": "Örebro, Sweden",
+    "game": "ets2",
+    "x": 17226.6875,
+    "z": -48519.125,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "sweden.ostersund",
+    "name": "Östersund, Sverige",
+    "game": "ets2",
+    "x": 15740.4141,
+    "z": -69241.0156,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "poland.lodz",
+    "name": "Łódź, Poland",
+    "game": "ets2",
+    "x": 32158.59,
+    "z": -6033.465,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  },
+  {
+    "id": "lithuania.siauliai",
+    "name": "Šiauliai, Lithuania",
+    "game": "ets2",
+    "x": 43283.74,
+    "z": -30086.9727,
+    "price": 100000,
+    "base_slots": 3,
+    "slot_price": 10000
+  }
+]

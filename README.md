@@ -70,6 +70,9 @@ git clone https://github.com/CharlesWithC/HubBackend.git upstream/HubBackend
 git clone https://github.com/CharlesWithC/HubFrontend.git upstream/HubFrontend
 cp .env.example .env
 cp upstream/HubBackend/config_sample.json config/config.json
+python3 backend/docker/update-economy-garages.py \
+  --garages examples/economy-garages.json \
+  --config config/config.json
 ```
 
 ## Configure the deployment
@@ -159,6 +162,8 @@ guides are optional references and can be used, changed, or ignored:
 - [BRANDING.md](BRANDING.md) documents the frontend branding options.
 - [EXTERNAL_PLUGINS.md](EXTERNAL_PLUGINS.md) explains how to install external
   backend plugins.
+- [ECONOMY.md](ECONOMY.md) provides the current ETS2 and ATS garage catalogue
+  and explains how to merge it into an existing configuration.
 
 ## Start the deployment
 
@@ -572,6 +577,9 @@ containers.
 git pull --ff-only
 git -C upstream/HubBackend pull --ff-only
 git -C upstream/HubFrontend pull --ff-only
+python3 backend/docker/update-economy-garages.py \
+  --garages examples/economy-garages.json \
+  --config config/config.json
 docker compose build
 docker compose up -d
 ```

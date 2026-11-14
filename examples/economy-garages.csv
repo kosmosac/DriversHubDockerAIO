@@ -1,0 +1,362 @@
+id,name,game,x,z,price,base_slots,slot_price
+texas.abilene,"Abilene, Texas",ats,-19201.86,36399.293,100000,3,10000
+colorado.alamosa,"Alamosa, Colorado",ats,-43449.28,6119.8125,100000,3,10000
+newmexico.albuquerque,"Albuquerque, New Mexico",ats,-49200.2344,20686.1719,100000,3,10000
+louisiana.alexandria,"Alexandria, Louisiana",ats,16209.293,42883.9063,100000,3,10000
+texas.amarillo,"Amarillo, Texas",ats,-25810.4883,21524.6445,100000,3,10000
+texas.austin,"Austin, Texas",ats,-8943.039,50190.9648,100000,3,10000
+california.bakersfield,"Bakersfield, California",ats,-104970.445,6327.801,100000,3,10000
+louisiana.batonrouge,"Baton Rouge, Louisiana",ats,24931.668,44973.6172,100000,3,10000
+texas.beaumont,"Beaumont, Texas",ats,7843.633,50400.6875,100000,3,10000
+oregon.bend,"Bend, Oregon",ats,-101200.719,-43335.6172,100000,3,10000
+montana.billings,"Billings, Montana",ats,-47291.41,-43022.1055,100000,3,10000
+idaho.boise,"Boise, Idaho",ats,-80876.4844,-34136.4766,100000,3,10000
+missouri.capegirarde,"Cape Girardeau, Missouri",ats,29250.7813,7993.40234,100000,3,10000
+nevada.carsoncity,"Carson City, Nevada",ats,-102136.984,-10988.52,100000,3,10000
+wyoming.casper,"Casper, Wyoming",ats,-41447.18,-24489.5547,100000,3,10000
+illinois.champaign,"Champaign, Illinois",ats,33058.3477,-5647.715,100000,3,10000
+wyoming.cheyenne,"Cheyenne, Wyoming",ats,-36119.3672,-15179.7656,100000,3,10000
+illinois.chicago,"Chicago, Illinois",ats,32524.0586,-19519.41,100000,3,10000
+idaho.coeurdalene,"Coeur d'Alene, Idaho",ats,-78844.43,-59482.3359,100000,3,10000
+colorado.coloradospr,"Colorado Springs, Colorado",ats,-38323.1641,-2094.5625,100000,3,10000
+texas.corpuschris,"Corpus Christi, Texas",ats,-9431.809,63998.31,100000,3,10000
+iowa.councilbluf,"Council Bluffs, Iowa",ats,1895.46484,-13780.32,100000,3,10000
+texas.dallas,"Dallas, Texas",ats,-2619.05078,36547.56,100000,3,10000
+texas.delrio,"Del Rio, Texas",ats,-24737.1641,55008.06,100000,3,10000
+colorado.denver,"Denver, Colorado",ats,-37937.7266,-6038.23828,100000,3,10000
+iowa.desmoines,"Des Moines, Iowa",ats,10484.5742,-16347.4453,100000,3,10000
+arkansas.eldorado,"El Dorado, Arkansas",ats,16356.3711,31448.9375,100000,3,10000
+texas.elpaso,"El Paso, Texas",ats,-46798.88,40614.61,100000,3,10000
+nevada.elko,"Elko, Nevada",ats,-83318.875,-19849.2148,100000,3,10000
+oregon.eugene,"Eugene, Oregon",ats,-107298.82,-45554.9,100000,3,10000
+wyoming.evanston,"Evanston, Wyoming",ats,-62915.37,-18963.0625,100000,3,10000
+newmexico.farmington,"Farmington, New Mexico",ats,-54148.39,9093.629,100000,3,10000
+arkansas.fayetteville,"Fayetteville, Arkansas",ats,9973.707,15395.9922,100000,3,10000
+arizona.flagstaff,"Flagstaff, Arizona",ats,-69776.39,13510.4961,100000,3,10000
+colorado.fortcollins,"Fort Collins, Colorado",ats,-38932.6836,-11653.4609,100000,3,10000
+arkansas.fortsmith,"Fort Smith, Arkansas",ats,9475.859,19681.61,100000,3,10000
+texas.fortstockto,"Fort Stockton, Texas",ats,-34237.0039,44895.3477,100000,3,10000
+california.fresno,"Fresno, California",ats,-105459.875,1478.17969,100000,3,10000
+kansas.gardencity,"Garden City, Kansas",ats,-22510.5039,5613.51953,100000,3,10000
+wyoming.gillette,"Gillette, Wyoming",ats,-37170.17,-32047.93,100000,3,10000
+nebraska.grandisland,"Grand Island, Nebraska",ats,-9371.359,-12173.9844,100000,3,10000
+montana.greatfalls,"Great Falls, Montana",ats,-57214.543,-54346.3867,100000,3,10000
+kansas.hays,"Hays, Kansas",ats,-14420.8711,-77.99609,100000,3,10000
+montana.helena,"Helena, Montana",ats,-61170.53,-48677.7461,100000,3,10000
+texas.houston,"Houston, Texas",ats,4242.47656,51143.06,100000,3,10000
+idaho.idahofalls,"Idaho Falls, Idaho",ats,-64005.0234,-33137.7656,100000,3,10000
+iowa.iowacity,"Iowa City, Iowa",ats,18560.2461,-14995.4375,100000,3,10000
+wyoming.jackson,"Jackson, Wyoming",ats,-59975.2539,-30397.3281,100000,3,10000
+missouri.jeffersonci,"Jefferson City, Missouri",ats,17107.7188,1559.35156,100000,3,10000
+arkansas.jonesboro,"Jonesboro, Arkansas",ats,24705.3711,17100.7148,100000,3,10000
+montana.kalispell,"Kalispell, Montana",ats,-69019.91,-60973.7,100000,3,10000
+missouri.kansascimo,"Kansas City, Missouri",ats,9160.891,-1621.19141,100000,3,10000
+washington.kennewick,"Kennewick, Washington",ats,-89643.84,-52149.41,100000,3,10000
+missouri.kirksville,"Kirksville, Missouri",ats,15022.5234,-7239.80859,100000,3,10000
+louisiana.lakecharles,"Lake Charles, Louisiana",ats,13379.0469,48129.0,100000,3,10000
+colorado.lamar,"Lamar, Colorado",ats,-29303.5547,3241.28516,100000,3,10000
+texas.laredo,"Laredo, Texas",ats,-16855.2773,66054.89,100000,3,10000
+newmexico.lascruces,"Las Cruces, New Mexico",ats,-52157.5,34729.53,100000,3,10000
+nevada.lasvegas,"Las Vegas, Nevada",ats,-85929.69,6801.42969,100000,3,10000
+oklahoma.lawton,"Lawton, Oklahoma",ats,-10758.7813,23783.55,100000,3,10000
+nebraska.lincoln,"Lincoln, Nebraska",ats,-5067.676,-9113.602,100000,3,10000
+arkansas.littlerock,"Little Rock, Arkansas",ats,19681.1875,20502.9961,100000,3,10000
+california.losangeles,"Los Angeles, California",ats,-102956.93,16860.91,100000,3,10000
+texas.lufkin,"Lufkin, Texas",ats,6835.453,42380.62,100000,3,10000
+illinois.marion,"Marion, Illinois",ats,32300.6211,5622.51563,100000,3,10000
+iowa.masoncity,"Mason City, Iowa",ats,11946.2539,-22922.0859,100000,3,10000
+oklahoma.mcalester,"McAlester, Oklahoma",ats,1891.64844,23045.8711,100000,3,10000
+texas.mcallen,"McAllen, Texas",ats,-12948.1328,72620.7,100000,3,10000
+oregon.medford,"Medford, Oregon",ats,-110853.555,-35854.8477,100000,3,10000
+montana.milescity,"Miles City, Montana",ats,-39122.1445,-46065.7148,100000,3,10000
+montana.missoula,"Missoula, Montana",ats,-69523.09,-51962.1055,100000,3,10000
+utah.moab,"Moab, Utah",ats,-58799.13,-1987.49609,100000,3,10000
+southdakota.mobridge,"Mobridge, South Dakota",ats,-17720.9727,-38002.05,100000,3,10000
+louisiana.monroe,"Monroe, Louisiana",ats,20117.04,35572.4922,100000,3,10000
+colorado.montrose,"Montrose, Colorado",ats,-52749.9844,-1062.61328,100000,3,10000
+louisiana.neworleans,"New Orleans, Louisiana",ats,31119.8984,50939.8047,100000,3,10000
+nebraska.northplatte,"North Platte, Nebraska",ats,-19786.0156,-11659.8789,100000,3,10000
+texas.odessa,"Odessa, Texas",ats,-28637.3359,39349.9,100000,3,10000
+oklahoma.oklahomacit,"Oklahoma City, Oklahoma",ats,-6481.996,20342.4727,100000,3,10000
+washington.olympia,"Olympia, Washington",ats,-101759.375,-60563.4531,100000,3,10000
+nebraska.omaha,"Omaha, Nebraska",ats,-1616.92188,-12163.7422,100000,3,10000
+oregon.ontario,"Ontario, Oregon",ats,-84212.26,-37976.2,100000,3,10000
+illinois.peoria,"Peoria, Illinois",ats,27550.5039,-11479.3945,100000,3,10000
+arizona.phoenix,"Phoenix, Arizona",ats,-76490.7344,22844.5547,100000,3,10000
+southdakota.pierre,"Pierre, South Dakota",ats,-16881.5039,-31073.2578,100000,3,10000
+arkansas.pinebluff,"Pine Bluff, Arkansas",ats,21432.1563,25600.3672,100000,3,10000
+oregon.portland,"Portland, Oregon",ats,-105672.672,-53701.0039,100000,3,10000
+utah.price,"Price, Utah",ats,-62929.2656,-8808.18,100000,3,10000
+southdakota.rapidcity,"Rapid City, South Dakota",ats,-28794.6641,-30314.1055,100000,3,10000
+california.redding,"Redding, California",ats,-110166.0,-24180.6758,100000,3,10000
+nevada.reno,"Reno, Nevada",ats,-101483.219,-16230.4063,100000,3,10000
+newmexico.roswell,"Roswell, New Mexico",ats,-39663.32,28810.5469,100000,3,10000
+california.sacramento,"Sacramento, California",ats,-112270.516,-14650.3008,100000,3,10000
+oregon.salem,"Salem, Oregon",ats,-106627.625,-49344.2852,100000,3,10000
+kansas.salinaks,"Salina, Kansas",ats,-6963.39844,2085.67969,100000,3,10000
+idaho.salmon,"Salmon, Idaho",ats,-70690.98,-42693.0352,100000,3,10000
+utah.saltlake,"Salt Lake City, Utah",ats,-67782.42,-16459.0859,100000,3,10000
+texas.sanantonio,"San Antonio, Texas",ats,-10544.7891,54062.79,100000,3,10000
+california.sandiego,"San Diego, California",ats,-98658.3,23078.2383,100000,3,10000
+california.sanfrancisc,"San Francisco, California",ats,-115448.32,-8726.652,100000,3,10000
+newmexico.santafe,"Santa Fe, New Mexico",ats,-44720.8555,16109.8828,100000,3,10000
+nebraska.scottsbluff,"Scottsbluff, Nebraska",ats,-31607.61,-18536.7,100000,3,10000
+washington.seattle,"Seattle, Washington",ats,-98627.9141,-61643.5664,100000,3,10000
+louisiana.shreveport,"Shreveport, Louisiana",ats,11779.9688,34551.76,100000,3,10000
+iowa.siouxcity,"Sioux City, Iowa",ats,-1142.56641,-18074.6484,100000,3,10000
+southdakota.siouxfalls,"Sioux Falls, South Dakota",ats,-4397.09375,-25243.3242,100000,3,10000
+washington.spokane,"Spokane, Washington",ats,-80149.26,-59198.78,100000,3,10000
+illinois.springfieil,"Springfield, Illinois",ats,27976.8789,-5147.535,100000,3,10000
+missouri.springfield,"Springfield, Missouri",ats,13375.6563,9225.223,100000,3,10000
+utah.stgeorge,"St. George, Utah",ats,-78447.4453,3964.26563,100000,3,10000
+missouri.stlouis,"St. Louis, Missouri",ats,25544.6367,3319.29688,100000,3,10000
+colorado.steamboatsp,"Steamboat Springs, Colorado",ats,-46784.12,-11690.75,100000,3,10000
+colorado.sterling,"Sterling, Colorado",ats,-31640.1133,-10062.6367,100000,3,10000
+texas.texarkana,"Texarkana, Texas",ats,8716.598,31438.9258,100000,3,10000
+kansas.topeka,"Topeka, Kansas",ats,934.0156,525.207031,100000,3,10000
+arizona.tucson,"Tucson, Arizona",ats,-71468.59,31636.418,100000,3,10000
+oklahoma.tulsa,"Tulsa, Oklahoma",ats,-1190.29688,15888.1914,100000,3,10000
+idaho.twinfalls,"Twin Falls, Idaho",ats,-75181.63,-27773.0117,100000,3,10000
+utah.vernal,"Vernal, Utah",ats,-57173.41,-13195.5352,100000,3,10000
+southdakota.watertown,"Watertown, South Dakota",ats,-5539.492,-33552.0664,100000,3,10000
+washington.wenatchee,"Wenatchee, Washington",ats,-92644.94,-60637.8633,100000,3,10000
+kansas.wichita,"Wichita, Kansas",ats,-5908.64453,5905.621,100000,3,10000
+oklahoma.woodward,"Woodward, Oklahoma",ats,-16641.4336,13870.0547,100000,3,10000
+arizona.yuma,"Yuma, Arizona",ats,-88081.56,26441.6953,100000,3,10000
+spain.acoruna,"A Coruña, Spain",ets2,-83861.375,27097.9766,100000,3,10000
+denmark.aalborg,"Aalborg, Denmark",ets2,926.8906,-36099.47,100000,3,10000
+denmark.aarhus,"Aarhus, Danmark",ets2,1390.74609,-31499.18,100000,3,10000
+unitedkingdom.aberdeen,"Aberdeen, United Kingdom",ets2,-38941.7656,-54842.96,100000,3,10000
+france.ajaccio,"Ajaccio, France",ets2,-10321.0352,48462.4766,100000,3,10000
+iceland.akureyri,"Akureyri, Iceland",ets2,-61389.9063,-104437.25,100000,3,10000
+spain.albacete,"Albacete, Spain",ets2,-59083.3555,57993.11,100000,3,10000
+spain.algeciras,"Algeciras, Spain",ets2,-80415.63,69330.42,100000,3,10000
+spain.almeria,"Almería, Spain",ets2,-62476.7148,70259.95,100000,3,10000
+netherlands.amsterdam,"Amsterdam, Netherlands",ets2,-19167.418,-12122.1211,100000,3,10000
+italy.ancona,"Ancona, Italy",ets2,10230.2813,40054.3945,100000,3,10000
+greece.athens,"Athens, Greece",ets2,55366.2031,69194.375,100000,3,10000
+bosnia.banjaluka,"Banja Luka, Bosnia and Herzegovina",ets2,26171.79,32935.5352,100000,3,10000
+slovakia.banskabystrica,"Banská Bystrica, Slovakia",ets2,32773.34,10736.3906,100000,3,10000
+spain.barcelona,"Barcelona, Spain",ets2,-39057.582,48237.6133,100000,3,10000
+italy.bari,"Bari, Italy",ets2,23855.0156,55132.9648,100000,3,10000
+france.bastia,"Bastia, France",ets2,-7263.05469,44088.7461,100000,3,10000
+serbia.beograd,"Belgrade, Serbia",ets2,39181.8633,31634.9336,100000,3,10000
+norway.bergen,"Bergen, Norway",ets2,-10467.3555,-56021.6,100000,3,10000
+germany.berlin,"Berlin, Germany",ets2,10370.1094,-9117.68,100000,3,10000
+switzerland.bern,"Bern, Switzerland",ets2,-12754.9961,20198.3516,100000,3,10000
+poland.bialystok,"Białystok, Poland",ets2,43861.98,-15181.6133,100000,3,10000
+spain.bilbao,"Bilbao, Spain",ets2,-57469.4023,34050.08,100000,3,10000
+unitedkingdom.birmingham,"Birmingham, United Kingdom",ets2,-46069.99,-20207.5234,100000,3,10000
+norway.bodo,"Bodø, Norge",ets2,15095.5117,-94384.375,100000,3,10000
+italy.bologna,"Bologna, Italy",ets2,3464.375,35240.0,100000,3,10000
+france.bordeaux,"Bordeaux, France",ets2,-47175.3047,26643.96,100000,3,10000
+slovakia.bratislava,"Bratislava, Slovakia",ets2,24944.2422,14735.1914,100000,3,10000
+romania.brasov,"Brașov, Romania",ets2,58137.8867,23568.6563,100000,3,10000
+germany.bremen,"Bremen, Germany",ets2,-5637.953,-14603.41,100000,3,10000
+france.brest,"Brest, France",ets2,-56891.07,3986.64063,100000,3,10000
+czechrepublic.brno,"Brno, Czech Republic",ets2,21991.8438,10030.207,100000,3,10000
+belgium.brussel,"Brussel, Belgium",ets2,-22208.54,-2505.039,100000,3,10000
+romania.bucuresti,"București, Romania",ets2,61462.3828,30055.4023,100000,3,10000
+hungary.budapest,"Budapest, Hungary",ets2,32627.96,17537.9063,100000,3,10000
+bulgaria.burgas,"Burgas, Bulgaria",ets2,68787.58,40993.1445,100000,3,10000
+spain.burgos,"Burgos, Spain",ets2,-61999.7539,37260.77,100000,3,10000
+italy.cagliari,"Cagliari, Italy",ets2,-10024.7578,63594.082,100000,3,10000
+france.calais,"Calais, France",ets2,-30146.1758,-4763.47656,100000,3,10000
+france.calvi,"Calvi, France",ets2,-10242.7383,45788.2461,100000,3,10000
+unitedkingdom.cambridge,"Cambridge, United Kingdom",ets2,-36738.04,-16226.7539,100000,3,10000
+unitedkingdom.cardiff,"Cardiff, United Kingdom",ets2,-53814.5625,-14532.7188,100000,3,10000
+unitedkingdom.carlisle,"Carlisle, United Kingdom",ets2,-45697.05,-39566.72,100000,3,10000
+italy.catania,"Catania, Italy",ets2,16548.18,76008.24,100000,3,10000
+italy.catanzaro,"Catanzaro, Italy",ets2,23904.8125,67176.03,100000,3,10000
+france.clermont-ferrand,"Clermont-Ferrand, France",ets2,-30261.0586,24653.543,100000,3,10000
+romania.cluj-napoca,"Cluj-Napoca, Romania",ets2,51089.1445,19167.3438,100000,3,10000
+portugal.coimbra,"Coimbra, Portugal",ets2,-86596.82,44326.92,100000,3,10000
+romania.constanta,"Constanța, Romania",ets2,71707.5,30792.3867,100000,3,10000
+romania.craiova,"Craiova, Romania",ets2,52290.2734,32574.5547,100000,3,10000
+spain.cordoba,"Córdoba, Spain",ets2,-74286.92,61992.78,100000,3,10000
+latvia.daugavpils,"Daugavpils, Latvia",ets2,53353.03,-31404.46,100000,3,10000
+hungary.debrecen,"Debrecen, Hungary",ets2,41688.0977,17919.2422,100000,3,10000
+france.dijon,"Dijon, France",ets2,-22553.6758,16436.23,100000,3,10000
+germany.dortmund,"Dortmund, Germany",ets2,-10589.6563,-6046.85156,100000,3,10000
+unitedkingdom.dover,"Dover, United Kingdom",ets2,-33404.1055,-7392.28125,100000,3,10000
+germany.dresden,"Dresden, Germany",ets2,12145.4219,-1926.86328,100000,3,10000
+germany.duisburg,"Duisburg, Germany",ets2,-14102.1563,-7025.35938,100000,3,10000
+germany.dusseldorf,"Düsseldorf, Germany",ets2,-12509.2227,-4252.703,100000,3,10000
+unitedkingdom.edinburgh,"Edinburgh, United Kingdom",ets2,-44824.793,-46871.6953,100000,3,10000
+turkey.edirne,"Edirne, Turkey",ets2,65082.99,46979.418,100000,3,10000
+iceland.egilsstadir,"Egilsstaðir, Iceland",ets2,-54474.81,-97351.06,100000,3,10000
+germany.erfurt,"Erfurt, Germany",ets2,2692.85156,-2976.43359,100000,3,10000
+unitedkingdom.felixstowe,"Felixstowe, United Kingdom",ets2,-31516.9258,-14008.7266,100000,3,10000
+italy.firenze,"Firenze, Italy",ets2,1177.72266,38808.19,100000,3,10000
+germany.frankfurtammain,"Frankfurt am Main, Germany",ets2,-5111.69141,2733.60547,100000,3,10000
+romania.galati,"Galați, Romania",ets2,67362.3,24088.1719,100000,3,10000
+poland.gdansk,"Gdańsk, Poland",ets2,28173.2148,-20813.6836,100000,3,10000
+italy.genova,"Genova, Italy",ets2,-8815.449,35293.9336,100000,3,10000
+switzerland.geneve,"Genève, Switzerland",ets2,-17817.0117,24146.2539,100000,3,10000
+unitedkingdom.glasgow,"Glasgow, United Kingdom",ets2,-50253.16,-48352.34,100000,3,10000
+austria.graz,"Graz, Austria",ets2,18022.39,21411.8477,100000,3,10000
+unitedkingdom.grimsby,"Grimsby, United Kingdom",ets2,-36424.6172,-26835.2656,100000,3,10000
+netherlands.groningen,"Groningen, Netherlands",ets2,-12348.0313,-15942.9727,100000,3,10000
+sweden.goteborg,"Göteborg, Sweden",ets2,8323.594,-39672.58,100000,3,10000
+germany.hamburg,"Hamburg, Germany",ets2,-1087.57031,-16718.8555,100000,3,10000
+germany.hannover,"Hannover, Germany",ets2,-95.83984,-8907.832,100000,3,10000
+sweden.helsingborg,"Helsingborg, Sweden",ets2,9316.582,-30148.582,100000,3,10000
+finland.helsinki,"Helsinki, Finland",ets2,43451.76,-56319.168,100000,3,10000
+romania.iasi,"Iași, Romania",ets2,65607.41,15718.0859,100000,3,10000
+austria.innsbruck,"Innsbruck, Austria",ets2,3043.78125,19395.1758,100000,3,10000
+turkey.istanbul,"İstanbul, Turkey",ets2,74005.2344,46942.81,100000,3,10000
+finland.jyvaskyla,"Jyväskylä, Suomi",ets2,44452.67,-66706.31,100000,3,10000
+sweden.jonkoping,"Jönköping, Sweden",ets2,14268.7188,-39636.01,100000,3,10000
+greece.kalamata,"Kalamata, Greece",ets2,51462.4727,76437.98,100000,3,10000
+russia.kaliningrad,"Kaliningrad, Russia",ets2,34841.67,-22031.9141,100000,3,10000
+sweden.kalmar,"Kalmar, Sweden",ets2,20247.1953,-34046.3828,100000,3,10000
+sweden.karlskrona,"Karlskrona, Sweden",ets2,17092.2852,-31071.9648,100000,3,10000
+sweden.karlstad,"Karlstad, Sverige",ets2,13760.77,-47920.6836,100000,3,10000
+germany.kassel,"Kassel, Germany",ets2,-3766.73828,-4166.582,100000,3,10000
+poland.katowice,"Katowice, Poland",ets2,30783.0586,2492.73438,100000,3,10000
+lithuania.kaunas,"Kaunas, Lithuania",ets2,46359.36,-25021.6836,100000,3,10000
+germany.kiel,"Kiel, Germany",ets2,1173.85547,-21717.2422,100000,3,10000
+austria.klagenfurtamworthersee,"Klagenfurt am Wörthersee, Austria",ets2,14010.0,23567.6172,100000,3,10000
+lithuania.klaipeda,"Klaipėda, Lithuania",ets2,36755.4375,-29088.9961,100000,3,10000
+finland.kotka,"Kotka, Finland",ets2,50351.2344,-58534.3828,100000,3,10000
+finland.kouvola,"Kouvola, Finland",ets2,49022.9453,-60413.3242,100000,3,10000
+slovakia.kosice,"Košice, Slovakia",ets2,39672.32,10365.9688,100000,3,10000
+serbia.kragujevac,"Kragujevac, Serbia",ets2,41583.0469,36303.15,100000,3,10000
+poland.krakow,"Kraków, Poland",ets2,34627.7148,2999.41016,100000,3,10000
+norway.kristiansand,"Kristiansand, Norway",ets2,-5551.60156,-42743.02,100000,3,10000
+finland.kuopio,"Kuopio, Suomi",ets2,48600.8359,-71279.0,100000,3,10000
+germany.koln,"Köln, Germany",ets2,-11920.6719,-1855.77734,100000,3,10000
+denmark.kobenhavn,"København, Denmark",ets2,8683.641,-28489.4258,100000,3,10000
+france.larochelle,"La Rochelle, France",ets2,-46407.63,18899.3477,100000,3,10000
+finland.lahti,"Lahti, Finland",ets2,45755.8828,-60282.05,100000,3,10000
+greece.lamia,"Lamia, Greece",ets2,50075.7578,66088.69,100000,3,10000
+france.lehavre,"Le Havre, France",ets2,-36906.8555,1518.39063,100000,3,10000
+france.lemans,"Le Mans, France",ets2,-39781.71,9953.773,100000,3,10000
+germany.leipzig,"Leipzig, Germany",ets2,7103.633,-3525.94922,100000,3,10000
+latvia.liepaja,"Liepāja, Latvia",ets2,35696.0078,-33803.8359,100000,3,10000
+france.lille,"Lille, France",ets2,-26402.6836,-2134.76953,100000,3,10000
+france.limoges,"Limoges, France",ets2,-37603.8477,23818.6758,100000,3,10000
+sweden.linkoping,"Linköping, Sweden",ets2,18339.57,-43199.3945,100000,3,10000
+austria.linz,"Linz, Austria",ets2,14470.3477,14991.9727,100000,3,10000
+portugal.lisboa,"Lisboa, Portugal",ets2,-90037.125,53184.9766,100000,3,10000
+unitedkingdom.liverpool,"Liverpool, United Kingdom",ets2,-48628.9258,-28575.6758,100000,3,10000
+italy.livorno,"Livorno, Italy",ets2,-2179.04688,40170.0039,100000,3,10000
+belgium.liege,"Liège, Belgium",ets2,-17152.82,-1243.06641,100000,3,10000
+slovenia.ljubljana,"Ljubljana, Slovenia",ets2,15755.5508,25854.5547,100000,3,10000
+unitedkingdom.london,"London, United Kingdom",ets2,-39058.8828,-11668.1211,100000,3,10000
+poland.lublin,"Lublin, Poland",ets2,43014.12,-4177.59,100000,3,10000
+russia.luga,"Luga, Russia",ets2,60482.42,-49880.84,100000,3,10000
+sweden.lulea,"Lulea, Sverige",ets2,32323.0586,-86622.58,100000,3,10000
+luxembourg.luxembourg,"Luxembourg, Luxembourg",ets2,-16426.0352,3353.914,100000,3,10000
+france.lyon,"Lyon, France",ets2,-22204.91,25803.2813,100000,3,10000
+spain.madrid,"Madrid, Spain",ets2,-65925.09,51347.06,100000,3,10000
+germany.magdeburg,"Magdeburg, Germany",ets2,4306.30859,-8476.387,100000,3,10000
+sweden.malmo,"Malmö, Sweden",ets2,11083.77,-27138.2031,100000,3,10000
+unitedkingdom.manchester,"Manchester, United Kingdom",ets2,-45312.1,-27787.79,100000,3,10000
+germany.mannheim,"Mannheim, Germany",ets2,-7873.621,6890.31641,100000,3,10000
+slovenia.maribor,"Maribor, Slovenia",ets2,19254.2969,23578.3438,100000,3,10000
+france.marseille,"Marseille, France",ets2,-23131.0859,39186.77,100000,3,10000
+italy.messina,"Messina, Italy",ets2,18713.2656,70897.42,100000,3,10000
+france.metz,"Metz, France",ets2,-16241.0352,7467.69141,100000,3,10000
+italy.milano,"Milano, Italy",ets2,-6574.30859,29373.7461,100000,3,10000
+france.montpellier,"Montpellier, France",ets2,-29663.0547,35849.1758,100000,3,10000
+spain.murcia,"Murcia, Spain",ets2,-56178.25,63960.1,100000,3,10000
+spain.malaga,"Málaga, Spain",ets2,-74794.67,67117.7,100000,3,10000
+germany.munchen,"München, Germany",ets2,2441.57422,13190.0391,100000,3,10000
+france.nantes,"Nantes, France",ets2,-48386.2031,12868.9414,100000,3,10000
+italy.napoli,"Napoli, Italy",ets2,13421.2773,56629.7148,100000,3,10000
+unitedkingdom.newcastle-upon-tyne,"Newcastle-upon-Tyne, United Kingdom",ets2,-39807.06,-38560.1563,100000,3,10000
+france.nice,"Nice, France",ets2,-16149.8633,37115.332,100000,3,10000
+serbia.novisad,"Novi Sad, Serbia",ets2,36270.9336,28704.8438,100000,3,10000
+germany.nurnberg,"Nürnberg, Germany",ets2,1665.66406,6508.85938,100000,3,10000
+denmark.odense,"Odense, Denmark",ets2,1288.69922,-26517.9023,100000,3,10000
+italy.olbia,"Olbia, Italy",ets2,-7288.22656,55389.8633,100000,3,10000
+poland.olsztyn,"Olsztyn, Poland",ets2,34945.2422,-17717.668,100000,3,10000
+norway.oslo,"Oslo, Norway",ets2,4902.07031,-51866.59,100000,3,10000
+germany.osnabruck,"Osnabrück, Germany",ets2,-8360.141,-9462.551,100000,3,10000
+czechrepublic.ostrava,"Ostrava, Czech Republic",ets2,27991.02,5104.10938,100000,3,10000
+finland.oulu,"Oulu, Suomi",ets2,41229.9531,-81883.0,100000,3,10000
+italy.palermo,"Palermo, Italy",ets2,8928.906,71221.91,100000,3,10000
+lithuania.panevezys,"Panevėžys, Lithuania",ets2,46911.4023,-31017.8633,100000,3,10000
+france.paris,"Paris, France",ets2,-31927.1367,4850.14063,100000,3,10000
+greece.patras,"Patras, Greece",ets2,46612.793,71839.85,100000,3,10000
+italy.pescara,"Pescara, Italy",ets2,12701.668,46831.75,100000,3,10000
+romania.pitesti,"Pitești, Romania",ets2,56236.7422,29823.1875,100000,3,10000
+bulgaria.pleven,"Pleven, Bulgaria",ets2,58084.03,37267.2227,100000,3,10000
+bulgaria.plovdiv,"Plovdiv, Bulgaria",ets2,58382.5977,47041.74,100000,3,10000
+unitedkingdom.plymouth,"Plymouth, United Kingdom",ets2,-60238.5039,-7801.5,100000,3,10000
+montenegro.podgorica,"Podgorica, Montenegro",ets2,34731.0859,46065.7773,100000,3,10000
+finland.pori,"Pori, Finland",ets2,34664.26,-61734.57,100000,3,10000
+portugal.porto,"Porto, Portugal",ets2,-85436.625,36023.5664,100000,3,10000
+poland.poznan,"Poznań, Poland",ets2,23065.48,-9189.293,100000,3,10000
+czechrepublic.praha,"Praha, Czech Republic",ets2,14473.3711,3611.86328,100000,3,10000
+kosovo.pristina,"Pristina, Kosovo",ets2,42405.9258,43747.77,100000,3,10000
+russia.pskov,"Pskov, Russia",ets2,56186.2422,-44517.7969,100000,3,10000
+estonia.parnu,"Pärnu, Estonia",ets2,44276.332,-45480.5039,100000,3,10000
+hungary.pecs,"Pécs, Hungary",ets2,29034.7461,26135.5,100000,3,10000
+france.reims,"Reims, France",ets2,-24025.1133,6351.8125,100000,3,10000
+france.rennes,"Rennes, France",ets2,-46167.3945,8658.672,100000,3,10000
+iceland.reykjavik,"Reykjavík, Iceland",ets2,-72569.13,-99078.21,100000,3,10000
+croatia.rijeka,"Rijeka, Croatia",ets2,16036.0938,30117.2578,100000,3,10000
+italy.roma,"Roma, Italy",ets2,6611.508,50071.918,100000,3,10000
+germany.rostock,"Rostock, Germany",ets2,7335.26563,-18802.4961,100000,3,10000
+netherlands.rotterdam,"Rotterdam, Netherlands",ets2,-18412.1523,-9644.645,100000,3,10000
+finland.rovaniemi,"Rovaniemi, Suomi",ets2,39888.7344,-90730.34,100000,3,10000
+bulgaria.ruse,"Ruse, Bulgaria",ets2,60857.6328,35402.47,100000,3,10000
+latvia.rezekne,"Rēzekne, Latvia",ets2,55370.45,-35534.76,100000,3,10000
+latvia.riga,"Rīga, Latvia",ets2,44916.2734,-36997.46,100000,3,10000
+russia.saintpetersburg,"Saint Petersburg, Russia",ets2,61209.5547,-56641.31,100000,3,10000
+spain.salamanca,"Salamanca, Spain",ets2,-73210.2344,44267.47,100000,3,10000
+austria.salzburg,"Salzburg, Austria",ets2,9632.98,14749.4961,100000,3,10000
+bosnia.sarajevo,"Sarajevo, Bosnia and Herzegovina",ets2,30001.9414,37798.52,100000,3,10000
+italy.sassari,"Sassari, Italy",ets2,-10880.8633,55372.2,100000,3,10000
+spain.sevilla,"Sevilla, Spain",ets2,-78117.26,63156.0664,100000,3,10000
+unitedkingdom.sheffield,"Sheffield, United Kingdom",ets2,-42925.2227,-26573.11,100000,3,10000
+northmacedonia.skopje,"Skopje, North Macedonia",ets2,45736.13,47273.9766,100000,3,10000
+bulgaria.sofia,"Sofia, Bulgaria",ets2,51487.28,44086.8945,100000,3,10000
+unitedkingdom.southampton,"Southampton, United Kingdom",ets2,-46519.9,-7632.09,100000,3,10000
+croatia.split,"Split, Croatia",ets2,23530.293,38979.0234,100000,3,10000
+norway.stavanger,"Stavanger, Norway",ets2,-10672.27,-48033.2148,100000,3,10000
+sweden.stockholm,"Stockholm, Sweden",ets2,24695.8984,-48052.14,100000,3,10000
+france.strasbourg,"Strasbourg, France",ets2,-11040.6836,11572.3867,100000,3,10000
+germany.stuttgart,"Stuttgart, Germany",ets2,-5315.80469,10532.5977,100000,3,10000
+unitedkingdom.swansea,"Swansea, United Kingdom",ets2,-56766.0078,-16899.0313,100000,3,10000
+poland.szczecin,"Szczecin, Poland",ets2,15032.582,-14933.457,100000,3,10000
+hungary.szeged,"Szeged, Hungary",ets2,36855.1875,24886.1484,100000,3,10000
+estonia.tallinn,"Tallinn, Estonia",ets2,46205.9336,-51407.0859,100000,3,10000
+finland.tampere,"Tampere, Finland",ets2,39021.1367,-62912.3125,100000,3,10000
+italy.taranto,"Taranto, Italy",ets2,25837.11,57937.6328,100000,3,10000
+estonia.tartu,"Tartu, Estonia",ets2,51480.49,-45718.03,100000,3,10000
+turkey.tekirdag,"Tekirdağ, Turkey",ets2,68196.3047,49762.52,100000,3,10000
+greece.thessaloniki,"Thessaloniki, Greece",ets2,52156.5,55612.543,100000,3,10000
+romania.timisoara,"Timișoara, Romania",ets2,42200.4531,27447.2266,100000,3,10000
+albania.tirana,"Tirana, Albania",ets2,37925.64,50765.3,100000,3,10000
+italy.torino,"Torino, Italy",ets2,-13140.043,31277.7578,100000,3,10000
+france.toulouse,"Toulouse, France",ets2,-38847.7227,35626.5469,100000,3,10000
+norway.tromso,"Tromsø, Norge",ets2,25405.8438,-110718.2,100000,3,10000
+norway.trondheim,"Trondheim, Norge",ets2,3844.75,-72659.6641,100000,3,10000
+finland.turku,"Turku, Finland",ets2,37737.7344,-56581.7969,100000,3,10000
+romania.targumures,"Târgu Mureș, Romania",ets2,53694.4141,20316.7578,100000,3,10000
+sweden.umea,"Umeå, Sverige",ets2,29262.918,-75910.13,100000,3,10000
+sweden.uppsala,"Uppsala, Sweden",ets2,23924.7852,-51536.81,100000,3,10000
+spain.valladolid,"Valladolid, Spain",ets2,-66757.14,40879.0664,100000,3,10000
+latvia.valmiera,"Valmiera, Latvia",ets2,48009.4063,-40915.14,100000,3,10000
+spain.valencia,"València, Spain",ets2,-53356.2031,56293.6523,100000,3,10000
+bulgaria.varna,"Varna, Bulgaria",ets2,70305.22,35670.0039,100000,3,10000
+italy.venezia,"Venezia, Italy",ets2,4792.51953,30032.1172,100000,3,10000
+italy.verona,"Verona, Italy",ets2,-216.773438,29616.1836,100000,3,10000
+spain.vigo,"Vigo, Spain",ets2,-82576.75,33496.49,100000,3,10000
+lithuania.vilnius,"Vilnius, Lithuania",ets2,49639.9922,-24273.1641,100000,3,10000
+sweden.vasteras,"Västerås, Sweden",ets2,21183.2656,-50516.3359,100000,3,10000
+sweden.vaxjo,"Växjö, Sweden",ets2,16079.582,-35082.75,100000,3,10000
+poland.warszawa,"Warszawa, Poland",ets2,36944.2,-9532.0,100000,3,10000
+austria.wien,"Wien, Austria",ets2,21220.8164,16975.8164,100000,3,10000
+poland.wroclaw,"Wrocław, Poland",ets2,23706.3,-1699.16016,100000,3,10000
+croatia.zagreb,"Zagreb, Croatia",ets2,21356.5469,26911.2383,100000,3,10000
+spain.zaragoza,"Zaragoza, Spain",ets2,-53246.5078,43893.69,100000,3,10000
+switzerland.zurich,"Zürich, Switzerland",ets2,-9735.043,18348.7734,100000,3,10000
+norway.alesund,"Ålesund, Norge",ets2,-6417.52734,-67233.5156,100000,3,10000
+sweden.orebro,"Örebro, Sweden",ets2,17226.6875,-48519.125,100000,3,10000
+sweden.ostersund,"Östersund, Sverige",ets2,15740.4141,-69241.0156,100000,3,10000
+poland.lodz,"Łódź, Poland",ets2,32158.59,-6033.465,100000,3,10000
+lithuania.siauliai,"Šiauliai, Lithuania",ets2,43283.74,-30086.9727,100000,3,10000
