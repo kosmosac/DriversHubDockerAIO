@@ -28,6 +28,7 @@ COPY frontend/docker/replace-fallback-avatar.mjs /tmp/replace-fallback-avatar.mj
 COPY frontend/docker/use-config-url-api-path.mjs /tmp/use-config-url-api-path.mjs
 COPY frontend/docker/configure-map-base-url.mjs /tmp/configure-map-base-url.mjs
 COPY frontend/docker/fit-dlog-route.mjs /tmp/fit-dlog-route.mjs
+COPY frontend/docker/set-map-initial-zoom.mjs /tmp/set-map-initial-zoom.mjs
 
 RUN if grep -q 'sitekey="1788882d-3695-4807-abac-7d7166ec6325"' src/routes/auth/login.js; then \
         patch --batch --fuzz=0 -p1 < /tmp/hcaptcha-sitekey.patch; \
@@ -107,6 +108,10 @@ RUN node /tmp/fit-dlog-route.mjs \
     && grep -q 'fitRoute = false' src/components/tilemap.js \
     && grep -q 'getView().fit(routeGeometry' src/components/tilemap.js \
     && grep -q 'fitRoute' src/routes/delivery.js
+RUN node /tmp/set-map-initial-zoom.mjs \
+    && grep -q 'initialZoom = 1' src/components/tilemap.js \
+    && grep -q 'zoom: initialZoom' src/components/tilemap.js \
+    && test "$(grep -c 'initialZoom={2}' src/routes/map.js)" -eq 5
 
 RUN if [ "$VITE_USE_MULTIHUB" != "true" ]; then \
         case "$VITE_CONFIG_URL" in \

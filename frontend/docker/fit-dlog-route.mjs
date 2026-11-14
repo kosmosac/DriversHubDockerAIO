@@ -13,7 +13,7 @@ const componentAfter =
 
 if (tileMap.includes(componentBefore)) {
     tileMap = tileMap.replace(componentBefore, componentAfter);
-} else if (!tileMap.includes(componentAfter)) {
+} else if (!tileMap.includes("fitRoute = false")) {
     throw new Error("Unsupported TileMap component signature.");
 }
 
@@ -43,7 +43,7 @@ const effectAfter = "  }, [tilesUrl, route, points, showOrangeOnly, fitRoute]);"
 
 if (tileMap.includes(effectBefore)) {
     tileMap = tileMap.replace(effectBefore, effectAfter);
-} else if (!tileMap.includes(effectAfter)) {
+} else if (!/\}, \[[^\]]*fitRoute[^\]]*\]\);/.test(tileMap)) {
     throw new Error("Unsupported TileMap effect dependencies.");
 }
 
