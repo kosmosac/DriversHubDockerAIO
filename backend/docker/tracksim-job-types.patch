@@ -1,5 +1,5 @@
 diff --git a/src/apis/tracker/tracksim.py b/src/apis/tracker/tracksim.py
-index c70df29..119707b 100644
+index c70df29..00c5ed2 100644
 --- a/src/apis/tracker/tracksim.py
 +++ b/src/apis/tracker/tracksim.py
 @@ -6,6 +6,7 @@ import hashlib
@@ -10,7 +10,7 @@ index c70df29..119707b 100644
  
  from fastapi import Header, Request, Response
  
-@@ -13,13 +14,302 @@ import multilang as ml
+@@ -13,13 +14,310 @@ import multilang as ml
  from api import tracebackHandler
  from functions import *
  
@@ -24,8 +24,6 @@ index c70df29..119707b 100644
 +    payload families are converted in their own match case so the
 +    job-specific contracts remain independent.
 +    """
-+    # Validate the Coach Job conversion against a real payload once TrackSim
-+    # Tracker v2.3.0 is released.
 +    normalized = copy.deepcopy(data)
 +    event_type = normalized.get("type")
 +    match event_type:
@@ -197,13 +195,13 @@ index c70df29..119707b 100644
 +            if not isinstance(game, dict):
 +                game = {}
 +                job["game"] = game
-+            game["short_name"] = "eut2"
++            game["short_name"] = game.get("name") or "eut2"
 +            game["had_police_enabled"] = bool(game.get("config", {}).get("police_enabled", False))
 +            game.setdefault("realistic_settings", {})
 +            job["mods"] = game.get("mods", [])
 +
 +            multiplayer = game.get("multiplayer")
-+            if not isinstance(multiplayer, dict) or multiplayer.get("mode") == "single_player":
++            if not isinstance(multiplayer, dict) or multiplayer.get("mode") in ["singleplayer", "single_player"]:
 +                job["multiplayer"] = None
 +            else:
 +                mode = multiplayer.get("mode")
@@ -225,24 +223,34 @@ index c70df29..119707b 100644
 +            job["source_company"] = {"unique_id": "coach_stop", "name": "Coach Stop"}
 +            job["destination_company"] = {"unique_id": "coach_stop", "name": "Coach Stop"}
 +
++            stops = job.get("stops", {})
++            stop_items = stops.get("items", []) if isinstance(stops, dict) else []
++            if not isinstance(stop_items, list):
++                stop_items = []
++            stop_count = stops.get("planned") if isinstance(stops, dict) else None
++            if not isinstance(stop_count, (int, float)):
++                stop_count = len(stop_items)
++            stop_count = int(stop_count)
++
 +            if event_type == "bus_job.completed":
 +                passenger_count = int(job.get("passengers_planned", 0))
 +            else:
 +                passenger_count = 0
-+                stops = job.get("stops", {})
-+                if isinstance(stops, dict) and isinstance(stops.get("items"), list):
-+                    for stop in stops["items"]:
-+                        if not isinstance(stop, dict):
-+                            continue
-+                        departure = stop.get("departure")
-+                        passengers = stop.get("passengers")
-+                        if isinstance(departure, dict) and departure.get("actual") is not None and isinstance(passengers, dict):
-+                            passenger_count += int(passengers.get("entering_planned", 0))
++                for stop in stop_items:
++                    if not isinstance(stop, dict):
++                        continue
++                    timings = stop.get("timings")
++                    departure = timings.get("departure") if isinstance(timings, dict) else None
++                    passengers = stop.get("passengers")
++                    if isinstance(departure, dict) and departure.get("actual") is not None and isinstance(passengers, dict):
++                        passenger_count += int(passengers.get("entering_planned", 0))
 +
 +            satisfaction = job.get("satisfaction")
 +            final_satisfaction = satisfaction.get("final") if isinstance(satisfaction, dict) else None
 +            passenger_label = "passenger" if passenger_count == 1 else "passengers"
-+            cargo_name = f"Coach: {passenger_count} {passenger_label}"
++            stop_label = "stop" if stop_count == 1 else "stops"
++            job_label = "Coach excursion" if job.get("market") == "tourist_job" else "Coach"
++            cargo_name = f"{job_label}: {passenger_count} {passenger_label}, {stop_count} {stop_label}"
 +            if final_satisfaction is not None:
 +                cargo_name += f", {float(final_satisfaction) * 100:.1f}% satisfaction"
 +            job["cargo"] = {
@@ -315,7 +323,7 @@ index c70df29..119707b 100644
          except:
              return {"error": f"{TRACKER['tracksim']} {ml.ctr(request, 'api_timeout')}"}
          if r.status_code == 200:
-@@ -175,14 +465,15 @@ async def post_update(response: Response, request: Request):
+@@ -175,14 +473,15 @@ async def post_update(response: Response, request: Request):
          await AuditLog(request, -999, "tracker", ml.ctr(request, "rejected_tracker_webhook_post_signature", var = {"tracker": "TrackSim", "ip": request.client.host}))
          return {"error": "Validation failed."}
  
@@ -333,7 +341,7 @@ index c70df29..119707b 100644
  
      return Response(status_code = 204)
  
-@@ -213,12 +504,12 @@ async def post_update_route(response: Response, request: Request, authorization:
+@@ -213,12 +512,12 @@ async def post_update_route(response: Response, request: Request, authorization:
          response.status_code = 400
          return {"error": ml.tr(request, "bad_json", force_lang = au["language"])}
  
@@ -348,7 +356,7 @@ index c70df29..119707b 100644
  
      if tracker_type != 2:
          response.status_code = 404
-@@ -230,7 +521,16 @@ async def post_update_route(response: Response, request: Request, authorization:
+@@ -230,7 +529,16 @@ async def post_update_route(response: Response, request: Request, authorization:
          response.status_code = 409
          return {"error": ml.tr(request, "route_already_fetched", force_lang = au["language"])}
  
