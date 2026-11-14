@@ -35,6 +35,7 @@ implement requirements that are specific to this Docker deployment.
 | --- | --- | --- |
 | Frontend | `frontend/docker/use-config-url-api-path.mjs` | Derive the API base path from `VITE_CONFIG_URL` for a single-hub deployment instead of treating the VTC abbreviation as the API prefix. |
 | Backend | `backend/docker/nuitka-jobs.patch` | Pass `BACKEND_BUILD_JOBS` to Nuitka to limit compiler load on small hosts. |
+| Backend | `backend/docker/geoip-session-transition.patch` | Preserve existing sessions when their previously unknown `XX` country becomes a known ISO country. Known-to-unknown and known-to-different-country transitions remain blocked. |
 | Backend | `examples/economy-garages.*` and `backend/docker/update-economy-garages.py` | Provide current ETS2 and ATS economy garages while preserving operator-defined economy values and custom entries when an installed configuration is updated. |
 | Frontend | `ASSETS_BASE=/` and the post-build check in `frontend/Dockerfile` | Use root-relative assets so that client-side routes such as OAuth callbacks can load the application bundle. |
 | Frontend | Cleanup in `frontend/Dockerfile` | Exclude Electron entry points from the web-only runtime image. Upstream discussion: [Issue #18](https://github.com/CharlesWithC/HubFrontend/issues/18). |

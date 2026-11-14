@@ -43,6 +43,7 @@ COPY backend/docker/trucky-validation.patch ./docker/trucky-validation.patch
 COPY backend/docker/unitracker-validation.patch ./docker/unitracker-validation.patch
 COPY backend/docker/dlog-export-multiplayer.patch ./docker/dlog-export-multiplayer.patch
 COPY backend/docker/proxy-auth.patch ./docker/proxy-auth.patch
+COPY backend/docker/geoip-session-transition.patch ./docker/geoip-session-transition.patch
 
 RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_domain, api_host):' src/external_plugins/client-config.py \
         && grep -q 'config\["domain"\] = frontend_domain' src/external_plugins/client-config.py \
@@ -149,6 +150,15 @@ RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_doma
     && grep -q 'DOMAIN_WHITELIST = \["api.truckersmp.com"\]' src/external_plugins/proxy.py \
     && grep -q 'authorization: str = Header(None)' src/external_plugins/proxy.py \
     && grep -q 'au = await auth(authorization, request)' src/external_plugins/proxy.py \
+    && if grep -q 'country == "XX" and curCountry in ISO_COUNTRIES' src/functions/security.py; then \
+        echo "Compatible unknown-to-known session country transition detected."; \
+    elif grep -q 'if curCountry != country and country != "":' src/functions/security.py; then \
+        patch --batch --fuzz=0 -p1 < docker/geoip-session-transition.patch; \
+    else \
+        echo "Unsupported session country validation implementation." >&2; \
+        exit 1; \
+    fi \
+    && grep -q 'country == "XX" and curCountry in ISO_COUNTRIES' src/functions/security.py \
     && python docker/configure-legal-links.py \
     && grep -q 'LEGAL_URL_KEYS =' src/external_plugins/client-config.py \
     && grep -q 'newconfig\["legal_urls"\] = normalized_legal_urls' src/external_plugins/client-config.py \

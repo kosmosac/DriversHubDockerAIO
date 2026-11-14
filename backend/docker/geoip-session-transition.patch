@@ -1,0 +1,12 @@
+diff --git a/src/functions/security.py b/src/functions/security.py
+--- a/src/functions/security.py
++++ b/src/functions/security.py
+@@ -351,7 +351,7 @@ async def auth(authorization, request, check_member = False, required_permission
+ 
+         # check country
+         if app.config.security_level >= 1 and request.client.host not in app.config.whitelist_ips:
+-            if curCountry != country and country != "":
++            if curCountry != country and country != "" and not (country == "XX" and curCountry in ISO_COUNTRIES):
+                 await app.db.new_conn(dhrid, db_name = app.config.db_name)
+                 await app.db.execute(dhrid, f"DELETE FROM session WHERE token = '{stoken}'")
+                 await app.db.commit(dhrid)
