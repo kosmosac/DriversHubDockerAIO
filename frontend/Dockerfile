@@ -101,7 +101,8 @@ RUN if [ "$VITE_USE_MULTIHUB" != "true" ]; then \
         esac; \
     fi
 
-RUN npm run build
+RUN npm run build:dev \
+    && test -n "$(find build/assets -type f -name '*.map' -print -quit)"
 
 RUN grep -Eq '(src|href)="/assets/' build/index.html \
     && ! grep -Eq '(src|href)="assets/' build/index.html
