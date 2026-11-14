@@ -52,6 +52,8 @@ RUN node /tmp/configure-privacy.mjs \
     && grep -q 'const LEGAL_LINK_KEYS =' src/App.js \
     && grep -q 'essential_cookies_notice' src/App.js \
     && grep -q 'legal_urls' src/routes/config.js \
+    && grep -q 'validatedSourceRepositories' src/App.js \
+    && ! grep -q 'source_repositories' src/routes/config.js \
     && ! grep -Eq 'googletagmanager|google-analytics|G-SLZ5TY9MVN|GOOGLE_ANALYTICS_ID' src/App.js
 RUN node /tmp/remove-obsolete-radios.mjs
 RUN node /tmp/replace-fallback-avatar.mjs

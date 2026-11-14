@@ -16,6 +16,13 @@ if (app.includes("const LEGAL_LINK_KEYS =")) {
 
 app = replaceOnce(
     app,
+    "Card, CardContent, Typography, Button, Grid, useTheme, useMediaQuery, createTheme, ThemeProvider, CssBaseline",
+    "Card, CardContent, Typography, Button, Grid, Dialog, DialogTitle, DialogContent, DialogActions, useTheme, useMediaQuery, createTheme, ThemeProvider, CssBaseline",
+    "Material UI imports",
+);
+
+app = replaceOnce(
+    app,
     'const CONNECTIONS = { email: "email", discord: "Discord", steam: "Steam", truckersmp: "TruckersMP" };\n',
     `const CONNECTIONS = { email: "email", discord: "Discord", steam: "Steam", truckersmp: "TruckersMP" };
 const LEGAL_LINK_KEYS = ["privacy_policy", "cookie_policy", "imprint"];
@@ -29,6 +36,19 @@ function validatedLegalUrl(value) {
         // Invalid or incomplete URLs are not rendered.
     }
     return "";
+}
+
+function validatedSourceRepositories(value) {
+    if (!Array.isArray(value)) return [];
+    return value.flatMap(repository => {
+        if (typeof repository?.name !== "string" || repository.name.trim() === "") return [];
+        const url = validatedLegalUrl(repository.url);
+        if (url === "") return [];
+        const parsedUrl = new URL(url);
+        const repositoryUrl = url.endsWith("/") ? url.slice(0, -1) : url;
+        const contributorsUrl = parsedUrl.hostname === "github.com" ? repositoryUrl + "/graphs/contributors" : "";
+        return [{ name: repository.name.trim(), url, contributorsUrl }];
+    });
 }
 `,
     "connection constant",
@@ -50,7 +70,9 @@ const legalState = `    const legalLinks = LEGAL_LINK_KEYS.map(key => ({
         label: tr(key),
         url: validatedLegalUrl(webConfig?.legal_urls?.[key]),
     })).filter(link => link.url !== "");
-    const cookieNoticeLink = legalLinks.find(link => link.key === "cookie_policy") || legalLinks.find(link => link.key === "privacy_policy");`;
+    const cookieNoticeLink = legalLinks.find(link => link.key === "cookie_policy") || legalLinks.find(link => link.key === "privacy_policy");
+    const sourceRepositories = validatedSourceRepositories(webConfig?.source_repositories);
+    const [creditsOpen, setCreditsOpen] = useState(false);`;
 app = app.slice(0, analyticsStart) + legalState + app.slice(analyticsEnd);
 
 const consentStartMarker = "                        {!window.isElectron && cookieSettings === null && !sidebarForceHidden && (";
@@ -92,29 +114,58 @@ const essentialNotice = `                        {!window.isElectron && cookieSe
 `;
 app = app.slice(0, consentStart) + essentialNotice + app.slice(contentStart);
 
-const footerStart = '<footer style={{ display: ["/auth", "/auth/login", "/auth/email", "/auth/discord/callback", "/auth/discord/redirect", "/auth/steam/callback", "/auth/steam/redirect", "/auth/mfa"].includes(location.pathname) ? "none" : "block", marginTop: "auto", fontSize: "0.9em" }}>';
-app = replaceOnce(
-    app,
-    footerStart,
-    '<footer style={{ display: ["/auth", "/auth/login", "/auth/email", "/auth/discord/callback", "/auth/discord/redirect", "/auth/steam/callback", "/auth/steam/redirect", "/auth/mfa"].includes(location.pathname) && legalLinks.length === 0 ? "none" : "block", marginTop: "auto", fontSize: "0.9em" }}>',
-    "footer visibility rule",
-);
-
-const footerEnd = "                                </footer>";
-const legalFooter = `                                    {legalLinks.length > 0 && (
-                                        <Typography variant="body2" sx={{ marginTop: "8px", fontWeight: 800 }}>
-                                            {legalLinks.map((link, index) => (
-                                                <span key={link.key}>
-                                                    {index > 0 && " · "}
-                                                    <a href={link.url} target="_blank" rel="noreferrer">
-                                                        {link.label}
-                                                    </a>
-                                                </span>
-                                            ))}
+const footerStart = app.indexOf('                                <footer style={{ display: ["/auth"');
+const footerEndMarker = "                                </footer>";
+const footerEnd = app.indexOf(footerEndMarker, footerStart);
+if (footerStart === -1 || footerEnd === -1) throw new Error("Cannot locate the upstream footer.");
+const creditsFooter = `                                <footer style={{ display: ["/auth", "/auth/login", "/auth/email", "/auth/discord/callback", "/auth/discord/redirect", "/auth/steam/callback", "/auth/steam/redirect", "/auth/mfa"].includes(location.pathname) && legalLinks.length === 0 ? "none" : "block", marginTop: "auto", fontSize: "0.9em" }}>
+                                    <div style={{ marginTop: "20px", color: theme.palette.text.secondary, marginRight: hasSpeedDial && isMd ? "70px" : 0 }}>
+                                        <Typography variant="body2" sx={{ fontWeight: 800 }}>
+                                            &copy; 2022-2026 <a href="https://charlws.com/" target="_blank" rel="noreferrer">CharlesWithC</a> &amp; {tr("contributors")} ·{" "}
+                                            <Button variant="text" color="inherit" onClick={() => setCreditsOpen(true)} sx={{ minWidth: 0, padding: 0, fontWeight: 800, textTransform: "none", verticalAlign: "baseline" }}>
+                                                {tr("credits_and_source")}
+                                            </Button>
                                         </Typography>
-                                    )}
+                                        {legalLinks.length > 0 && (
+                                            <Typography variant="body2" sx={{ marginTop: "6px", fontWeight: 800 }}>
+                                                {legalLinks.map((link, index) => (
+                                                    <span key={link.key}>
+                                                        {index > 0 && " · "}
+                                                        <a href={link.url} target="_blank" rel="noreferrer">{link.label}</a>
+                                                    </span>
+                                                ))}
+                                            </Typography>
+                                        )}
+                                    </div>
+                                    <Dialog open={creditsOpen} onClose={() => setCreditsOpen(false)} fullWidth maxWidth="sm">
+                                        <DialogTitle>{tr("credits_and_source")}</DialogTitle>
+                                        <DialogContent dividers>
+                                            <Typography variant="body1" sx={{ marginBottom: "14px" }}>
+                                                {tr("original_author")}: <a href="https://charlws.com/" target="_blank" rel="noreferrer">CharlesWithC</a>
+                                            </Typography>
+                                            {sourceRepositories.length > 0 && (
+                                                <>
+                                                    <Typography variant="subtitle2" sx={{ marginBottom: "6px" }}>{tr("source_repositories")}</Typography>
+                                                    {sourceRepositories.map(repository => (
+                                                        <Typography key={repository.url} variant="body2" sx={{ marginBottom: "4px" }}>
+                                                            <a href={repository.url} target="_blank" rel="noreferrer">{repository.name}</a>
+                                                            {repository.contributorsUrl !== "" && (
+                                                                <> · <a href={repository.contributorsUrl} target="_blank" rel="noreferrer">{tr("contributors")}</a></>
+                                                            )}
+                                                        </Typography>
+                                                    ))}
+                                                </>
+                                            )}
+                                            <Typography variant="body2" sx={{ marginTop: "14px" }}>
+                                                {tr("license")}: <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank" rel="noreferrer">GNU AGPL v3.0</a>
+                                            </Typography>
+                                        </DialogContent>
+                                        <DialogActions>
+                                            <Button onClick={() => setCreditsOpen(false)}>{tr("close")}</Button>
+                                        </DialogActions>
+                                    </Dialog>
                                 </footer>`;
-app = replaceOnce(app, footerEnd, legalFooter, "footer end");
+app = app.slice(0, footerStart) + creditsFooter + app.slice(footerEnd + footerEndMarker.length);
 
 const unsupportedAnalytics = [
     /googletagmanager\.com/i,
@@ -182,6 +233,11 @@ const translations = {
         imprint: "Impressum",
         privacy_policy: "Datenschutzerklärung",
         understood: "Verstanden",
+        contributors: "Mitwirkende",
+        credits_and_source: "Credits & Quellcode",
+        license: "Lizenz",
+        original_author: "Ursprünglicher Autor",
+        source_repositories: "Quellcode-Repositories",
     },
     en: {
         cookie_policy: "Cookie Policy",
@@ -189,6 +245,11 @@ const translations = {
         imprint: "Imprint",
         privacy_policy: "Privacy Policy",
         understood: "Understood",
+        contributors: "contributors",
+        credits_and_source: "Credits & source",
+        license: "License",
+        original_author: "Original author",
+        source_repositories: "Source repositories",
     },
     es: {
         cookie_policy: "Política de cookies",
@@ -196,6 +257,11 @@ const translations = {
         imprint: "Aviso legal",
         privacy_policy: "Política de privacidad",
         understood: "Entendido",
+        contributors: "colaboradores",
+        credits_and_source: "Créditos y código fuente",
+        license: "Licencia",
+        original_author: "Autor original",
+        source_repositories: "Repositorios de código fuente",
     },
     nl: {
         cookie_policy: "Cookiebeleid",
@@ -203,6 +269,11 @@ const translations = {
         imprint: "Colofon",
         privacy_policy: "Privacybeleid",
         understood: "Begrepen",
+        contributors: "bijdragers",
+        credits_and_source: "Credits & broncode",
+        license: "Licentie",
+        original_author: "Oorspronkelijke auteur",
+        source_repositories: "Broncode-repositories",
     },
     pt: {
         cookie_policy: "Política de cookies",
@@ -210,6 +281,11 @@ const translations = {
         imprint: "Aviso legal",
         privacy_policy: "Política de privacidade",
         understood: "Entendido",
+        contributors: "colaboradores",
+        credits_and_source: "Créditos e código-fonte",
+        license: "Licença",
+        original_author: "Autor original",
+        source_repositories: "Repositórios de código-fonte",
     },
 };
 
@@ -221,4 +297,4 @@ for (const [language, values] of Object.entries(translations)) {
     writeFileSync(path, JSON.stringify(sorted, null, 2) + "\n");
 }
 
-console.log("Removed Analytics and added the essential-cookie notice with configurable legal links.");
+console.log("Removed Analytics and added the essential-cookie notice, legal links, and source credits.");

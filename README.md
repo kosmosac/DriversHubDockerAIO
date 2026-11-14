@@ -166,6 +166,8 @@ guides are optional references and can be used, changed, or ignored:
   and explains how to merge it into an existing configuration.
 - [PRIVACY.md](PRIVACY.md) explains the essential-cookie notice and the
   configurable links to externally hosted legal documents.
+- [SOURCE.md](SOURCE.md) explains the source and contributor links in the
+  frontend credits dialog.
 
 ## Start the deployment
 

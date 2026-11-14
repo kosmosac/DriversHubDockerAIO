@@ -6,11 +6,13 @@ from pathlib import Path
 path = Path("src/external_plugins/client-config.py")
 source = path.read_text(encoding="utf-8")
 
-if "LEGAL_URL_KEYS =" in source:
-    print("Compatible legal-link support detected; no backend changes required.")
+aio_repository_url = "https://github.com/kosmosac/DriversHubDockerAIO"
+
+if "LEGAL_URL_KEYS =" in source and aio_repository_url in source:
+    print("Compatible legal-link and source-credit support detected; no backend changes required.")
     raise SystemExit(0)
 
-replacements = [
+legal_replacements = [
     (
         "from functions import *\n\n\n",
         'from functions import *\n\n\nLEGAL_URL_KEYS = ("privacy_policy", "cookie_policy", "imprint")\n\n\n',
@@ -56,22 +58,60 @@ replacements = [
     ),
 ]
 
-for old, new in replacements:
-    count = source.count(old)
+if "LEGAL_URL_KEYS =" not in source:
+    for old, new in legal_replacements:
+        count = source.count(old)
+        if count != 1:
+            raise RuntimeError(f"Expected one backend marker, found {count}: {old[:80]!r}")
+        source = source.replace(old, new, 1)
+
+source_replacements = [
+    (
+        'LEGAL_URL_KEYS = ("privacy_policy", "cookie_policy", "imprint")\n',
+        'LEGAL_URL_KEYS = ("privacy_policy", "cookie_policy", "imprint")\n'
+        'SOURCE_REPOSITORIES = (\n'
+        '    {"name": "HubFrontend", "url": "https://github.com/CharlesWithC/HubFrontend"},\n'
+        '    {"name": "HubBackend", "url": "https://github.com/CharlesWithC/HubBackend"},\n'
+        '    {"name": "DriversHubDockerAIO", "url": "https://github.com/kosmosac/DriversHubDockerAIO"},\n'
+        ')\n',
+    ),
+    (
+        '    config["legal_urls"] = {key: legal_urls.get(key, "") for key in LEGAL_URL_KEYS}\n'
+        '    return config\n',
+        '    config["legal_urls"] = {key: legal_urls.get(key, "") for key in LEGAL_URL_KEYS}\n'
+        '    config["source_repositories"] = [dict(repository) for repository in SOURCE_REPOSITORIES]\n'
+        '    return config\n',
+    ),
+]
+
+if "SOURCE_REPOSITORIES =" not in source:
+    for old, new in source_replacements:
+        count = source.count(old)
+        if count != 1:
+            raise RuntimeError(f"Expected one source-credit marker, found {count}: {old[:80]!r}")
+        source = source.replace(old, new, 1)
+elif aio_repository_url not in source:
+    marker = "SOURCE_REPOSITORIES = (\n"
+    count = source.count(marker)
     if count != 1:
-        raise RuntimeError(f"Expected one backend marker, found {count}: {old[:80]!r}")
-    source = source.replace(old, new, 1)
+        raise RuntimeError(f"Expected one upstream source repository declaration, found {count}.")
+    source = source.replace(
+        marker,
+        marker + f'    {{"name": "DriversHubDockerAIO", "url": "{aio_repository_url}"}},\n',
+        1,
+    )
 
 compile(source, str(path), "exec")
 required = [
     "LEGAL_URL_KEYS =",
+    aio_repository_url,
     'config["legal_urls"] =',
     'newconfig["legal_urls"] = normalized_legal_urls',
-    '"truckersmp_vtc_id", "legal_urls", "gallery"',
+    'config["source_repositories"] = [dict(repository) for repository in SOURCE_REPOSITORIES]',
     '"legal_urls": {key: "" for key in LEGAL_URL_KEYS}',
 ]
 if any(marker not in source for marker in required):
     raise RuntimeError("The generated backend implementation is incomplete.")
 
 path.write_text(source, encoding="utf-8")
-print("Added Hub-specific legal links to the client configuration.")
+print("Added Hub-specific legal links and source credits to the client configuration.")
