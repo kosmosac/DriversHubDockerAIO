@@ -43,12 +43,7 @@ COPY backend/docker/unitracker-validation.patch ./docker/unitracker-validation.p
 COPY backend/docker/dlog-export-multiplayer.patch ./docker/dlog-export-multiplayer.patch
 COPY backend/docker/proxy-auth.patch ./docker/proxy-auth.patch
 
-RUN python docker/update-economy-garages.py \
-        --garages docker/economy-garages.json \
-        --config config_sample.json \
-        --python-source src/config.py \
-    && test "$(python -c 'import json; print(len(json.load(open("config_sample.json"))["economy"]["garages"]))')" -eq 361 \
-    && if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_domain, api_host):' src/external_plugins/client-config.py \
+RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_domain, api_host):' src/external_plugins/client-config.py \
         && grep -q 'config\["domain"\] = frontend_domain' src/external_plugins/client-config.py \
         && grep -q 'config\["api_host"\] = api_host' src/external_plugins/client-config.py \
         && grep -q 'frontend_conf\["api_host"\] = api_host' src/external_plugins/client-config.py; then \
@@ -152,7 +147,12 @@ RUN python docker/update-economy-garages.py \
     fi \
     && grep -q 'DOMAIN_WHITELIST = \["api.truckersmp.com"\]' src/external_plugins/proxy.py \
     && grep -q 'authorization: str = Header(None)' src/external_plugins/proxy.py \
-    && grep -q 'au = await auth(authorization, request)' src/external_plugins/proxy.py
+    && grep -q 'au = await auth(authorization, request)' src/external_plugins/proxy.py \
+    && python docker/update-economy-garages.py \
+        --garages docker/economy-garages.json \
+        --config config_sample.json \
+        --python-source src/config.py \
+    && test "$(python -c 'import json; print(len(json.load(open("config_sample.json"))["economy"]["garages"]))')" -eq 361
 
 FROM patched-source AS builder
 
