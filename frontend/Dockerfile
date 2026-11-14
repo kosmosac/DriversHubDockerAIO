@@ -100,6 +100,7 @@ RUN rm -f \
 FROM caddy:2-alpine AS runtime
 
 COPY frontend/caddy/Caddyfile /etc/caddy/Caddyfile
+COPY frontend/caddy/geoip/ /etc/caddy/geoip/
 COPY config/caddy/sites/00-placeholder.caddy /etc/caddy/sites/00-placeholder.caddy
 COPY --from=builder /build/build/ /srv/
 

@@ -1,0 +1,8 @@
+# Never trust a country header supplied by the public client. Resolve the
+# verified client address locally and copy only the lookup result.
+request_header -CF-IPCountry
+forward_auth geoip:8080 {
+    uri /lookup
+    header_up X-GeoIP-Address {client_ip}
+    copy_headers CF-IPCountry
+}

@@ -9,6 +9,21 @@ x-backend-image: &backend-image
   image: drivershub-backend
 
 services:
+  geoip:
+    build:
+      context: .
+      dockerfile: geoip/Dockerfile
+    image: drivershub-geoip
+    profiles: ["geoip"]
+    restart: unless-stopped
+    volumes:
+      - ./data/geoip:/data
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
   mariadb:
     image: mariadb:10.11
     restart: unless-stopped
@@ -69,6 +84,7 @@ services:
     restart: unless-stopped
     environment:
       CADDY_ADDRESS: http://:8080
+      COMPOSE_PROFILES: ${COMPOSE_PROFILES:-disabled}
     ports:
       - "${HUB_BIND:-127.0.0.1:18080}:8080"
     healthcheck:

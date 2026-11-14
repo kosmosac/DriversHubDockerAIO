@@ -187,6 +187,30 @@ All services use the Compose project network. Caddy reaches the backend as
 accepts forwarded client information from its Compose network without a fixed
 container address or Docker subnet.
 
+### Optional visitor country lookup
+
+Without Cloudflare, login notifications normally show `Unknown Region` because
+the backend does not receive Cloudflare's `CF-IPCountry` header. To provide the
+same country information locally, uncomment this line in `.env`:
+
+```dotenv
+COMPOSE_PROFILES=geoip
+```
+
+Then run `docker compose up -d --build`. This starts one additional internal
+service which downloads and periodically updates the DB-IP Country Lite
+database, resolves the verified client address, and supplies the country code
+to the backend through Caddy. It does not publish a host port. Its persistent
+database is stored below `data/geoip/`. If an update fails, the last valid
+database remains active; addresses which cannot be resolved use `Unknown
+Region`.
+
+The external reverse proxy must pass the real client address as described
+below. Disable the profile again by removing `COMPOSE_PROFILES=geoip` and
+running `docker compose up -d --remove-orphans`.
+
+IP geolocation data is provided by [DB-IP](https://db-ip.com/).
+
 ### Directly with automatic HTTPS
 
 Use `compose.direct.yaml` when this stack must terminate TLS itself. Set

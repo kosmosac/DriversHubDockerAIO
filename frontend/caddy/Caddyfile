@@ -15,6 +15,7 @@
     respond @blocked_api 404
 
     handle /api/* {
+        import /etc/caddy/geoip/{$COMPOSE_PROFILES:disabled}.caddy
         reverse_proxy backend:7777
     }
 
