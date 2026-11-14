@@ -141,7 +141,7 @@ const creditsFooter = `                                <footer style={{ display:
                                         <DialogTitle>{tr("credits_and_source")}</DialogTitle>
                                         <DialogContent dividers>
                                             <Typography variant="body1" sx={{ marginBottom: "14px" }}>
-                                                {tr("original_author")}: <a href="https://charlws.com/" target="_blank" rel="noreferrer">CharlesWithC</a>
+                                                {tr("project_author")}: <a href="https://charlws.com/" target="_blank" rel="noreferrer">CharlesWithC</a>
                                             </Typography>
                                             {sourceRepositories.length > 0 && (
                                                 <>
@@ -236,7 +236,7 @@ const translations = {
         contributors: "Mitwirkende",
         credits_and_source: "Credits & Quellcode",
         license: "Lizenz",
-        original_author: "Ursprünglicher Autor",
+        project_author: "Autor des Projekts",
         source_repositories: "Quellcode-Repositories",
     },
     en: {
@@ -248,7 +248,7 @@ const translations = {
         contributors: "contributors",
         credits_and_source: "Credits & source",
         license: "License",
-        original_author: "Original author",
+        project_author: "Project author",
         source_repositories: "Source repositories",
     },
     es: {
@@ -260,7 +260,7 @@ const translations = {
         contributors: "colaboradores",
         credits_and_source: "Créditos y código fuente",
         license: "Licencia",
-        original_author: "Autor original",
+        project_author: "Autor del proyecto",
         source_repositories: "Repositorios de código fuente",
     },
     nl: {
@@ -272,7 +272,7 @@ const translations = {
         contributors: "bijdragers",
         credits_and_source: "Credits & broncode",
         license: "Licentie",
-        original_author: "Oorspronkelijke auteur",
+        project_author: "Auteur van het project",
         source_repositories: "Broncode-repositories",
     },
     pt: {
@@ -284,7 +284,7 @@ const translations = {
         contributors: "colaboradores",
         credits_and_source: "Créditos e código-fonte",
         license: "Licença",
-        original_author: "Autor original",
+        project_author: "Autor do projeto",
         source_repositories: "Repositórios de código-fonte",
     },
 };
