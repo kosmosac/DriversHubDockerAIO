@@ -20,6 +20,8 @@ COPY frontend/docker/configure-privacy.mjs /tmp/configure-privacy.mjs
 COPY frontend/docker/fix-logout-state.mjs /tmp/fix-logout-state.mjs
 COPY frontend/docker/fix-crash-handler.mjs /tmp/fix-crash-handler.mjs
 COPY frontend/docker/fix-statcard-colors.mjs /tmp/fix-statcard-colors.mjs
+COPY frontend/docker/fix-mui-theme-mode.mjs /tmp/fix-mui-theme-mode.mjs
+COPY frontend/docker/fix-avatar-refresh.mjs /tmp/fix-avatar-refresh.mjs
 COPY frontend/docker/handle-invalid-session.mjs /tmp/handle-invalid-session.mjs
 COPY frontend/docker/remove-obsolete-radios.mjs /tmp/remove-obsolete-radios.mjs
 COPY frontend/docker/replace-fallback-avatar.mjs /tmp/replace-fallback-avatar.mjs
@@ -70,6 +72,13 @@ RUN node /tmp/fix-statcard-colors.mjs \
     && grep -q 'alpha, useTheme' src/components/statcard.js \
     && test "$(grep -c 'alpha(color' src/components/statcard.js)" -eq 3 \
     && ! grep -q 'color + "75"' src/components/statcard.js
+RUN node /tmp/fix-mui-theme-mode.mjs \
+    && test "$(grep -o 'PROFILE_COLOR\[theme.palette.mode\]' src/components/usercard.js | wc -l)" -eq 12 \
+    && test "$(grep -o 'DEFAULT_BGCOLOR\[theme.palette.mode\]' src/routes/settings.js | wc -l)" -eq 8 \
+    && ! grep -q '\[theme.mode\]' src/components/usercard.js src/routes/settings.js
+RUN node /tmp/fix-avatar-refresh.mjs \
+    && grep -q 'const avatar = new Image()' src/functions.js \
+    && ! grep -q 'fetch(curUser.avatar' src/functions.js
 RUN node /tmp/handle-invalid-session.mjs \
     && grep -q 'function clearInvalidSession(errorResponse)' src/functions.js \
     && grep -q 'eraseCookie("auth-mode")' src/functions.js \

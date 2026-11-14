@@ -37,6 +37,8 @@ implement requirements that are specific to this Docker deployment.
 | Frontend | `frontend/docker/handle-invalid-session.mjs` | Clear stale local authentication state and return to the login page when an authenticated request receives HTTP 401. |
 | Frontend | `frontend/docker/fix-crash-handler.mjs` | Keep the crash fallback functional by importing its React hook and log the original rendering error for diagnosis. |
 | Frontend | `frontend/docker/fix-statcard-colors.mjs` | Generate chart gradients from valid MUI colors so the logged-out default RGBA theme does not crash the overview. |
+| Frontend | `frontend/docker/fix-mui-theme-mode.mjs` | Use MUI's supported palette mode value for profile and appearance colors instead of an undefined top-level theme property. |
+| Frontend | `frontend/docker/fix-avatar-refresh.mjs` | Test external profile images through browser image loading so opaque `no-cors` responses do not trigger unnecessary profile synchronization. |
 | Frontend | Source-map-preserving frontend build | Retain the source maps referenced by production JavaScript bundles so browser developer tools can load them instead of receiving the SPA fallback document. |
 | Backend | `backend/docker/nuitka-jobs.patch` | Pass `BACKEND_BUILD_JOBS` to Nuitka to limit compiler load on small hosts. |
 | Backend | `backend/docker/geoip-session-transition.patch` | Preserve existing sessions when their previously unknown `XX` country becomes a known ISO country. Known-to-unknown and known-to-different-country transitions remain blocked. |
