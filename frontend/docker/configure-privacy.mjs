@@ -70,9 +70,12 @@ const essentialNotice = `                        {!window.isElectron && cookieSe
                                         {cookieNoticeLink !== undefined && (
                                             <>
                                                 <br />
-                                                <a href={cookieNoticeLink.url} target="_blank" rel="noreferrer">
-                                                    {cookieNoticeLink.label}
-                                                </a>
+                                                <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", marginTop: "6px" }}>
+                                                    <FontAwesomeIcon icon={faLink} />
+                                                    <a href={cookieNoticeLink.url} target="_blank" rel="noreferrer" style={{ fontWeight: 700, textDecoration: "underline" }}>
+                                                        {cookieNoticeLink.label}
+                                                    </a>
+                                                </span>
                                             </>
                                         )}
                                     </Typography>
