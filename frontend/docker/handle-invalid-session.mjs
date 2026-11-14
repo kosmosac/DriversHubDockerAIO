@@ -24,7 +24,8 @@ const replacement = `function clearInvalidSession(errorResponse) {
         ? headers.get("Authorization")
         : headers?.Authorization || headers?.authorization;
 
-    if (typeof authorization !== "string" || !authorization.startsWith("Bearer ")) return;
+    const storedToken = getAuthToken();
+    if (storedToken === null || authorization !== \`Bearer \${storedToken}\`) return;
 
     localStorage.removeItem("token");
     eraseCookie("auth-mode");
