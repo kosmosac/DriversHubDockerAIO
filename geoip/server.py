@@ -13,6 +13,7 @@ import threading
 import time
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from urllib.parse import urlsplit
 from urllib.request import Request, urlopen
 
 import maxminddb
@@ -126,12 +127,13 @@ def updater() -> None:
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:  # noqa: N802
-        if self.path == "/health":
+        path = urlsplit(self.path).path
+        if path == "/health":
             self.send_response(200)
             self.end_headers()
             self.wfile.write(b"ok\n")
             return
-        if self.path != "/lookup":
+        if path != "/lookup":
             self.send_error(404)
             return
         country = DATABASE.country(self.headers.get("X-GeoIP-Address", ""))
