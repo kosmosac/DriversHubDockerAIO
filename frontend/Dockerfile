@@ -30,6 +30,7 @@ COPY frontend/docker/configure-map-base-url.mjs /tmp/configure-map-base-url.mjs
 COPY frontend/docker/fit-dlog-route.mjs /tmp/fit-dlog-route.mjs
 COPY frontend/docker/set-map-initial-zoom.mjs /tmp/set-map-initial-zoom.mjs
 COPY frontend/docker/simplify-login-methods.mjs /tmp/simplify-login-methods.mjs
+COPY frontend/docker/fix-event-locale.mjs /tmp/fix-event-locale.mjs
 
 RUN if grep -q 'sitekey="1788882d-3695-4807-abac-7d7166ec6325"' src/routes/auth/login.js; then \
         patch --batch --fuzz=0 -p1 < /tmp/hcaptcha-sitekey.patch; \
@@ -119,6 +120,10 @@ RUN node /tmp/simplify-login-methods.mjs \
     && ! grep -q 'register_methods.map' src/routes/auth/login.js \
     && grep -q '"or_login_with": "Oder fortfahren mit"' src/languages/de.json \
     && grep -q '"or_login_with": "Or continue with"' src/languages/en.json
+RUN node /tmp/fix-event-locale.mjs \
+    && grep -q 'const calendarLanguage = userSettings.language' src/routes/event.js \
+    && grep -q 'firstDay % 7' src/routes/event.js \
+    && grep -q 'firstDay={getFirstDay(calendarLanguage)}' src/routes/event.js
 
 RUN if [ "$VITE_USE_MULTIHUB" != "true" ]; then \
         case "$VITE_CONFIG_URL" in \
