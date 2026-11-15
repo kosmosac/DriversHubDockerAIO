@@ -29,6 +29,7 @@ COPY frontend/docker/use-config-url-api-path.mjs /tmp/use-config-url-api-path.mj
 COPY frontend/docker/configure-map-base-url.mjs /tmp/configure-map-base-url.mjs
 COPY frontend/docker/fit-dlog-route.mjs /tmp/fit-dlog-route.mjs
 COPY frontend/docker/set-map-initial-zoom.mjs /tmp/set-map-initial-zoom.mjs
+COPY frontend/docker/simplify-login-methods.mjs /tmp/simplify-login-methods.mjs
 
 RUN if grep -q 'sitekey="1788882d-3695-4807-abac-7d7166ec6325"' src/routes/auth/login.js; then \
         patch --batch --fuzz=0 -p1 < /tmp/hcaptcha-sitekey.patch; \
@@ -112,6 +113,11 @@ RUN node /tmp/set-map-initial-zoom.mjs \
     && grep -q 'initialZoom = 1' src/components/tilemap.js \
     && grep -q 'zoom: initialZoom' src/components/tilemap.js \
     && test "$(grep -c 'initialZoom={2}' src/routes/map.js)" -eq 5
+RUN node /tmp/simplify-login-methods.mjs \
+    && grep -q '{tr("or_login_with")}:' src/routes/auth/login.js \
+    && ! grep -q 'register_methods.map' src/routes/auth/login.js \
+    && grep -q '"or_login_with": "Oder fortfahren mit"' src/languages/de.json \
+    && grep -q '"or_login_with": "Or continue with"' src/languages/en.json
 
 RUN if [ "$VITE_USE_MULTIHUB" != "true" ]; then \
         case "$VITE_CONFIG_URL" in \
