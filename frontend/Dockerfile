@@ -16,6 +16,7 @@ RUN --mount=type=cache,target=/root/.npm npm ci
 COPY upstream/HubFrontend/ ./
 COPY frontend/docker/hcaptcha-sitekey.patch /tmp/hcaptcha-sitekey.patch
 COPY frontend/docker/proxy-auth.patch /tmp/proxy-auth.patch
+COPY frontend/docker/dlog-event-presentation.patch /tmp/dlog-event-presentation.patch
 COPY frontend/docker/configure-privacy.mjs /tmp/configure-privacy.mjs
 COPY frontend/docker/fix-logout-state.mjs /tmp/fix-logout-state.mjs
 COPY frontend/docker/fix-crash-handler.mjs /tmp/fix-crash-handler.mjs
@@ -56,6 +57,18 @@ RUN if grep -q 'headers: config.headers' src/functions.js \
     fi \
     && grep -q 'headers: config.headers' src/functions.js \
     && test "$(grep -h 'proxy?url=' src/routes/announcement.js src/routes/application/all.js src/routes/event.js src/routes/member-list.js | grep -c 'Authorization:')" -eq 4
+
+RUN if grep -q 'const EVENT_ICON =' src/routes/delivery.js; then \
+        patch --batch --fuzz=0 -p1 < /tmp/dlog-event-presentation.patch; \
+    elif grep -q 'function GetEventPresentation' src/routes/delivery.js; then \
+        echo "Upstream already supports vehicle-aware delivery events; skip the deployment patch."; \
+    else \
+        echo "Unsupported upstream delivery event implementation." >&2; \
+        exit 1; \
+    fi \
+    && grep -q 'DirectionsCarRounded' src/routes/delivery.js \
+    && grep -q 'DepartureBoardRounded' src/routes/delivery.js \
+    && grep -q 'satisfaction_increase' src/routes/delivery.js
 
 RUN node /tmp/configure-privacy.mjs \
     && grep -q 'const LEGAL_LINK_KEYS =' src/App.js \

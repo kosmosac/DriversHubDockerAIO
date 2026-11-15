@@ -1,0 +1,229 @@
+diff --git a/src/languages/de.json b/src/languages/de.json
+index 4483ae6..1cf3f05 100644
+--- a/src/languages/de.json
++++ b/src/languages/de.json
+@@ -180,6 +180,8 @@
+   "click_to_toggle": "(Klicken zum Umschalten)",
+   "close": "Schließen",
+   "collision": "Kollision",
++  "coach_stop": "Bushaltestelle",
++  "change": "Änderung",
+   "color": "Farbe",
+   "cols": "Spalte",
+   "column": "Spalte",
+@@ -950,6 +952,9 @@
+   "rows": "Zeilen",
+   "rows_per_page": "Zeilen pro Seite:",
+   "save": "Speichern",
++  "satisfaction": "Zufriedenheit",
++  "satisfaction_decreased": "Zufriedenheit gesunken",
++  "satisfaction_increased": "Zufriedenheit gestiegen",
+   "say_something_about_you": "Erzähle etwas über dich",
+   "scrap": "Schrott",
+   "scrap_refund": "Schrotterstattung",
+diff --git a/src/languages/en.json b/src/languages/en.json
+index 98bca3f..5ad6cf8 100644
+--- a/src/languages/en.json
++++ b/src/languages/en.json
+@@ -180,6 +180,8 @@
+   "click_to_toggle": "(Click to toggle)",
+   "close": "Close",
+   "collision": "Collision",
++  "coach_stop": "Coach Stop",
++  "change": "Change",
+   "color": "Color",
+   "cols": "Cols",
+   "column": "Column",
+@@ -950,6 +952,9 @@
+   "rows": "Rows",
+   "rows_per_page": "Rows per page:",
+   "save": "Save",
++  "satisfaction": "Satisfaction",
++  "satisfaction_decreased": "Satisfaction Decreased",
++  "satisfaction_increased": "Satisfaction Increased",
+   "say_something_about_you": "Say something about you",
+   "scrap": "Scrap",
+   "scrap_refund": "Scrap Refund",
+diff --git a/src/languages/es.json b/src/languages/es.json
+index e04adb3..6fd693a 100644
+--- a/src/languages/es.json
++++ b/src/languages/es.json
+@@ -180,6 +180,8 @@
+   "click_to_toggle": "(Click to toggle)",
+   "close": "Cerrar",
+   "collision": "Colisión",
++  "coach_stop": "Parada de autobús",
++  "change": "Cambio",
+   "color": "Color",
+   "cols": "Cols",
+   "column": "Columna",
+@@ -950,6 +952,9 @@
+   "rows": "Rows",
+   "rows_per_page": "Rows per page:",
+   "save": "Guardar",
++  "satisfaction": "Satisfacción",
++  "satisfaction_decreased": "La satisfacción disminuyó",
++  "satisfaction_increased": "La satisfacción aumentó",
+   "say_something_about_you": "Dinos algo sobre ti",
+   "scrap": "Chatarra",
+   "scrap_refund": "Reembolso de Chatarra",
+diff --git a/src/languages/nl.json b/src/languages/nl.json
+index 083f65a..42cb5f0 100644
+--- a/src/languages/nl.json
++++ b/src/languages/nl.json
+@@ -180,6 +180,8 @@
+   "click_to_toggle": "(Click to toggle)",
+   "close": "Sluiten",
+   "collision": "Botsing",
++  "coach_stop": "Bushalte",
++  "change": "Wijziging",
+   "color": "Kleur",
+   "cols": "Cols",
+   "column": "Kolom",
+@@ -950,6 +952,9 @@
+   "rows": "Rows",
+   "rows_per_page": "Rows per page:",
+   "save": "Opslaan",
++  "satisfaction": "Tevredenheid",
++  "satisfaction_decreased": "Tevredenheid afgenomen",
++  "satisfaction_increased": "Tevredenheid toegenomen",
+   "say_something_about_you": "Zeg iets over jezelf",
+   "scrap": "Afschrijven",
+   "scrap_refund": "Afschrijvings Terugbetaling",
+diff --git a/src/languages/pt.json b/src/languages/pt.json
+index 78d4420..3decc7e 100644
+--- a/src/languages/pt.json
++++ b/src/languages/pt.json
+@@ -174,6 +174,8 @@
+   "click_to_toggle": "(Clique para alternar)",
+   "close": "Fechar",
+   "collision": "Colisão",
++  "coach_stop": "Paragem de autocarro",
++  "change": "Alteração",
+   "color": "Cor",
+   "cols": "Cols",
+   "column": "Coluna",
+@@ -938,6 +940,9 @@
+   "rows": "Linhas",
+   "rows_per_page": "Linhas por página:",
+   "save": "Salvar",
++  "satisfaction": "Satisfação",
++  "satisfaction_decreased": "Satisfação diminuiu",
++  "satisfaction_increased": "Satisfação aumentou",
+   "say_something_about_you": "Conte algo sobre você",
+   "scrap": "Sucata",
+   "scrap_refund": "Reembolso da sucata",
+diff --git a/src/routes/delivery.js b/src/routes/delivery.js
+index b7442ae..cb068b8 100644
+--- a/src/routes/delivery.js
++++ b/src/routes/delivery.js
+@@ -5,7 +5,7 @@ import { AppContext } from "../context";
+ 
+ import { Grid, Chip, Card, CardContent, Typography, LinearProgress, IconButton, SpeedDial, SpeedDialAction, SpeedDialIcon, Button, Dialog, DialogTitle, DialogContent, DialogActions, FormControl, TextareaAutosize, Radio, RadioGroup, FormControlLabel, MenuItem, TextField, Snackbar, Alert, useTheme, Tooltip } from "@mui/material";
+ import { Timeline, TimelineItem, TimelineSeparator, TimelineConnector, TimelineContent, TimelineDot } from "@mui/lab";
+-import { LocalShippingRounded, InfoRounded, ChecklistRounded, FlagRounded, CloseRounded, GavelRounded, TollRounded, DirectionsBoatRounded, TrainRounded, CarCrashRounded, BuildRounded, LocalGasStationRounded, FlightTakeoffRounded, SpeedRounded, RefreshRounded, WarehouseRounded, DeleteRounded, Verified, VerifiedOutlined } from "@mui/icons-material";
++import { LocalShippingRounded, DirectionsCarRounded, DepartureBoardRounded, SentimentSatisfiedAltRounded, SentimentDissatisfiedRounded, InfoRounded, ChecklistRounded, FlagRounded, CloseRounded, GavelRounded, TollRounded, DirectionsBoatRounded, TrainRounded, CarCrashRounded, BuildRounded, LocalGasStationRounded, FlightTakeoffRounded, SpeedRounded, RefreshRounded, WarehouseRounded, DeleteRounded, Verified, VerifiedOutlined } from "@mui/icons-material";
+ import Portal from "@mui/material/Portal";
+ 
+ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+@@ -31,9 +31,40 @@ const DeliveryDetail = memo(({ divisions, userDivisionIDs, doReload, divisionMet
+     const { t: tr } = useTranslation();
+     const { apiPath, webConfig, curUID, curUser, curUserPerm, userSettings } = useContext(AppContext);
+ 
+-    const EVENT_ICON = { "job.started": <LocalShippingRounded />, "job.delivered": <FlagRounded />, "job.cancelled": <CloseRounded />, "fine": <GavelRounded />, "tollgate": <TollRounded />, "ferry": <DirectionsBoatRounded />, "train": <TrainRounded />, "collision": <CarCrashRounded />, "repair": <BuildRounded />, "refuel": <LocalGasStationRounded />, "teleport": <FlightTakeoffRounded />, "speeding": <SpeedRounded /> };
+-    const EVENT_COLOR = { "job.started": "lightgreen", "job.delivered": "lightgreen", "job.cancelled": "lightred", "fine": "orange", "tollgate": "lightblue", "ferry": "lightblue", "train": "lightblue", "collision": "orange", "repair": "lightblue", "refuel": "lightblue", "teleport": "lightblue", "speeding": "orange" };
+-    const EVENT_NAME = { "job.started": tr("job_started"), "job.delivered": tr("job_delivered"), "job.cancelled": tr("job_cancelled"), "fine": tr("fine"), "tollgate": tr("toll_gate"), "ferry": tr("ferry"), "train": tr("train"), "collision": tr("collision"), "repair": tr("repair"), "refuel": tr("refuel"), "teleport": tr("teleport"), "speeding": tr("speeding") };
++    const EVENT_PRESENTATION = {
++        "job.started": { icon: <LocalShippingRounded />, color: "lightgreen", name: tr("job_started") },
++        "job.delivered": { icon: <FlagRounded />, color: "lightgreen", name: tr("job_delivered") },
++        "job.cancelled": { icon: <CloseRounded />, color: "lightred", name: tr("job_cancelled") },
++        fine: { icon: <GavelRounded />, color: "orange", name: tr("fine") },
++        tollgate: { icon: <TollRounded />, color: "lightblue", name: tr("toll_gate") },
++        ferry: { icon: <DirectionsBoatRounded />, color: "lightblue", name: tr("ferry") },
++        train: { icon: <TrainRounded />, color: "lightblue", name: tr("train") },
++        collision: { icon: <CarCrashRounded />, color: "orange", name: tr("collision") },
++        repair: { icon: <BuildRounded />, color: "lightblue", name: tr("repair") },
++        refuel: { icon: <LocalGasStationRounded />, color: "lightblue", name: tr("refuel") },
++        "refuel.detected": { icon: <LocalGasStationRounded />, color: "lightblue", name: tr("refuel") },
++        teleport: { icon: <FlightTakeoffRounded />, color: "lightblue", name: tr("teleport") },
++        speeding: { icon: <SpeedRounded />, color: "orange", name: tr("speeding") },
++        satisfaction_increase: { icon: <SentimentSatisfiedAltRounded />, color: "lightgreen", name: tr("satisfaction_increased") },
++        satisfaction_decrease: { icon: <SentimentDissatisfiedRounded />, color: "orange", name: tr("satisfaction_decreased") },
++    };
++
++    function GetEventPresentation(event) {
++        const isCoach = dlogDetail.bus !== undefined;
++        const isCar = dlogDetail.car !== undefined;
++        if (isCoach && (event.type === "job.started" || event.type === "job.delivered" || event.meta?.at_stop === true)) {
++            const name = event.type === "job.started" ? tr("job_started") : event.type === "job.delivered" ? tr("job_delivered") : tr("coach_stop");
++            return { icon: <DepartureBoardRounded />, color: "lightblue", name };
++        }
++        if (isCar && (event.type === "job.started" || event.type === "job.delivered")) {
++            return { icon: <DirectionsCarRounded />, color: "lightgreen", name: event.type === "job.started" ? tr("job_started") : tr("job_delivered") };
++        }
++        return EVENT_PRESENTATION[event.type] ?? {
++            icon: <InfoRounded />,
++            color: "grey",
++            name: String(event.type ?? tr("unknown")).replaceAll("_", " ").replaceAll(".", " "),
++        };
++    }
+     const FINE_DESC = { crash: tr("crashed_a_vehicle"), red_signal: tr("ran_a_red_light"), speeding_camera: tr("speeding_camera"), speeding: tr("speeding"), wrong_way: tr("wrong_way"), no_lights: tr("no_lights"), avoid_sleeping: tr("fatigue_driving"), avoid_weighing: tr("avoided_weighing"), damaged_vehicle_usage: tr("damaged_vehicle_usage"), illegal_border_crossing: tr("crossed_border_illegally"), illegal_trailer: tr("attached_illegal_trailer"), avoid_inspection: tr("avoided_inspection"), hard_shoulder_violation: tr("violated_hard_shoulder") };
+     const MARKET = { cargo_market: tr("cargo_market"), freight_market: tr("freight_market"), external_contracts: tr("external_contracts"), quick_job: tr("quick_job"), external_market: tr("external_market") };
+     const YES_NO = { 0: tr("no"), 1: tr("yes") };
+@@ -611,6 +642,7 @@ const DeliveryDetail = memo(({ divisions, userDivisionIDs, doReload, divisionMet
+                                     <SimpleBar style={{ minHeight: "380px", height: "calc(100vh - 360px)" }}>
+                                         <Timeline position="alternate">
+                                             {dlogDetail.events.map((e, idx) => {
++                                                const presentation = GetEventPresentation(e);
+                                                 let desc = null;
+                                                 if (e.type === "fine") {
+                                                     desc = <>{FINE_DESC[e.meta.offence]}</>;
+@@ -672,19 +704,45 @@ const DeliveryDetail = memo(({ divisions, userDivisionIDs, doReload, divisionMet
+                                                             <>{tr("limit")}</>: {ConvertUnit(userSettings.unit, "km", e.meta.speed_limit * 3.6)}/h
+                                                         </>
+                                                     );
++                                                } else if (e.type === "satisfaction_increase" || e.type === "satisfaction_decrease") {
++                                                    const before = Number(e.meta?.before);
++                                                    const after = Number(e.meta?.after);
++                                                    const change = Number(e.meta?.change);
++                                                    const reason = e.meta?.reason;
++                                                    desc = (
++                                                        <>
++                                                            {Number.isFinite(before) && Number.isFinite(after) && (
++                                                                <>
++                                                                    {tr("satisfaction")}: {(before * 100).toFixed(1)}% → {(after * 100).toFixed(1)}%
++                                                                    <br />
++                                                                </>
++                                                            )}
++                                                            {Number.isFinite(change) && (
++                                                                <>
++                                                                    {tr("change")}: {change > 0 ? "+" : ""}{change.toFixed(1)}%
++                                                                    <br />
++                                                                </>
++                                                            )}
++                                                            {reason !== undefined && reason !== "unknown" && (
++                                                                <>
++                                                                    {tr("reason")}: {String(reason).replaceAll("_", " ")}
++                                                                </>
++                                                            )}
++                                                        </>
++                                                    );
+                                                 }
+                                                 return (
+                                                     <TimelineItem key={idx}>
+                                                         <TimelineSeparator>
+                                                             <TimelineConnector />
+-                                                            <TimelineDot variant="outlined" sx={{ color: EVENT_COLOR[e.type] }}>
+-                                                                {EVENT_ICON[e.type]}
++                                                            <TimelineDot variant="outlined" sx={{ color: presentation.color }}>
++                                                                {presentation.icon}
+                                                             </TimelineDot>
+                                                             <TimelineConnector />
+                                                         </TimelineSeparator>
+                                                         <TimelineContent sx={{ py: "12px", px: 2 }}>
+                                                             <Typography variant="h6" component="span">
+-                                                                {EVENT_NAME[e.type]}
++                                                                {presentation.name}
+                                                             </Typography>
+                                                             <Typography>
+                                                                 {desc !== null ? (
