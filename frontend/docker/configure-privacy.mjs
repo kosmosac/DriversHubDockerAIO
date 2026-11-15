@@ -118,7 +118,7 @@ const footerStart = app.indexOf('                                <footer style={
 const footerEndMarker = "                                </footer>";
 const footerEnd = app.indexOf(footerEndMarker, footerStart);
 if (footerStart === -1 || footerEnd === -1) throw new Error("Cannot locate the upstream footer.");
-const creditsFooter = `                                <footer style={{ display: ["/auth", "/auth/login", "/auth/email", "/auth/discord/callback", "/auth/discord/redirect", "/auth/steam/callback", "/auth/steam/redirect", "/auth/mfa"].includes(location.pathname) && legalLinks.length === 0 ? "none" : "block", marginTop: "auto", fontSize: "0.9em" }}>
+const creditsFooter = `                                <footer style={{ display: ["/auth", "/auth/login", "/auth/email", "/auth/discord/callback", "/auth/discord/redirect", "/auth/steam/callback", "/auth/steam/redirect", "/auth/mfa"].includes(location.pathname) && legalLinks.length === 0 ? "none" : "block", position: "relative", zIndex: 1, marginTop: "auto", fontSize: "0.9em" }}>
                                     <div style={{ marginTop: "20px", color: theme.palette.text.secondary, marginRight: hasSpeedDial && isMd ? "70px" : 0 }}>
                                         <Typography variant="body2" sx={{ fontWeight: 800 }}>
                                             &copy; 2022-2026 <a href="https://charlws.com/" target="_blank" rel="noreferrer">CharlesWithC</a> &amp; {tr("contributors")} ·{" "}
