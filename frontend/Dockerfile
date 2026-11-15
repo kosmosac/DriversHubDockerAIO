@@ -71,7 +71,8 @@ RUN if grep -q 'const EVENT_ICON =' src/routes/delivery.js; then \
     && grep -q 'DepartureBoardRounded' src/routes/delivery.js \
     && grep -q 'satisfaction_increase' src/routes/delivery.js
 RUN node /tmp/merge-coach-arrival.mjs \
-    && grep -q 'tr("destination_stop")' src/routes/delivery.js \
+    && grep -q 'tr("coach_departure")' src/routes/delivery.js \
+    && grep -q 'tr("coach_arrival")' src/routes/delivery.js \
     && grep -q 'event.type === "job.delivered"' src/routes/delivery.js
 
 RUN node /tmp/configure-privacy.mjs \
