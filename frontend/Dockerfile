@@ -18,6 +18,7 @@ COPY frontend/docker/hcaptcha-sitekey.patch /tmp/hcaptcha-sitekey.patch
 COPY frontend/docker/proxy-auth.patch /tmp/proxy-auth.patch
 COPY frontend/docker/dlog-event-presentation.patch /tmp/dlog-event-presentation.patch
 COPY frontend/docker/merge-coach-arrival.mjs /tmp/merge-coach-arrival.mjs
+COPY frontend/docker/handle-empty-trailers.mjs /tmp/handle-empty-trailers.mjs
 COPY frontend/docker/configure-privacy.mjs /tmp/configure-privacy.mjs
 COPY frontend/docker/fix-logout-state.mjs /tmp/fix-logout-state.mjs
 COPY frontend/docker/fix-crash-handler.mjs /tmp/fix-crash-handler.mjs
@@ -74,6 +75,9 @@ RUN node /tmp/merge-coach-arrival.mjs \
     && grep -q 'tr("coach_departure")' src/routes/delivery.js \
     && grep -q 'tr("coach_arrival")' src/routes/delivery.js \
     && grep -q 'event.type === "job.delivered"' src/routes/delivery.js
+RUN node /tmp/handle-empty-trailers.mjs \
+    && grep -q 'Array.isArray(detail.trailers)' src/routes/delivery.js \
+    && grep -q 'finally {' src/routes/delivery.js
 
 RUN node /tmp/configure-privacy.mjs \
     && grep -q 'const LEGAL_LINK_KEYS =' src/App.js \

@@ -38,6 +38,7 @@ COPY backend/docker/frontend-domain.patch ./docker/frontend-domain.patch
 COPY backend/docker/nuitka-jobs.patch ./docker/nuitka-jobs.patch
 COPY backend/docker/smtp-encryption.patch ./docker/smtp-encryption.patch
 COPY backend/docker/tracksim-job-types.patch ./docker/tracksim-job-types.patch
+COPY backend/docker/normalize-empty-trailers.py ./docker/normalize-empty-trailers.py
 COPY backend/docker/tracksim-cancelled-meta.patch ./docker/tracksim-cancelled-meta.patch
 COPY backend/docker/trucky-validation.patch ./docker/trucky-validation.patch
 COPY backend/docker/unitracker-validation.patch ./docker/unitracker-validation.patch
@@ -169,6 +170,10 @@ RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_doma
         --config config_sample.json \
         --python-source src/config.py \
     && test "$(python -c 'import json; print(len(json.load(open("config_sample.json"))["economy"]["garages"]))')" -eq 361
+
+RUN python docker/normalize-empty-trailers.py \
+    && grep -q 'job.setdefault("trailers", \[\])' src/apis/tracker/tracksim.py \
+    && grep -q 'job\["trailers"\] = \[\]' src/apis/tracker/tracksim.py
 
 FROM patched-source AS builder
 
