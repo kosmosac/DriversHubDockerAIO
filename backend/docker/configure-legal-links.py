@@ -8,6 +8,28 @@ source = path.read_text(encoding="utf-8")
 
 aio_repository_url = "https://github.com/kosmosac/DriversHubDockerAIO"
 
+if "app.config.source_repositories" in source:
+    upstream_repository = '{"name": "HubBackend", "url": "https://github.com/CharlesWithC/HubBackend"}'
+    aio_repository = f'{{"name": "DriversHubDockerAIO", "url": "{aio_repository_url}"}}'
+    for config_path in [Path("src/config.py"), Path("config_sample.json"), Path("docs/config.jsonc")]:
+        config_source = config_path.read_text(encoding="utf-8")
+        if aio_repository_url in config_source:
+            continue
+        count = config_source.count(upstream_repository)
+        if count != 1:
+            raise RuntimeError(f"Expected one upstream source repository in {config_path}, found {count}.")
+        config_source = config_source.replace(
+            upstream_repository,
+            upstream_repository + ",\n        " + aio_repository,
+            1,
+        )
+        if config_path.suffix == ".py":
+            compile(config_source, str(config_path), "exec")
+        config_path.write_text(config_source, encoding="utf-8")
+
+    print("Added the AIO source repository to the backend source configuration.")
+    raise SystemExit(0)
+
 if "LEGAL_URL_KEYS =" in source and aio_repository_url in source:
     print("Compatible legal-link and source-credit support detected; no backend changes required.")
     raise SystemExit(0)

@@ -163,8 +163,8 @@ RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_doma
     && python docker/configure-legal-links.py \
     && grep -q 'LEGAL_URL_KEYS =' src/external_plugins/client-config.py \
     && grep -q 'newconfig\["legal_urls"\] = normalized_legal_urls' src/external_plugins/client-config.py \
-    && grep -q 'SOURCE_REPOSITORIES =' src/external_plugins/client-config.py \
-    && grep -q 'DriversHubDockerAIO' src/external_plugins/client-config.py \
+    && grep -Eq 'SOURCE_REPOSITORIES =|app.config.source_repositories' src/external_plugins/client-config.py \
+    && grep -Rq 'DriversHubDockerAIO' src/config.py src/external_plugins/client-config.py \
     && python docker/update-economy-garages.py \
         --garages docker/economy-garages.json \
         --config config_sample.json \
