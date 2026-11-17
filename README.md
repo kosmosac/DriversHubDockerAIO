@@ -21,17 +21,14 @@ serves the frontend and forwards `/api` requests to the backend.
 
 This deployment is tested with:
 
-- Drivers Hub: Backend
-  [`v2.12.1`](https://github.com/CharlesWithC/HubBackend/releases/tag/v2.12.1)
-  at commit `a460eed`.
+- Drivers Hub: Backend `main` at commit
+  [`809cde5`](https://github.com/CharlesWithC/HubBackend/commit/809cde5c6d7e48ab451d8dfa9a6aa3a6ce0f3843).
 - Drivers Hub: Frontend `main` at commit
-  [`b7ab22a`](https://github.com/CharlesWithC/HubFrontend/commit/b7ab22a876153f216e1c733fecbf026aa2468653),
+  [`1c24488`](https://github.com/CharlesWithC/HubFrontend/commit/1c24488095ea6fb4a2fb7292ee907d16924df3cd),
   which declares package version `3.6.0`.
 
-The clone commands below get the current upstream default branches. A newer
-upstream revision can be incompatible with this deployment. If a build or
-runtime error occurs after an upstream update, compare both checked-out
-revisions with the tested revisions above.
+The installation commands below check out these exact revisions. Other
+upstream revisions are not supported by this AIO release.
 
 ## Requirements
 
@@ -49,7 +46,7 @@ but uses more host resources.
 For backend development or short-term testing, set
 `BACKEND_BUILD_TARGET=source-runtime` in `.env`. This target runs the patched
 Python source directly and avoids Nuitka compilation. It uses the same Compose
-services, configuration, and AIO compatibility patches as the normal target.
+services, configuration, and AIO source adjustments as the normal target.
 The source runtime is not recommended for production. Keep
 `BACKEND_BUILD_TARGET=runtime` for a production deployment.
 
@@ -68,6 +65,8 @@ Clone both upstream projects into this deployment repository:
 ```bash
 git clone https://github.com/CharlesWithC/HubBackend.git upstream/HubBackend
 git clone https://github.com/CharlesWithC/HubFrontend.git upstream/HubFrontend
+git -C upstream/HubBackend checkout 809cde5c6d7e48ab451d8dfa9a6aa3a6ce0f3843
+git -C upstream/HubFrontend checkout 1c24488095ea6fb4a2fb7292ee907d16924df3cd
 cp .env.example .env
 cp upstream/HubBackend/config_sample.json config/config.json
 python3 backend/docker/update-economy-garages.py \
@@ -603,8 +602,10 @@ containers.
 
 ```bash
 git pull --ff-only
-git -C upstream/HubBackend pull --ff-only
-git -C upstream/HubFrontend pull --ff-only
+git -C upstream/HubBackend fetch origin
+git -C upstream/HubBackend checkout 809cde5c6d7e48ab451d8dfa9a6aa3a6ce0f3843
+git -C upstream/HubFrontend fetch origin
+git -C upstream/HubFrontend checkout 1c24488095ea6fb4a2fb7292ee907d16924df3cd
 python3 backend/docker/update-economy-garages.py \
   --garages examples/economy-garages.json \
   --config config/config.json

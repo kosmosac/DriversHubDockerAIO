@@ -32,35 +32,11 @@ COPY upstream/HubBackend/docs/config.jsonc ./docs/config.jsonc
 COPY examples/economy-garages.json ./docker/economy-garages.json
 COPY backend/docker/configure-legal-links.py ./docker/configure-legal-links.py
 COPY backend/docker/update-economy-garages.py ./docker/update-economy-garages.py
-COPY backend/docker/client-config.patch ./docker/client-config.patch
-COPY backend/docker/client-config-upstream-domain.patch ./docker/client-config-upstream-domain.patch
-COPY backend/docker/frontend-domain.patch ./docker/frontend-domain.patch
 COPY backend/docker/nuitka-jobs.patch ./docker/nuitka-jobs.patch
-COPY backend/docker/smtp-encryption.patch ./docker/smtp-encryption.patch
-COPY backend/docker/tracksim-job-types.patch ./docker/tracksim-job-types.patch
 COPY backend/docker/normalize-empty-trailers.py ./docker/normalize-empty-trailers.py
-COPY backend/docker/tracksim-cancelled-meta.patch ./docker/tracksim-cancelled-meta.patch
-COPY backend/docker/trucky-validation.patch ./docker/trucky-validation.patch
-COPY backend/docker/unitracker-validation.patch ./docker/unitracker-validation.patch
-COPY backend/docker/dlog-export-multiplayer.patch ./docker/dlog-export-multiplayer.patch
-COPY backend/docker/proxy-auth.patch ./docker/proxy-auth.patch
 COPY backend/docker/geoip-session-transition.patch ./docker/geoip-session-transition.patch
 
-RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_domain, api_host):' src/external_plugins/client-config.py \
-        && grep -q 'config\["domain"\] = frontend_domain' src/external_plugins/client-config.py \
-        && grep -q 'config\["api_host"\] = api_host' src/external_plugins/client-config.py \
-        && grep -q 'frontend_conf\["api_host"\] = api_host' src/external_plugins/client-config.py; then \
-        echo "Compatible upstream client-config implementation detected."; \
-    elif grep -q 'def normalize_client_config(config, plugins, frontend_domain, api_host):' src/external_plugins/client-config.py \
-        && grep -q 'frontend_conf\["api_host"\] = api_host' src/external_plugins/client-config.py; then \
-        patch --batch --fuzz=0 -p1 < docker/client-config-upstream-domain.patch; \
-    elif ! grep -q 'def normalize_client_config' src/external_plugins/client-config.py; then \
-        patch --batch --fuzz=0 -p1 < docker/client-config.patch; \
-    else \
-        echo "Unsupported upstream client-config implementation." >&2; \
-        exit 1; \
-    fi \
-    && test "$(grep -c 'normalize_client_config(json.loads' src/external_plugins/client-config.py)" -eq 2 \
+RUN test "$(grep -c 'normalize_client_config(json.loads' src/external_plugins/client-config.py)" -eq 2 \
     && grep -q 'def normalize_client_config(config, plugins, abbr, frontend_domain, api_host):' src/external_plugins/client-config.py \
     && grep -q 'config\["domain"\] = frontend_domain' src/external_plugins/client-config.py \
     && grep -q 'config\["api_host"\] = api_host' src/external_plugins/client-config.py \
@@ -69,85 +45,22 @@ RUN if grep -q 'def normalize_client_config(config, plugins, abbr, frontend_doma
     && grep -q 'frontend_conf\["plugins"\] = config\["plugins"\]' src/external_plugins/client-config.py \
     && grep -q 'frontend_conf\["domain"\] = frontend_domain' src/external_plugins/client-config.py \
     && grep -q 'frontend_conf\["api_host"\] = api_host' src/external_plugins/client-config.py \
-    && if grep -q 'cfg\["frontend_urls"\]\[key\] = cfg\["frontend_urls"\]\[key\].replace("{domain}", cfg\["domain"\])' src/config.py; then \
-        echo "Upstream frontend domain expansion detected; patch is not required."; \
-    else \
-        patch --batch --fuzz=0 -p1 < docker/frontend-domain.patch; \
-    fi \
     && grep -q 'cfg\["frontend_urls"\]\[key\] = cfg\["frontend_urls"\]\[key\].replace("{domain}", cfg\["domain"\])' src/config.py \
     && patch --batch --fuzz=0 -p1 < docker/nuitka-jobs.patch \
     && test "$(grep -c -- '--jobs=$(NUITKA_JOBS)' makefile)" -eq 2 \
-    && if grep -q '"smtp_encryption": "starttls"' src/config.py \
-        && grep -q 'use_tls = smtp_encryption == "tls"' src/functions/mail.py \
-        && grep -q 'start_tls = smtp_encryption == "starttls"' src/functions/mail.py; then \
-        echo "Upstream SMTP encryption support detected; patch is not required."; \
-    elif ! grep -q 'smtp_encryption' src/config.py \
-        && ! grep -q 'smtp_encryption' src/functions/mail.py; then \
-        patch --batch --fuzz=0 -p1 < docker/smtp-encryption.patch; \
-    else \
-        echo "Unsupported upstream SMTP implementation." >&2; \
-        exit 1; \
-    fi \
     && grep -q '"smtp_encryption": "starttls"' src/config.py \
     && grep -q 'use_tls = smtp_encryption == "tls"' src/functions/mail.py \
     && grep -q 'start_tls = smtp_encryption == "starttls"' src/functions/mail.py \
     && grep -q 'hostname=app.config.smtp_host' src/functions/mail.py \
-    && if grep -q 'case "car_job.delivered" | "car_job.cancelled":' src/apis/tracker/tracksim.py \
-        && grep -q 'case "bus_job.completed" | "bus_job.cancelled":' src/apis/tracker/tracksim.py \
-        && grep -q 'api.tracksim.app/v2/jobs/{trackerid}/route?job_type={route_job_type}' src/apis/tracker/tracksim.py; then \
-        echo "Compatible upstream TrackSim job-type support detected; patch is not required."; \
-    elif ! grep -q 'def normalize_job_payload(data):' src/apis/tracker/tracksim.py; then \
-        patch --batch --fuzz=0 -p1 < docker/tracksim-job-types.patch; \
-    else \
-        echo "Unsupported upstream TrackSim job-type implementation." >&2; \
-        exit 1; \
-    fi \
     && grep -q 'case "car_job.delivered" | "car_job.cancelled":' src/apis/tracker/tracksim.py \
     && grep -q 'case "bus_job.completed" | "bus_job.cancelled":' src/apis/tracker/tracksim.py \
     && grep -q 'api.tracksim.app/v2/jobs/{trackerid}/route?job_type={route_job_type}' src/apis/tracker/tracksim.py \
     && grep -q 'event\["meta"\].setdefault("max_speed", event\["meta"\].get("speed"))' src/apis/tracker/tracksim.py \
-    && if grep -q 'event_meta = data\["events"\]\[-1\].get("meta", {})' src/functions/tracker.py; then \
-        echo "Upstream TrackSim cancellation metadata handling detected; patch is not required."; \
-    elif grep -q 'if "penalty" in data\["events"\]\[-1\]\["meta"\].keys():' src/functions/tracker.py; then \
-        patch --batch --fuzz=0 -p1 < docker/tracksim-cancelled-meta.patch; \
-    else \
-        echo "Unsupported upstream TrackSim cancellation metadata implementation." >&2; \
-        exit 1; \
-    fi \
     && grep -q 'event_meta = data\["events"\]\[-1\].get("meta", {})' src/functions/tracker.py \
-    && if grep -q '"Invalid Trucky webhook payload."' src/apis/tracker/trucky.py; then \
-        echo "Upstream Trucky payload validation detected; patch is not required."; \
-    else \
-        patch --batch --fuzz=0 -p1 < docker/trucky-validation.patch; \
-    fi \
     && test "$(grep -c '"Invalid Trucky webhook payload."' src/apis/tracker/trucky.py)" -eq 3 \
-    && if grep -q '"Invalid UniTracker webhook payload."' src/apis/tracker/unitracker.py; then \
-        echo "Upstream UniTracker payload validation detected; patch is not required."; \
-    else \
-        patch --batch --fuzz=0 -p1 < docker/unitracker-validation.patch; \
-    fi \
     && grep -q 'response.status_code = 422' src/apis/tracker/unitracker.py \
     && grep -q '"Invalid UniTracker webhook payload."' src/apis/tracker/unitracker.py \
-    && if grep -q 'data\["multiplayer"\] is not None and "type" in data\["multiplayer"\].keys()' src/apis/dlog/export.py; then \
-        echo "Upstream delivery export multiplayer handling detected; patch is not required."; \
-    elif grep -q 'if data\["multiplayer"\] is not None:' src/apis/dlog/export.py; then \
-        patch --batch --fuzz=0 -p1 < docker/dlog-export-multiplayer.patch; \
-    else \
-        echo "Unsupported upstream delivery export multiplayer handling." >&2; \
-        exit 1; \
-    fi \
     && grep -q 'data\["multiplayer"\] is not None and "type" in data\["multiplayer"\].keys()' src/apis/dlog/export.py \
-    && if grep -q 'DOMAIN_WHITELIST = \["api.truckersmp.com"\]' src/external_plugins/proxy.py \
-        && grep -q 'authorization: str = Header(None)' src/external_plugins/proxy.py \
-        && grep -q 'au = await auth(authorization, request)' src/external_plugins/proxy.py; then \
-        echo "Upstream authenticated TruckersMP proxy support detected; patch is not required."; \
-    elif grep -q 'DOMAIN_WHITELIST = \[\]' src/external_plugins/proxy.py \
-        && ! grep -q 'authorization: str = Header(None)' src/external_plugins/proxy.py; then \
-        patch --batch --fuzz=0 -p1 < docker/proxy-auth.patch; \
-    else \
-        echo "Unsupported upstream proxy implementation." >&2; \
-        exit 1; \
-    fi \
     && grep -q 'DOMAIN_WHITELIST = \["api.truckersmp.com"\]' src/external_plugins/proxy.py \
     && grep -q 'authorization: str = Header(None)' src/external_plugins/proxy.py \
     && grep -q 'au = await auth(authorization, request)' src/external_plugins/proxy.py \

@@ -1,52 +1,29 @@
 # Upstream compatibility tracking
 
-This file lists the changes that this deployment applies to the Drivers Hub
-source during a build and links them to related upstream discussions and pull
-requests.
+This AIO release targets these exact upstream revisions:
 
-Local compatibility patches remain in the repository after an upstream fix is
-merged. The build skips them when the checked-out upstream source already
-contains the fix and still applies them to older source checkouts.
+- HubBackend `809cde5c6d7e48ab451d8dfa9a6aa3a6ce0f3843`
+- HubFrontend `1c24488095ea6fb4a2fb7292ee907d16924df3cd`
 
-## Upstream changes and proposals
-
-| Component | Local implementation | Purpose | Upstream |
-| --- | --- | --- | --- |
-| Frontend | `frontend/docker/hcaptcha-sitekey.patch` | Read the hCaptcha site key from `VITE_HCAPTCHA_SITEKEY`. The build skips the patch when upstream provides the variable. | [Issue #12](https://github.com/CharlesWithC/HubFrontend/issues/12), [merged PR #13](https://github.com/CharlesWithC/HubFrontend/pull/13) |
-| Frontend and backend | `frontend/docker/configure-privacy.mjs` and `backend/docker/configure-legal-links.py` | Disable Google Analytics while retaining an informational notice for essential cookies and local storage. Add optional, Hub-specific Privacy Policy, Cookie Policy, and Imprint links to the public client configuration, administration interface, notice, and footer. | [Frontend issue #14](https://github.com/CharlesWithC/HubFrontend/issues/14), [Frontend PR #22](https://github.com/CharlesWithC/HubFrontend/pull/22), [Backend PR #26](https://github.com/CharlesWithC/HubBackend/pull/26) |
-| Frontend | `frontend/docker/remove-obsolete-radios.mjs` | Remove the discontinued SimulatorHits integration and the deployment-specific PeanFM preset while retaining TruckersFM and user-provided stream URLs. | Local deployment adjustment |
-| Frontend | `frontend/docker/simplify-login-methods.mjs` | Replace the contradictory registration and login-method sentence with a neutral, fully localized label for Discord and Steam. | Not proposed upstream yet |
-| Frontend | `frontend/docker/fix-event-locale.mjs` | Keep the public event calendar working without a stored user language and normalize the locale week start for FullCalendar. | Not proposed upstream yet |
-| Frontend | `frontend/docker/fit-dlog-route.mjs` and `frontend/docker/set-map-initial-zoom.mjs` | Fit the delivery detail map to the complete recorded route with padding and start the general heatmap views at a more useful zoom level. | Not proposed upstream yet |
-| Frontend and backend | `frontend/docker/dlog-event-presentation.patch` and `backend/docker/tracksim-job-types.patch` | Preserve original TrackSim lifecycle event names and present Truck, Car, and Coach lifecycle, stop, satisfaction, and previously unknown events without tracker-specific frontend logic. | Not proposed upstream yet |
-| Frontend and backend | `frontend/docker/handle-empty-trailers.mjs` and `backend/docker/normalize-empty-trailers.py` | Treat jobs without trailers as valid across all tracker job types and guarantee that delivery-page loading state is released after rendering errors. | Not proposed upstream yet |
-| Frontend | `frontend/docker/replace-fallback-avatar.mjs` | Replace the external fallback avatar with the bundled `logo.png`. The script skips the replacement when the known URL is absent. | [Issue #16](https://github.com/CharlesWithC/HubFrontend/issues/16), [merged PR #17](https://github.com/CharlesWithC/HubFrontend/pull/17) |
-| Frontend | `frontend/docker/fix-logout-state.mjs` | Clear all profile state after logout. The script skips the change when upstream contains the corrected implementation. | [Issue #19](https://github.com/CharlesWithC/HubFrontend/issues/19), [merged PR #20](https://github.com/CharlesWithC/HubFrontend/pull/20) |
-| Frontend and backend | `frontend/docker/proxy-auth.patch` and `backend/docker/proxy-auth.patch` | Enable the TruckersMP proxy for its existing frontend integrations while requiring an authenticated Hub member. The build skips both patches when compatible upstream implementations are present. | [Backend issue #23](https://github.com/CharlesWithC/HubBackend/issues/23), [Backend PR #24](https://github.com/CharlesWithC/HubBackend/pull/24), [Frontend PR #21](https://github.com/CharlesWithC/HubFrontend/pull/21) |
-| Backend | `backend/docker/client-config.patch`, `backend/docker/client-config-upstream-domain.patch`, and `backend/docker/frontend-domain.patch` | Normalize runtime client metadata, expand `{domain}` in frontend URLs, and keep database-backed client configuration consistent with backend configuration. The build skips changes that upstream already provides. | [Issue #11](https://github.com/CharlesWithC/HubBackend/issues/11), [PR #12](https://github.com/CharlesWithC/HubBackend/pull/12) |
-| Backend | `backend/docker/smtp-encryption.patch` | Add explicit `starttls`, `tls`, and `none` SMTP encryption modes, preserve certificate validation, and log SMTP failures. The build skips the patch when upstream provides this implementation. | [Issue #14](https://github.com/CharlesWithC/HubBackend/issues/14), [PR #15](https://github.com/CharlesWithC/HubBackend/pull/15) |
-| Backend | `backend/docker/tracksim-job-types.patch` | Normalize TrackSim Truck, Car, and Coach Job payloads for the existing delivery pipeline, keep their independent ID sequences collision-free, and retrieve every route through TrackSim's official v2 API with the matching job type. The build skips the patch when compatible support is available upstream. | [PR #25](https://github.com/CharlesWithC/HubBackend/pull/25) |
-| Backend | `backend/docker/tracksim-cancelled-meta.patch` | Accept TrackSim `job.cancelled` events that omit an empty `meta` object. The build skips the patch when upstream provides this implementation. | [Issue #16](https://github.com/CharlesWithC/HubBackend/issues/16), [PR #18](https://github.com/CharlesWithC/HubBackend/pull/18) |
-| Backend | `backend/docker/trucky-validation.patch` | Return HTTP 422 when a Trucky webhook is structurally invalid or cannot be converted. Extra payload fields remain supported. | [PR #19](https://github.com/CharlesWithC/HubBackend/pull/19) |
-| Backend | `backend/docker/unitracker-validation.patch` | Return HTTP 422 when a UniTracker webhook cannot be converted because required data is missing or invalid. Extra payload fields remain supported. | [PR #20](https://github.com/CharlesWithC/HubBackend/pull/20) |
-| Backend | `backend/docker/dlog-export-multiplayer.patch` | Keep delivery CSV exports working when an optional `multiplayer.type` field is missing. The build skips the patch when upstream provides this implementation. | [Issue #21](https://github.com/CharlesWithC/HubBackend/issues/21), [PR #22](https://github.com/CharlesWithC/HubBackend/pull/22) |
+Older upstream revisions are supported by the AIO `v1.0.0` legacy release.
+The current build no longer applies compatibility patches for changes that are
+part of the revisions above.
 
 ## Deployment-specific adjustments
 
-These changes do not currently have matching upstream pull requests. They
-implement requirements that are specific to this Docker deployment.
-
 | Component | Local implementation | Purpose |
 | --- | --- | --- |
-| Frontend | `frontend/docker/use-config-url-api-path.mjs` | Derive the API base path from `VITE_CONFIG_URL` for a single-hub deployment instead of treating the VTC abbreviation as the API prefix. |
-| Frontend | `frontend/docker/handle-invalid-session.mjs` | Clear stale local authentication state and return to the login page when an authenticated request receives HTTP 401. |
-| Frontend | `frontend/docker/fix-crash-handler.mjs` | Keep the crash fallback functional by importing its React hook and log the original rendering error for diagnosis. |
-| Frontend | `frontend/docker/fix-statcard-colors.mjs` | Generate chart gradients from valid MUI colors so the logged-out default RGBA theme does not crash the overview. |
-| Frontend | `frontend/docker/fix-mui-theme-mode.mjs` | Use MUI's supported palette mode value for profile and appearance colors instead of an undefined top-level theme property. |
-| Frontend | `frontend/docker/fix-avatar-refresh.mjs` | Test external profile images through browser image loading so opaque `no-cors` responses do not trigger unnecessary profile synchronization. |
-| Frontend | Source-map-preserving frontend build | Retain the source maps referenced by production JavaScript bundles so browser developer tools can load them instead of receiving the SPA fallback document. |
-| Backend | `backend/docker/nuitka-jobs.patch` | Pass `BACKEND_BUILD_JOBS` to Nuitka to limit compiler load on small hosts. |
-| Backend | `backend/docker/geoip-session-transition.patch` | Preserve existing sessions when their previously unknown `XX` country becomes a known ISO country. Known-to-unknown and known-to-different-country transitions remain blocked. |
-| Backend | `examples/economy-garages.*` and `backend/docker/update-economy-garages.py` | Provide current ETS2 and ATS economy garages while preserving operator-defined economy values and custom entries when an installed configuration is updated. |
-| Frontend | `ASSETS_BASE=/` and the post-build check in `frontend/Dockerfile` | Use root-relative assets so that client-side routes such as OAuth callbacks can load the application bundle. |
-| Frontend | Cleanup in `frontend/Dockerfile` | Exclude Electron entry points from the web-only runtime image. Upstream discussion: [Issue #18](https://github.com/CharlesWithC/HubFrontend/issues/18). |
+| Frontend | `frontend/docker/remove-obsolete-radios.mjs` | Remove the discontinued SimulatorHits integration and the deployment-specific PeanFM preset while retaining TruckersFM and user-provided stream URLs. |
+| Frontend | `frontend/docker/simplify-login-methods.mjs` | Replace the contradictory registration and login-method sentence with a neutral, localized label for Discord and Steam. |
+| Frontend | `frontend/docker/fit-dlog-route.mjs` and `frontend/docker/set-map-initial-zoom.mjs` | Fit delivery maps to the recorded route and use a practical initial heatmap zoom. |
+| Frontend and backend | `frontend/docker/dlog-event-presentation.patch` and the upstream TrackSim normalization | Present Truck, Car, and Coach lifecycle, stop, satisfaction, and unknown events consistently. |
+| Frontend and backend | `frontend/docker/handle-empty-trailers.mjs` and `backend/docker/normalize-empty-trailers.py` | Treat jobs without trailers as valid and always release the delivery-page loading state. |
+| Frontend | `frontend/docker/use-config-url-api-path.mjs` | Derive the single-Hub API base path from `VITE_CONFIG_URL`. |
+| Frontend | `frontend/docker/configure-map-base-url.mjs` | Make the map tile service configurable for the deployment. |
+| Frontend | Source-map-preserving build | Retain the source maps referenced by browser bundles. |
+| Frontend | `ASSETS_BASE=/` and the post-build check | Use root-relative assets on client-side routes such as OAuth callbacks. |
+| Frontend | Web runtime cleanup | Exclude Electron entry points from the web-only image. |
+| Backend | `backend/docker/configure-legal-links.py` | Add the public DriversHubDockerAIO repository to the upstream source repository metadata. |
+| Backend | `backend/docker/nuitka-jobs.patch` | Pass `BACKEND_BUILD_JOBS` to Nuitka to limit compiler load. |
+| Backend | `backend/docker/geoip-session-transition.patch` | Preserve sessions when an unknown `XX` country becomes a known ISO country. |
+| Backend | `examples/economy-garages.*` and `backend/docker/update-economy-garages.py` | Provide current ETS2 and ATS economy garages while preserving operator-defined values. |

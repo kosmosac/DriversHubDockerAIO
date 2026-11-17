@@ -14,49 +14,17 @@ COPY upstream/HubFrontend/package.json upstream/HubFrontend/package-lock.json up
 RUN --mount=type=cache,target=/root/.npm npm ci
 
 COPY upstream/HubFrontend/ ./
-COPY frontend/docker/hcaptcha-sitekey.patch /tmp/hcaptcha-sitekey.patch
-COPY frontend/docker/proxy-auth.patch /tmp/proxy-auth.patch
 COPY frontend/docker/dlog-event-presentation.patch /tmp/dlog-event-presentation.patch
 COPY frontend/docker/merge-coach-arrival.mjs /tmp/merge-coach-arrival.mjs
 COPY frontend/docker/handle-empty-trailers.mjs /tmp/handle-empty-trailers.mjs
-COPY frontend/docker/configure-privacy.mjs /tmp/configure-privacy.mjs
-COPY frontend/docker/fix-logout-state.mjs /tmp/fix-logout-state.mjs
-COPY frontend/docker/fix-crash-handler.mjs /tmp/fix-crash-handler.mjs
-COPY frontend/docker/fix-statcard-colors.mjs /tmp/fix-statcard-colors.mjs
-COPY frontend/docker/fix-mui-theme-mode.mjs /tmp/fix-mui-theme-mode.mjs
-COPY frontend/docker/fix-avatar-refresh.mjs /tmp/fix-avatar-refresh.mjs
-COPY frontend/docker/handle-invalid-session.mjs /tmp/handle-invalid-session.mjs
 COPY frontend/docker/remove-obsolete-radios.mjs /tmp/remove-obsolete-radios.mjs
-COPY frontend/docker/replace-fallback-avatar.mjs /tmp/replace-fallback-avatar.mjs
 COPY frontend/docker/use-config-url-api-path.mjs /tmp/use-config-url-api-path.mjs
 COPY frontend/docker/configure-map-base-url.mjs /tmp/configure-map-base-url.mjs
 COPY frontend/docker/fit-dlog-route.mjs /tmp/fit-dlog-route.mjs
 COPY frontend/docker/set-map-initial-zoom.mjs /tmp/set-map-initial-zoom.mjs
 COPY frontend/docker/simplify-login-methods.mjs /tmp/simplify-login-methods.mjs
-COPY frontend/docker/fix-event-locale.mjs /tmp/fix-event-locale.mjs
-
-RUN if grep -q 'sitekey="1788882d-3695-4807-abac-7d7166ec6325"' src/routes/auth/login.js; then \
-        patch --batch --fuzz=0 -p1 < /tmp/hcaptcha-sitekey.patch; \
-        test "$(grep -c 'VITE_HCAPTCHA_SITEKEY' src/routes/auth/login.js)" -eq 1; \
-        ! grep -q '1788882d-3695-4807-abac-7d7166ec6325' src/routes/auth/login.js; \
-    elif grep -q 'VITE_HCAPTCHA_SITEKEY' src/routes/auth/login.js \
-        && ! grep -q '1788882d-3695-4807-abac-7d7166ec6325' src/routes/auth/login.js; then \
-        echo "Upstream already supports VITE_HCAPTCHA_SITEKEY; skip the deployment patch."; \
-    else \
-        echo "Unsupported upstream hCaptcha configuration." >&2; \
-        exit 1; \
-    fi
-
-RUN if grep -q 'headers: config.headers' src/functions.js \
-        && test "$(grep -h 'proxy?url=' src/routes/announcement.js src/routes/application/all.js src/routes/event.js src/routes/member-list.js | grep -c 'Authorization:')" -eq 4; then \
-        echo "Upstream authenticated proxy requests detected; patch is not required."; \
-    elif ! grep -q 'headers: config.headers' src/functions.js \
-        && test "$(grep -h 'proxy?url=' src/routes/announcement.js src/routes/application/all.js src/routes/event.js src/routes/member-list.js | grep -c 'Authorization:')" -eq 0; then \
-        patch --batch --fuzz=0 -p1 < /tmp/proxy-auth.patch; \
-    else \
-        echo "Unsupported upstream proxy request implementation." >&2; \
-        exit 1; \
-    fi \
+RUN grep -q 'VITE_HCAPTCHA_SITEKEY' src/routes/auth/login.js \
+    && ! grep -q '1788882d-3695-4807-abac-7d7166ec6325' src/routes/auth/login.js \
     && grep -q 'headers: config.headers' src/functions.js \
     && test "$(grep -h 'proxy?url=' src/routes/announcement.js src/routes/application/all.js src/routes/event.js src/routes/member-list.js | grep -c 'Authorization:')" -eq 4
 
@@ -79,8 +47,7 @@ RUN node /tmp/handle-empty-trailers.mjs \
     && grep -q 'Array.isArray(detail.trailers)' src/routes/delivery.js \
     && grep -q 'finally {' src/routes/delivery.js
 
-RUN node /tmp/configure-privacy.mjs \
-    && grep -q 'const LEGAL_LINK_KEYS =' src/App.js \
+RUN grep -q 'const LEGAL_LINK_KEYS =' src/App.js \
     && grep -q 'essential_cookies_notice' src/App.js \
     && grep -q 'legal_urls' src/routes/config.js \
     && grep -q 'validatedSourceRepositories' src/App.js \
@@ -93,26 +60,19 @@ RUN node /tmp/configure-privacy.mjs \
         ! grep -Eq 'googletagmanager|google-analytics|G-SLZ5TY9MVN|GOOGLE_ANALYTICS_ID' src/App.js; \
     fi
 RUN node /tmp/remove-obsolete-radios.mjs
-RUN node /tmp/replace-fallback-avatar.mjs
 RUN node /tmp/use-config-url-api-path.mjs
-RUN node /tmp/fix-logout-state.mjs
-RUN node /tmp/fix-crash-handler.mjs \
-    && grep -q 'useMemo, useContext, useEffect' src/components/crashed.js \
+RUN grep -q 'useMemo, useContext, useEffect' src/components/crashed.js \
     && grep -q 'componentDidCatch(error, errorInfo)' src/index.js \
     && grep -q 'Drivers Hub rendering failed' src/index.js
-RUN node /tmp/fix-statcard-colors.mjs \
-    && grep -q 'alpha, useTheme' src/components/statcard.js \
+RUN grep -q 'alpha, useTheme' src/components/statcard.js \
     && test "$(grep -c 'alpha(color' src/components/statcard.js)" -eq 3 \
     && ! grep -q 'color + "75"' src/components/statcard.js
-RUN node /tmp/fix-mui-theme-mode.mjs \
-    && test "$(grep -o 'PROFILE_COLOR\[theme.palette.mode\]' src/components/usercard.js | wc -l)" -eq 12 \
+RUN test "$(grep -o 'PROFILE_COLOR\[theme.palette.mode\]' src/components/usercard.js | wc -l)" -eq 12 \
     && test "$(grep -o 'DEFAULT_BGCOLOR\[theme.palette.mode\]' src/routes/settings.js | wc -l)" -eq 8 \
     && ! grep -q '\[theme.mode\]' src/components/usercard.js src/routes/settings.js
-RUN node /tmp/fix-avatar-refresh.mjs \
-    && grep -q 'const avatar = new Image()' src/functions.js \
+RUN grep -q 'const avatar = new Image()' src/functions.js \
     && ! grep -q 'fetch(curUser.avatar' src/functions.js
-RUN node /tmp/handle-invalid-session.mjs \
-    && grep -q 'function clearInvalidSession(errorResponse)' src/functions.js \
+RUN grep -q 'function clearInvalidSession(errorResponse)' src/functions.js \
     && grep -q 'eraseCookie("auth-mode")' src/functions.js \
     && grep -q 'window.location.replace("/auth/login")' src/functions.js
 
@@ -147,8 +107,7 @@ RUN node /tmp/simplify-login-methods.mjs \
     && ! grep -q 'register_methods.map' src/routes/auth/login.js \
     && grep -q '"or_login_with": "Oder fortfahren mit"' src/languages/de.json \
     && grep -q '"or_login_with": "Or continue with"' src/languages/en.json
-RUN node /tmp/fix-event-locale.mjs \
-    && grep -q 'const calendarLanguage = userSettings.language' src/routes/event.js \
+RUN grep -q 'const calendarLanguage = userSettings.language' src/routes/event.js \
     && grep -q 'firstDay % 7' src/routes/event.js \
     && grep -q 'firstDay={getFirstDay(calendarLanguage)}' src/routes/event.js
 
