@@ -86,7 +86,12 @@ RUN node /tmp/configure-privacy.mjs \
     && grep -q 'validatedSourceRepositories' src/App.js \
     && grep -q 'position: "relative", zIndex: 1' src/App.js \
     && ! grep -q 'source_repositories' src/routes/config.js \
-    && ! grep -Eq 'googletagmanager|google-analytics|G-SLZ5TY9MVN|GOOGLE_ANALYTICS_ID' src/App.js
+    && if grep -q 'const GOOGLE_ANALYTICS_ID = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;' src/App.js; then \
+        grep -q 'if (GOOGLE_ANALYTICS_ID &&' src/App.js \
+        && ! grep -q 'G-SLZ5TY9MVN' src/App.js; \
+    else \
+        ! grep -Eq 'googletagmanager|google-analytics|G-SLZ5TY9MVN|GOOGLE_ANALYTICS_ID' src/App.js; \
+    fi
 RUN node /tmp/remove-obsolete-radios.mjs
 RUN node /tmp/replace-fallback-avatar.mjs
 RUN node /tmp/use-config-url-api-path.mjs
