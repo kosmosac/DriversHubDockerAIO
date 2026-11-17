@@ -37,11 +37,11 @@ COPY backend/docker/normalize-empty-trailers.py ./docker/normalize-empty-trailer
 COPY backend/docker/geoip-session-transition.patch ./docker/geoip-session-transition.patch
 
 RUN test "$(grep -c 'normalize_client_config(json.loads' src/external_plugins/client-config.py)" -eq 2 \
-    && grep -q 'def normalize_client_config(config, plugins, abbr, frontend_domain, api_host):' src/external_plugins/client-config.py \
+    && grep -q 'def normalize_client_config(config, plugins, frontend_domain, api_host, source_repositories):' src/external_plugins/client-config.py \
     && grep -q 'config\["domain"\] = frontend_domain' src/external_plugins/client-config.py \
     && grep -q 'config\["api_host"\] = api_host' src/external_plugins/client-config.py \
     && grep -q '"api_host": f"https://{config' src/external_plugins/client-config.py \
-    && grep -q 'frontend_conf\["abbr"\] = config\["abbr"\]' src/external_plugins/client-config.py \
+    && grep -q '"abbr": config\["abbr"\]' src/external_plugins/client-config.py \
     && grep -q 'frontend_conf\["plugins"\] = config\["plugins"\]' src/external_plugins/client-config.py \
     && grep -q 'frontend_conf\["domain"\] = frontend_domain' src/external_plugins/client-config.py \
     && grep -q 'frontend_conf\["api_host"\] = api_host' src/external_plugins/client-config.py \
@@ -50,7 +50,7 @@ RUN test "$(grep -c 'normalize_client_config(json.loads' src/external_plugins/cl
     && test "$(grep -c -- '--jobs=$(NUITKA_JOBS)' makefile)" -eq 2 \
     && grep -q '"smtp_encryption": "starttls"' src/config.py \
     && grep -q 'use_tls = smtp_encryption == "tls"' src/functions/mail.py \
-    && grep -q 'start_tls = smtp_encryption == "starttls"' src/functions/mail.py \
+    && grep -q 'start_tls = None if smtp_encryption == "auto" else smtp_encryption == "starttls"' src/functions/mail.py \
     && grep -q 'hostname=app.config.smtp_host' src/functions/mail.py \
     && grep -q 'case "car_job.delivered" | "car_job.cancelled":' src/apis/tracker/tracksim.py \
     && grep -q 'case "bus_job.completed" | "bus_job.cancelled":' src/apis/tracker/tracksim.py \
