@@ -35,6 +35,7 @@ COPY backend/docker/update-economy-garages.py ./docker/update-economy-garages.py
 COPY backend/docker/nuitka-jobs.patch ./docker/nuitka-jobs.patch
 COPY backend/docker/normalize-empty-trailers.py ./docker/normalize-empty-trailers.py
 COPY backend/docker/geoip-session-transition.patch ./docker/geoip-session-transition.patch
+COPY backend/docker/trucky-job-types.patch ./docker/trucky-job-types.patch
 
 RUN test "$(grep -c 'normalize_client_config(json.loads' src/external_plugins/client-config.py)" -eq 2 \
     && grep -q 'def normalize_client_config(config, plugins, frontend_domain, api_host, source_repositories):' src/external_plugins/client-config.py \
@@ -57,6 +58,10 @@ RUN test "$(grep -c 'normalize_client_config(json.loads' src/external_plugins/cl
     && grep -q 'api.tracksim.app/v2/jobs/{trackerid}/route?job_type={route_job_type}' src/apis/tracker/tracksim.py \
     && grep -q 'event\["meta"\].setdefault("max_speed", event\["meta"\].get("speed"))' src/apis/tracker/tracksim.py \
     && grep -q 'event_meta = data\["events"\]\[-1\].get("meta", {})' src/functions/tracker.py \
+    && patch --batch --fuzz=0 -p1 < docker/trucky-job-types.patch \
+    && grep -q 'is_coach_job = d.get("stats_type") == "coaches_real_miles"' src/apis/tracker/trucky.py \
+    && grep -q 'startswith("road_trip_")' src/apis/tracker/trucky.py \
+    && grep -q '"penalty": abs(d\["income"\])' src/apis/tracker/trucky.py \
     && test "$(grep -c '"Invalid Trucky webhook payload."' src/apis/tracker/trucky.py)" -eq 3 \
     && grep -q 'response.status_code = 422' src/apis/tracker/unitracker.py \
     && grep -q '"Invalid UniTracker webhook payload."' src/apis/tracker/unitracker.py \

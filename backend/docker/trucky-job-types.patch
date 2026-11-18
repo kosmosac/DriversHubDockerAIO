@@ -1,0 +1,163 @@
+diff --git a/src/apis/tracker/trucky.py b/src/apis/tracker/trucky.py
+index a048eaf..93fc699 100644
+--- a/src/apis/tracker/trucky.py
++++ b/src/apis/tracker/trucky.py
+@@ -23,6 +23,13 @@ def convert_format(data):
+     job_event_type = job_event_type_mapping[data["event"]]
+ 
+     d = copy.deepcopy(data["data"])
++    is_coach_job = d.get("stats_type") == "coaches_real_miles"
++    cargo_definition = d.get("cargo_definition")
++    is_car_job = (
++        d.get("market") == "dispatch_job"
++        or str(d.get("stats_type", "")).startswith("road_trip_")
++        or isinstance(cargo_definition, dict) and cargo_definition.get("type") == "car_cargo"
++    )
+     # first convert data
+     convert_distance = ["driven_distance_km", "planned_distance_km", "max_speed_kmh", "vehicle_odometer_end_km", "vehicle_odometer_start_km"]
+     if d["distance_unit"] == "mi":
+@@ -54,7 +61,7 @@ def convert_format(data):
+     multiplayer = None
+     if d["game_mode"] != "sp":
+         multiplayer = {"type": d["game_mode"], "meta": {"server": d["server"]}}
+-    cargo_details = d["cargo_definition"]
++    cargo_details = cargo_definition
+     if cargo_details is not None:
+         del cargo_details["id"], cargo_details["name"], cargo_details["in_game_id"], cargo_details["game_id"], cargo_details["localized_names"]
+     events = []
+@@ -74,12 +81,74 @@ def convert_format(data):
+             et = event["attributes"]["transport_type"]
+             meta = {"cost": event["attributes"]["amount"], "source_id": event["attributes"]["source_id"], "source_name": event["attributes"]["source"], "target_id": event["attributes"]["target_id"], "target_name": event["attributes"]["target"]}
+         events.append({"location": {"x": event["x"], "y": event["y"], "z": event["z"]}, "real_time": event["created_at"].split(".")[0]+"Z", "time": int(datetime.strptime(event["created_at"].split(".")[0]+"Z", "%Y-%m-%dT%H:%M:%SZ").timestamp()), "type": et, "meta": meta})
++
++    if is_coach_job:
++        stops = d.get("stops")
++        if isinstance(stops, list):
++            passenger_count = sum(int(stop.get("passengers_in") or 0) for stop in stops if isinstance(stop, dict))
++            stop_count = len(stops)
++            passenger_label = "passenger" if passenger_count == 1 else "passengers"
++            stop_label = "stop" if stop_count == 1 else "stops"
++            cargo_name = f"Coach: {passenger_count} {passenger_label}, {stop_count} {stop_label}"
++            cargo_mass = passenger_count * 75
++
++            # The lifecycle events represent the departure and destination.
++            # Preserve only intermediate stops as additional timeline events.
++            for stop in stops[1:-1]:
++                if not isinstance(stop, dict) or not stop.get("real_time_end"):
++                    continue
++                stop_time = stop["real_time_end"].replace(" ", "T") + "Z"
++                events.append({
++                    "location": None,
++                    "real_time": stop_time,
++                    "time": int(datetime.strptime(stop_time, "%Y-%m-%dT%H:%M:%SZ").timestamp()),
++                    "type": "coach.stop",
++                    "meta": {
++                        "at_stop": True,
++                        "name": stop.get("name"),
++                        "passengers_in": int(stop.get("passengers_in") or 0),
++                        "passengers_out": int(stop.get("passengers_out") or 0)
++                    }
++                })
++        else:
++            passenger_count = 0
++            cargo_name = "Coach: passengers unavailable, stops unavailable"
++            cargo_mass = 0
++    elif is_car_job:
++        cargo_name = f"Car: {d.get('cargo_name') or d.get('cargo_id') or 'N/A'}"
++        # ATS does not expose the actual cargo mass for car jobs. Trucky's
++        # generic unit fields contain placeholder values for this job family.
++        cargo_mass = 100
++    else:
++        cargo_name = d["cargo_name"]
++        cargo_mass = d["cargo_unit_count"] * d["cargo_unit_mass"]
++
++    events.sort(key = lambda event: event["time"])
+     if job_event_type == "job.delivered":
+         events.append({"location": None, "real_time": d["completed_at"].split(".")[0]+"Z", "time": int(datetime.strptime(d["completed_at"].split(".")[0]+"Z", "%Y-%m-%dT%H:%M:%SZ").timestamp()), "type": "job.delivered", "meta": {"revenue": d["income"], "revenue_details": d["income_details"], "earnedXP": None, "cargoDamage": round(d["cargo_damage"] / 100, 2), "distance": d["real_driven_distance_km"], "timeTaken": d["real_driving_time_seconds"], "autoParked": d["auto_park"]}}) # revenue_details is trucky exclusive
+     elif job_event_type == "job.cancelled":
+-        events.append({"location": None, "real_time": d["canceled_at"].split(".")[0]+"Z", "time": int(datetime.strptime(d["canceled_at"].split(".")[0]+"Z", "%Y-%m-%dT%H:%M:%SZ").timestamp()), "type": "job.cancelled", "meta": {"penalty": d["income"]}})
++        events.append({"location": None, "real_time": d["canceled_at"].split(".")[0]+"Z", "time": int(datetime.strptime(d["canceled_at"].split(".")[0]+"Z", "%Y-%m-%dT%H:%M:%SZ").timestamp()), "type": "job.cancelled", "meta": {"penalty": abs(d["income"])}})
+     if d["warp"] is None:
+         d["warp"] = 1
++    vehicle = {
++        "unique_id": d["vehicle_in_game_id"],
++        "name": d["vehicle_model_name"],
++        "brand": {
++            "unique_id": d["vehicle_in_game_brand_id"],
++            "name": d["vehicle_brand_name"]
++        },
++        "odometer": d["vehicle_odometer_end_km"],
++        "initial_odometer": d["vehicle_odometer_start_km"],
++        "wheel_count": None, # not for trucky
++        "license_plate": None, # not for trucky
++        "license_plate_country": None, # not for trucky
++        "current_damage": None, # not for trucky
++        "total_damage": {
++            "all": round(d["vehicle_damage"] / 100, 2)
++        },
++        "top_speed": round(d["max_speed_kmh"] / 3.6, 2),
++        "average_speed": round(d["average_speed_kmh"] / 3.6, 2)
++    }
+     return {
+         "object": "event",
+         "type": job_event_type,
+@@ -105,8 +174,8 @@ def convert_format(data):
+                 "market": d["market"],
+                 "cargo": {
+                     "unique_id": d["cargo_id"],
+-                    "name": d["cargo_name"],
+-                    "mass": d["cargo_unit_count"] * d["cargo_unit_mass"],
++                    "name": cargo_name,
++                    "mass": cargo_mass,
+                     "damage": round(d["cargo_damage"] / 100, 2),
+                     "details": cargo_details
+                 },
+@@ -124,39 +193,23 @@ def convert_format(data):
+                     "name": d["source_city_name"]
+                 },
+                 "source_company": {
+-                    "unique_id": d["source_company_id"],
+-                    "name": d["source_company_name"]
++                    "unique_id": "coach_stop" if is_coach_job else d["source_company_id"],
++                    "name": "Coach Stop" if is_coach_job else d["source_company_name"]
+                 },
+                 "destination_city": {
+                     "unique_id": d["destination_city_id"],
+                     "name": d["destination_city_name"]
+                 },
+                 "destination_company": {
+-                    "unique_id": d["destination_company_id"],
+-                    "name": d["destination_company_name"]
+-                },
+-                "truck": {
+-                    "unique_id": d["vehicle_in_game_id"],
+-                    "name": d["vehicle_model_name"],
+-                    "brand": {
+-                        "unique_id": d["vehicle_in_game_brand_id"],
+-                        "name": d["vehicle_brand_name"]
+-                    },
+-                    "odometer": d["vehicle_odometer_end_km"],
+-                    "initial_odometer": d["vehicle_odometer_start_km"],
+-                    "wheel_count": None, # not for trucky
+-                    "license_plate": None, # not for trucky
+-                    "license_plate_country": None, # not for trucky
+-                    "current_damage": None, # not for trucky
+-                    "total_damage": {
+-                        "all": round(d["vehicle_damage"] / 100, 2)
+-                    },
+-                    "top_speed": round(d["max_speed_kmh"] / 3.6, 2),
+-                    "average_speed": round(d["average_speed_kmh"] / 3.6, 2)
++                    "unique_id": "coach_stop" if is_coach_job else d["destination_company_id"],
++                    "name": "Coach Stop" if is_coach_job else d["destination_company_name"]
+                 },
+-                "trailers": [
++                "truck": vehicle,
++                **({"bus": copy.deepcopy(vehicle)} if is_coach_job else {}),
++                **({"car": copy.deepcopy(vehicle)} if is_car_job else {}),
++                "trailers": [] if is_coach_job or is_car_job or not d.get("trailers_number") else [
+                     {
+-                        "name": d["trailer_name"],
++                        "name": d.get("trailer_name") or d.get("trailer_in_game_id") or "N/A",
+                         "body_type": d["trailer_body_type"],
+                         "chain_type": d["trailer_chain_type"],
+                         "wheel_count": None, # not for trucky
