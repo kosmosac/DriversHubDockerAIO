@@ -20,6 +20,7 @@ COPY frontend/docker/handle-empty-trailers.mjs /tmp/handle-empty-trailers.mjs
 COPY frontend/docker/remove-obsolete-radios.mjs /tmp/remove-obsolete-radios.mjs
 COPY frontend/docker/use-config-url-api-path.mjs /tmp/use-config-url-api-path.mjs
 COPY frontend/docker/configure-map-base-url.mjs /tmp/configure-map-base-url.mjs
+COPY frontend/docker/configure-live-map-url.mjs /tmp/configure-live-map-url.mjs
 COPY frontend/docker/fit-dlog-route.mjs /tmp/fit-dlog-route.mjs
 COPY frontend/docker/set-map-initial-zoom.mjs /tmp/set-map-initial-zoom.mjs
 COPY frontend/docker/simplify-login-methods.mjs /tmp/simplify-login-methods.mjs
@@ -79,13 +80,15 @@ RUN grep -q 'function clearInvalidSession(errorResponse)' src/functions.js \
 ARG VITE_CONFIG_URL
 ARG VITE_HCAPTCHA_SITEKEY
 ARG VITE_MAP_BASE_URL=https://map.charlws.com
+ARG VITE_LIVE_MAP_URL=
 
 ENV ASSETS_BASE="/" \
     VITE_USE_MULTIHUB=false \
     VITE_MULTIHUB_DISCOVERY="" \
     VITE_CONFIG_URL=${VITE_CONFIG_URL} \
     VITE_HCAPTCHA_SITEKEY=${VITE_HCAPTCHA_SITEKEY} \
-    VITE_MAP_BASE_URL=${VITE_MAP_BASE_URL}
+    VITE_MAP_BASE_URL=${VITE_MAP_BASE_URL} \
+    VITE_LIVE_MAP_URL=${VITE_LIVE_MAP_URL}
 
 RUN test -n "$VITE_HCAPTCHA_SITEKEY" \
     || (echo "VITE_HCAPTCHA_SITEKEY must be set." >&2; exit 1)
@@ -94,6 +97,9 @@ RUN test -n "$VITE_MAP_BASE_URL" \
     || (echo "VITE_MAP_BASE_URL must be set." >&2; exit 1)
 
 RUN node /tmp/configure-map-base-url.mjs
+RUN node /tmp/configure-live-map-url.mjs \
+    && grep -q 'VITE_LIVE_MAP_URL === undefined' src/routes/map.js \
+    && grep -q 'tracker.ets2map.com/v3/area' src/routes/map.js
 RUN node /tmp/fit-dlog-route.mjs \
     && grep -q 'fitRoute = false' src/components/tilemap.js \
     && grep -q 'getView().fit(routeGeometry' src/components/tilemap.js \

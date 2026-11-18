@@ -80,6 +80,7 @@ services:
         VITE_CONFIG_URL: ${VITE_CONFIG_URL:?Set VITE_CONFIG_URL in .env}
         VITE_HCAPTCHA_SITEKEY: ${VITE_HCAPTCHA_SITEKEY:?Set VITE_HCAPTCHA_SITEKEY in .env}
         VITE_MAP_BASE_URL: ${VITE_MAP_BASE_URL:-https://map.charlws.com}
+        VITE_LIVE_MAP_URL: ${VITE_LIVE_MAP_URL:-}
     image: drivershub-frontend
     restart: unless-stopped
     environment:

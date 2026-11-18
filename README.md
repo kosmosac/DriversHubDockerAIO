@@ -84,8 +84,25 @@ frontend files and is not a secret. The related `captcha.secret` value in
 tile service and normally remains at its upstream default.
 
 Vite includes these values when it builds the frontend. Rebuild the frontend
-image after you change `VITE_CONFIG_URL`, `VITE_HCAPTCHA_SITEKEY`, or
-`VITE_MAP_BASE_URL`.
+image after you change `VITE_CONFIG_URL`, `VITE_HCAPTCHA_SITEKEY`,
+`VITE_MAP_BASE_URL`, or `VITE_LIVE_MAP_URL`.
+
+`VITE_LIVE_MAP_URL` optionally enables live player positions and heatmaps on
+the general map pages. Leave it empty to disable these live data requests. A
+configured endpoint must accept the `x1`, `y1`, `x2`, `y2`, and `server` query
+parameters and return the ets2map-compatible `Data` response format. The
+endpoint may be an absolute URL or a same-origin path such as `/__live-map`.
+The previously hardcoded endpoint was:
+
+```env
+VITE_LIVE_MAP_URL=https://tracker.ets2map.com/v3/area
+```
+
+The frontend turns it into requests of this form:
+
+```text
+https://tracker.ets2map.com/v3/area?x1=<x1>&y1=<y1>&x2=<x2>&y2=<y2>&server=<server>
+```
 
 Set at least these values in `config/config.json`:
 
