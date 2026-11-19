@@ -34,6 +34,7 @@ COPY backend/docker/configure-legal-links.py ./docker/configure-legal-links.py
 COPY backend/docker/update-economy-garages.py ./docker/update-economy-garages.py
 COPY backend/docker/nuitka-jobs.patch ./docker/nuitka-jobs.patch
 COPY backend/docker/normalize-empty-trailers.py ./docker/normalize-empty-trailers.py
+COPY backend/docker/normalize-coach-stops.py ./docker/normalize-coach-stops.py
 COPY backend/docker/geoip-session-transition.patch ./docker/geoip-session-transition.patch
 COPY backend/docker/trucky-job-types.patch ./docker/trucky-job-types.patch
 
@@ -92,6 +93,13 @@ RUN test "$(grep -c 'normalize_client_config(json.loads' src/external_plugins/cl
 RUN python docker/normalize-empty-trailers.py \
     && grep -q 'job.setdefault("trailers", \[\])' src/apis/tracker/tracksim.py \
     && grep -q 'job\["trailers"\] = \[\]' src/apis/tracker/tracksim.py
+
+RUN python docker/normalize-coach-stops.py \
+    && grep -q 'coach_stop_events = \[\]' src/apis/tracker/tracksim.py \
+    && grep -q '"type": "coach.stop"' src/apis/tracker/tracksim.py \
+    && grep -q 'merged_satisfaction_events' src/apis/tracker/tracksim.py \
+    && grep -q 'time_anchors.sort()' src/apis/tracker/tracksim.py \
+    && grep -q 'progress = (arrival_game_time - previous_anchor\[0\])' src/apis/tracker/tracksim.py
 
 FROM patched-source AS builder
 
