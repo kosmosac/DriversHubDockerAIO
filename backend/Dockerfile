@@ -35,6 +35,7 @@ COPY backend/docker/update-economy-garages.py ./docker/update-economy-garages.py
 COPY backend/docker/nuitka-jobs.patch ./docker/nuitka-jobs.patch
 COPY backend/docker/normalize-empty-trailers.py ./docker/normalize-empty-trailers.py
 COPY backend/docker/normalize-coach-stops.py ./docker/normalize-coach-stops.py
+COPY backend/docker/coach-statistics-name.patch ./docker/coach-statistics-name.patch
 COPY backend/docker/geoip-session-transition.patch ./docker/geoip-session-transition.patch
 COPY backend/docker/trucky-job-types.patch ./docker/trucky-job-types.patch
 
@@ -100,6 +101,13 @@ RUN python docker/normalize-coach-stops.py \
     && grep -q 'merged_satisfaction_events' src/apis/tracker/tracksim.py \
     && grep -q 'time_anchors.sort()' src/apis/tracker/tracksim.py \
     && grep -q 'progress = (arrival_game_time - previous_anchor\[0\])' src/apis/tracker/tracksim.py
+
+RUN if grep -q 'cargo_name = "Coach Passengers" if cargo\["unique_id"\] == "coach_passengers"' src/apis/dlog/statistics.py; then \
+        echo "Compatible Coach statistics naming detected; skip the deployment patch."; \
+    else \
+        patch --batch --fuzz=0 -p1 < docker/coach-statistics-name.patch; \
+    fi \
+    && test "$(grep -Rh 'cargo_name = "Coach Passengers" if cargo\["unique_id"\] == "coach_passengers"' src/apis/dlog/statistics.py src/threads.py | wc -l)" -eq 3
 
 FROM patched-source AS builder
 

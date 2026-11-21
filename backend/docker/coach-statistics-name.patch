@@ -1,0 +1,36 @@
+diff --git a/src/apis/dlog/statistics.py b/src/apis/dlog/statistics.py
+--- a/src/apis/dlog/statistics.py
++++ b/src/apis/dlog/statistics.py
+@@ -80,7 +80,8 @@ def rebuild(app):
+ 
+         cargo = obj["cargo"]
+         if cargo is not None and "unique_id" in cargo.keys() and "name" in cargo.keys():
+-            dlog_stats[4] = [[convertQuotation(cargo["unique_id"]), convertQuotation(cargo["name"]), 1, 0]]
++            cargo_name = "Coach Passengers" if cargo["unique_id"] == "coach_passengers" else cargo["name"]
++            dlog_stats[4] = [[convertQuotation(cargo["unique_id"]), convertQuotation(cargo_name), 1, 0]]
+ 
+         if "market" in obj.keys():
+             dlog_stats[5] = [[convertQuotation(obj["market"]), convertQuotation(obj["market"]), 1, 0]]
+@@ -689,7 +690,8 @@ async def get_details(request: Request, response: Response, authorization: Optio
+ 
+                     cargo = obj["cargo"]
+                     if cargo is not None and "unique_id" in cargo.keys() and "name" in cargo.keys():
+-                        dlog_stats[4] = [[convertQuotation(cargo["unique_id"]), convertQuotation(cargo["name"]), 1, 0]]
++                        cargo_name = "Coach Passengers" if cargo["unique_id"] == "coach_passengers" else cargo["name"]
++                        dlog_stats[4] = [[convertQuotation(cargo["unique_id"]), convertQuotation(cargo_name), 1, 0]]
+ 
+                     if "market" in obj.keys():
+                         dlog_stats[5] = [[convertQuotation(obj["market"]), convertQuotation(obj["market"]), 1, 0]]
+diff --git a/src/threads.py b/src/threads.py
+--- a/src/threads.py
++++ b/src/threads.py
+@@ -246,7 +246,8 @@ async def UpdateDlogStats(app):
+ 
+                     cargo = obj["cargo"]
+                     if cargo is not None and "unique_id" in cargo.keys() and "name" in cargo.keys():
+-                        dlog_stats[4] = [[convertQuotation(cargo["unique_id"]), convertQuotation(cargo["name"]), 1, 0]]
++                        cargo_name = "Coach Passengers" if cargo["unique_id"] == "coach_passengers" else cargo["name"]
++                        dlog_stats[4] = [[convertQuotation(cargo["unique_id"]), convertQuotation(cargo_name), 1, 0]]
+ 
+                     if "market" in obj.keys():
+                         dlog_stats[5] = [[convertQuotation(obj["market"]), convertQuotation(obj["market"]), 1, 0]]

@@ -18,6 +18,7 @@ part of the revisions above.
 | Frontend | `frontend/docker/fit-dlog-route.mjs` and `frontend/docker/set-map-initial-zoom.mjs` | Fit delivery maps to the recorded route and use a practical initial heatmap zoom. |
 | Frontend | `frontend/docker/dlog-event-presentation.patch` and `frontend/docker/merge-coach-arrival.mjs` | Present Truck, Car, and Coach lifecycle, stop, satisfaction, and unknown events consistently, label Coach departures and arrivals, and avoid a duplicate final Coach event. |
 | Backend | `backend/docker/normalize-coach-stops.py` | Complete TrackSim Coach timelines from the webhook stop list, merge matching satisfaction events, and interpolate missing stop timestamps from surrounding in-game and real-time anchors. |
+| Backend | `backend/docker/coach-statistics-name.patch` | Store the stable `Coach Passengers` category name in delivery statistics while retaining per-job Coach details in each delivery. |
 | Backend | `backend/docker/trucky-job-types.patch` | Normalize Trucky Car and Coach jobs, preserve their vehicle types, and handle cancellation penalties correctly. |
 | Frontend and backend | `frontend/docker/handle-empty-trailers.mjs` and `backend/docker/normalize-empty-trailers.py` | Treat jobs without trailers as valid and always release the delivery-page loading state. |
 | Frontend | `frontend/docker/use-config-url-api-path.mjs` | Derive the single-Hub API base path from `VITE_CONFIG_URL`. |
