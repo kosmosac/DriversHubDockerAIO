@@ -1,5 +1,6 @@
 .env
 config/config.json
+config/mariadb/*.cnf
 config/caddy/sites/*.caddy
 !config/caddy/sites/00-placeholder.caddy
 config/caddy/www/*

@@ -1,0 +1,15 @@
+[mariadb]
+# This example is suitable for a host with about 32 GiB RAM that also runs
+# other services. Adjust the buffer pool before using it on a smaller host.
+innodb_buffer_pool_size=4G
+innodb_log_file_size=512M
+innodb_flush_method=O_DIRECT
+innodb_flush_log_at_trx_commit=1
+
+tmp_table_size=64M
+max_heap_table_size=64M
+max_connections=50
+
+slow_query_log=ON
+long_query_time=1
+slow_query_log_file=/var/lib/mysql/mariadb-slow.log

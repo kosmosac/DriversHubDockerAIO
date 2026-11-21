@@ -166,6 +166,31 @@ the stored frontend configuration when it starts. Other frontend settings in
 MariaDB stay unchanged. Restart the backend after you change one of these
 values.
 
+### Optional MariaDB tuning
+
+MariaDB uses its standard configuration unless a local `*.cnf` file is placed
+in `config/mariadb/`. A tuning example for a host with about 32 GiB RAM is
+included. Enable it with:
+
+```bash
+cp config/mariadb/90-drivershub.cnf.example \
+  config/mariadb/90-drivershub.cnf
+```
+
+Review `innodb_buffer_pool_size` before using the example on a smaller host.
+All MariaDB performance settings remain in this local file; it is ignored by
+Git and is not replaced by repository updates. Create a current database
+backup before changing storage settings, then recreate MariaDB:
+
+```bash
+docker compose up -d --force-recreate mariadb
+docker compose logs --tail=100 mariadb
+```
+
+The included slow-query log is written to
+`data/mariadb/mariadb-slow.log`. Review its growth and disable it again when it
+is no longer needed.
+
 ## Optional configuration guides
 
 The backend supports custom role definitions, application forms, multiple job

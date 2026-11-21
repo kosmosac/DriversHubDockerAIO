@@ -37,6 +37,7 @@ services:
     volumes:
       - ./data/mariadb:/var/lib/mysql
       - ./data/mariadb-external:/var/lib/mysqlext
+      - ./config/mariadb:/drivershub-mariadb-config:ro
       - ./backend/docker/mariadb-entrypoint.sh:/usr/local/bin/hub-mariadb-entrypoint:ro
       - ./backend/docker/mariadb-init.sql:/docker-entrypoint-initdb.d/10-drivershub.sql:ro
     healthcheck:

@@ -1,6 +1,9 @@
 *
 !.gitignore
 !caddy/
+!mariadb/
+mariadb/*
+!mariadb/90-drivershub.cnf.example
 caddy/*
 !caddy/sites/
 !caddy/www/
