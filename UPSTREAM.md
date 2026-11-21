@@ -30,4 +30,5 @@ part of the revisions above.
 | Backend | `backend/docker/configure-legal-links.py` | Add the public DriversHubDockerAIO repository to the upstream source repository metadata. |
 | Backend | `backend/docker/nuitka-jobs.patch` | Pass `BACKEND_BUILD_JOBS` to Nuitka to limit compiler load. |
 | Backend | `backend/docker/geoip-session-transition.patch` | Preserve sessions when an unknown `XX` country becomes a known ISO country. |
+| Backend | `backend/docker/preserve-worker-arguments.patch` | Preserve backend runtime options in spawned Nuitka/Uvicorn workers. |
 | Backend | `examples/economy-garages.*` and `backend/docker/update-economy-garages.py` | Provide current ETS2 and ATS economy garages while preserving operator-defined values. |

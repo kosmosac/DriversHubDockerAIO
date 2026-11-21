@@ -1,0 +1,28 @@
+diff --git a/src/main.py b/src/main.py
+--- a/src/main.py
++++ b/src/main.py
+@@ -74,6 +74,16 @@
+ 
+ args = parser.parse_args()
+ 
++worker_argument_names = (
++    "banner_service_url", "use_master_db_pool", "ignore_external_plugins",
++    "enable_performance_header", "disable_upgrader", "memory_threshold",
++)
++worker_arguments = os.environ.get("DRIVERSHUB_WORKER_ARGUMENTS")
++if worker_arguments is not None:
++    for name, value in json.loads(worker_arguments).items():
++        if name in worker_argument_names:
++            setattr(args, name, value)
++
+ config_paths = None
+ if args.config is not None:
+     config_paths = [args.config]
+@@ -163,4 +173,7 @@
+         if workers is None:
+             workers = scopes["workers"]
+ 
++    os.environ["DRIVERSHUB_WORKER_ARGUMENTS"] = json.dumps({
++        name: getattr(args, name) for name in worker_argument_names
++    })
+     uvicorn.run("routing:app", host=host, port=port, log_level="info", access_log=False, proxy_headers=True, workers=workers, timeout_worker_healthcheck=120)
