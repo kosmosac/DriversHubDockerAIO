@@ -156,7 +156,10 @@ The configured external MariaDB table directory is stored in
 
 Set `domain` to the public Hub host name without a protocol or path. Set `abbr`
 to a short VTC identifier. The frontend derives the API base from
-`VITE_CONFIG_URL`, so `abbr` does not have to match `prefix`.
+`VITE_CONFIG_URL`, so `abbr` does not have to match `prefix`. The path before
+`/client/config/global` in `VITE_CONFIG_URL` must match `prefix`; the same path
+is configured as the internal Caddy API route during the frontend build. This
+also permits an imported Hub to retain its existing webhook URLs.
 
 The backend synchronizes `abbr`, `domain`, `api_host`, and the plugin list to
 the stored frontend configuration when it starts. Other frontend settings in

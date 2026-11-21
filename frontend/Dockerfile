@@ -19,11 +19,13 @@ COPY frontend/docker/merge-coach-arrival.mjs /tmp/merge-coach-arrival.mjs
 COPY frontend/docker/handle-empty-trailers.mjs /tmp/handle-empty-trailers.mjs
 COPY frontend/docker/remove-obsolete-radios.mjs /tmp/remove-obsolete-radios.mjs
 COPY frontend/docker/use-config-url-api-path.mjs /tmp/use-config-url-api-path.mjs
+COPY frontend/docker/configure-caddy-api-prefix.mjs /tmp/configure-caddy-api-prefix.mjs
 COPY frontend/docker/configure-map-base-url.mjs /tmp/configure-map-base-url.mjs
 COPY frontend/docker/configure-live-map-url.mjs /tmp/configure-live-map-url.mjs
 COPY frontend/docker/fit-dlog-route.mjs /tmp/fit-dlog-route.mjs
 COPY frontend/docker/set-map-initial-zoom.mjs /tmp/set-map-initial-zoom.mjs
 COPY frontend/docker/simplify-login-methods.mjs /tmp/simplify-login-methods.mjs
+COPY frontend/caddy/Caddyfile /tmp/Caddyfile
 RUN grep -q 'VITE_HCAPTCHA_SITEKEY' src/routes/auth/login.js \
     && ! grep -q '1788882d-3695-4807-abac-7d7166ec6325' src/routes/auth/login.js \
     && grep -q 'headers: config.headers' src/functions.js \
@@ -124,6 +126,8 @@ RUN if [ "$VITE_USE_MULTIHUB" != "true" ]; then \
         esac; \
     fi
 
+RUN node /tmp/configure-caddy-api-prefix.mjs
+
 RUN npm run build:dev \
     && test -n "$(find build/assets -type f -name '*.map' -print -quit)"
 
@@ -138,7 +142,7 @@ RUN rm -f \
 
 FROM caddy:2-alpine AS runtime
 
-COPY frontend/caddy/Caddyfile /etc/caddy/Caddyfile
+COPY --from=builder /tmp/Caddyfile /etc/caddy/Caddyfile
 COPY frontend/caddy/geoip/ /etc/caddy/geoip/
 COPY config/caddy/sites/00-placeholder.caddy /etc/caddy/sites/00-placeholder.caddy
 COPY --from=builder /build/build/ /srv/
