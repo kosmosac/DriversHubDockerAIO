@@ -1,0 +1,111 @@
+diff --git a/src/components/usercard.js b/src/components/usercard.js
+--- a/src/components/usercard.js
++++ b/src/components/usercard.js
+@@ -166,6 +166,10 @@ const UserCard = props => {
+   }
+   // use the user in store | check if exist (could be non-existent when uid is NaN)
+   const user = users[props.user.uid] !== undefined ? users[props.user.uid] : { ...props.user, ...props };
++  const membershipUseridRef = useRef(user.userid);
++  useEffect(() => {
++    membershipUseridRef.current = user.userid;
++  }, [user.userid]);
+ 
+   const userPerm = useMemo(() => {
+     if (!user.roles) return [];
+@@ -200,8 +204,10 @@ const UserCard = props => {
+ 
+   // force sync user info
+   const updateUserInfo = useCallback(async () => {
++    const requestedUserid = user.userid;
+     let resp = await axios({ url: `${apiPath}/user/profile?uid=${user.uid}`, method: "GET", headers: { Authorization: `Bearer ${getAuthToken()}` } });
+     if (resp.status === 200) {
++      if (membershipUseridRef.current !== requestedUserid) return;
+       resp.data.roles.sort((a, b) => orderedRoles.indexOf(a) - orderedRoles.indexOf(b));
+ 
+       setUsers(users => ({ ...users, [user.uid]: resp.data }));
+@@ -215,7 +221,7 @@ const UserCard = props => {
+       setNewConnections({ email: resp.data.email, discordid: resp.data.discordid, steamid: resp.data.steamid, truckersmpid: resp.data.truckersmpid });
+       setTrackerInUse(resp.data.tracker);
+     }
+-  }, [apiPath]);
++  }, [apiPath, orderedRoles, user.uid, user.userid]);
+ 
+   // update user info across components
+   useEffect(() => {
+@@ -693,8 +699,13 @@ const UserCard = props => {
+     setDialogBtnDisabled(true);
+     let resp = await axios({ url: `${apiPath}/member/${user.userid}/dismiss`, method: "POST", headers: { Authorization: `Bearer ${getAuthToken()}` } });
+     if (resp.status === 204) {
+-      setUsers(users => ({ ...users, [user.uid]: { ...users[user.uid], userid: null, roles: [] } }));
++      membershipUseridRef.current = -1;
++      setUsers(users => ({ ...users, [user.uid]: { ...users[user.uid], userid: -1, roles: [], ban: users[user.uid]?.ban ?? null } }));
+       setMemberUIDs(memberUIDs => memberUIDs.filter(uid => uid !== user.uid));
++      setCtxAction("");
++      setShowPopover(false);
++      props.onProfileModalClose?.();
++      props.onDismiss?.(user.uid);
+ 
+       setSnackbarContent(tr("user_dismissed"));
+       setSnackbarSeverity("success");
+@@ -1623,8 +1634,8 @@ const UserCard = props => {
+               {tr("bonus_history")}
+             </MenuItem>
+           )}
+-          {(((user.userid === null || user.userid < 0) && user.ban === null && checkUserPerm(curUserPerm, ["administrator", "accept_members"])) || checkUserPerm(curUserPerm, ["administrator", "update_connections"]) || checkUserPerm(curUserPerm, ["administrator", "disable_mfa"])) && <Divider />}
+-          {(user.userid === null || user.userid < 0) && user.ban === null && checkUserPerm(curUserPerm, ["administrator", "accept_members"]) && (
++          {(((user.userid === null || user.userid < 0) && user.ban == null && checkUserPerm(curUserPerm, ["administrator", "accept_members"])) || checkUserPerm(curUserPerm, ["administrator", "update_connections"]) || checkUserPerm(curUserPerm, ["administrator", "disable_mfa"])) && <Divider />}
++          {(user.userid === null || user.userid < 0) && user.ban == null && checkUserPerm(curUserPerm, ["administrator", "accept_members"]) && (
+             <MenuItem
+               sx={{ color: theme.palette.success.main }}
+               onClick={e => {
+@@ -1661,8 +1672,8 @@ const UserCard = props => {
+               {tr("disable_mfa")}
+             </MenuItem>
+           )}
+-          {(((user.userid === null || user.userid < 0) && user.ban === null && checkUserPerm(curUserPerm, ["administrator", "ban_users"])) || (user.userid !== null && user.userid >= 0 && checkUserPerm(curUserPerm, ["administrator", "dismiss_members"])) || checkUserPerm(curUserPerm, ["administrator", "delete_users"])) && <Divider />}
+-          {(user.userid === null || user.userid < 0) && user.ban === null && checkUserPerm(curUserPerm, ["administrator", "ban_users"]) && (
++          {(((user.userid === null || user.userid < 0) && user.ban == null && checkUserPerm(curUserPerm, ["administrator", "ban_users"])) || (user.userid !== null && user.userid >= 0 && checkUserPerm(curUserPerm, ["administrator", "dismiss_members"])) || checkUserPerm(curUserPerm, ["administrator", "delete_users"])) && <Divider />}
++          {(user.userid === null || user.userid < 0) && user.ban == null && checkUserPerm(curUserPerm, ["administrator", "ban_users"]) && (
+             <MenuItem
+               sx={{ color: theme.palette.error.main }}
+               onClick={e => {
+@@ -1674,7 +1685,7 @@ const UserCard = props => {
+               {tr("ban")}
+             </MenuItem>
+           )}
+-          {(user.userid === null || user.userid < 0) && user.ban !== null && checkUserPerm(curUserPerm, ["administrator", "ban_users"]) && (
++          {(user.userid === null || user.userid < 0) && user.ban != null && checkUserPerm(curUserPerm, ["administrator", "ban_users"]) && (
+             <MenuItem
+               sx={{ color: theme.palette.error.main }}
+               onClick={e => {
+diff --git a/src/routes/member-list.js b/src/routes/member-list.js
+--- a/src/routes/member-list.js
++++ b/src/routes/member-list.js
+@@ -34,6 +34,8 @@ const MemberList = () => {
+     const searchRef = useRef(cache.member_list.search);
+     const [listParam, setListParam] = useState(cache.member_list.listParam);
+     const [tempListParam, setTempListParam] = useState(cache.member_list.listParam);
++    const [memberListRevision, setMemberListRevision] = useState(0);
++    const refreshMemberList = useCallback(() => setMemberListRevision(revision => revision + 1), []);
+ 
+     useEffect(() => {
+         return () => {
+@@ -381,7 +383,7 @@ const MemberList = () => {
+                     let user = _userList.list[i];
+                     newUserList.push({
+                         userid: `${user.userid}`,
+-                        user: <UserCard key={user.uid} user={user} />,
++                        user: <UserCard key={user.uid} user={user} onDismiss={refreshMemberList} />,
+                         discordid: user.discordid,
+                         steamid: (
+                             <a href={`https://steamcommunity.com/profiles/${user.steamid}`} target="_blank" rel="noreferrer">
+@@ -406,7 +408,7 @@ const MemberList = () => {
+             window.loading -= 1;
+         }
+         doLoad();
+-    }, [apiPath, theme, page, pageSize, search, listParam]);
++    }, [apiPath, theme, page, pageSize, search, listParam, memberListRevision, refreshMemberList]);
+ 
+     return (
+         <>
+

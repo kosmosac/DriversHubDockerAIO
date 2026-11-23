@@ -15,6 +15,7 @@ part of the revisions above.
 | --- | --- | --- |
 | Frontend | `frontend/docker/remove-obsolete-radios.mjs` | Remove the discontinued SimulatorHits integration and the deployment-specific PeanFM preset while retaining TruckersFM and user-provided stream URLs. |
 | Frontend | `frontend/docker/simplify-login-methods.mjs` | Replace the contradictory registration and login-method sentence with a neutral, localized label for Discord and Steam. |
+| Frontend | `frontend/docker/stabilize-member-dismissal.patch` | Keep member, ban, profile, and list state consistent after dismissing a member. |
 | Frontend | `frontend/docker/fit-dlog-route.mjs` and `frontend/docker/set-map-initial-zoom.mjs` | Fit delivery maps to the recorded route and use a practical initial heatmap zoom. |
 | Frontend | `frontend/docker/dlog-event-presentation.patch` and `frontend/docker/merge-coach-arrival.mjs` | Present Truck, Car, and Coach lifecycle, stop, satisfaction, and unknown events consistently, label Coach departures and arrivals, and avoid a duplicate final Coach event. |
 | Backend | `backend/docker/normalize-coach-stops.py` | Complete TrackSim Coach timelines from the webhook stop list, merge matching satisfaction events, and interpolate missing stop timestamps from surrounding in-game and real-time anchors. |
