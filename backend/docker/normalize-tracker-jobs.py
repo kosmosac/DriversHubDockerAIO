@@ -10,7 +10,9 @@ replacements = [
         '''    d = copy.deepcopy(data["JobData"])
     bus_events = data.get("scsbusEvents")
     bus_events = bus_events if isinstance(bus_events, list) else []
-    is_coach_job = bool(bus_events) or str(d.get("cargoID") or "").lower() == "passengers"
+    job_type = str(d.get("jobType") or "").lower()
+    is_coach_job = job_type == "bus" or bool(bus_events) or str(d.get("cargoID") or "").lower() == "passengers"
+    is_car_job = job_type == "car"
 '''
     ),
     (
@@ -52,6 +54,8 @@ replacements = [
     stop_count = len(bus_events)
     coach_cargo_name = f"Coach: {passenger_count} passengers, {stop_count} stops"
     coach_mass = int(d["cargoMass"] or 0) or max(passenger_count * 75, 75)
+    car_cargo_name = f"Car: {d.get('cargo') or d.get('cargoID') or 'N/A'}"
+    car_mass = int(d["cargoMass"] or 0) or 100
 
     normalized = {
         "object": "event",
@@ -59,8 +63,8 @@ replacements = [
     ),
     (
         '                    "name": d["cargo"],\n                    "mass": int(d["cargoMass"]),\n',
-        '                    "name": coach_cargo_name if is_coach_job else d["cargo"],\n'
-        '                    "mass": coach_mass if is_coach_job else int(d["cargoMass"]),\n'
+        '                    "name": coach_cargo_name if is_coach_job else car_cargo_name if is_car_job else d["cargo"],\n'
+        '                    "mass": coach_mass if is_coach_job else car_mass if is_car_job else int(d["cargoMass"]),\n'
     ),
     (
         '                    "unique_id": d["sourceCompanyID"],\n                    "name": d["sourceCompany"]\n',
@@ -92,18 +96,22 @@ async def post_update''',
                 "role": "destination" if job_event_type == "job.delivered" else "last_reached",
                 "name": bus_events[-1].get("stopName") if bus_events else "N/A"
             }
+    elif is_car_job:
+        job = normalized["data"]["object"]
+        job["car"] = copy.deepcopy(job["truck"])
+        job["trailers"] = []
     return normalized
 
 async def post_update'''
     )
 ]
 
-if 'is_coach_job = bool(bus_events)' in source:
-    print("UniTracker Coach normalization already present; no backend changes required.")
+if 'is_car_job = job_type == "car"' in source:
+    print("UniTracker Car and Coach normalization already present; no backend changes required.")
 else:
     for old, new in replacements:
         if old not in source:
             raise SystemExit(f"Unsupported UniTracker implementation near: {old[:80]!r}")
         source = source.replace(old, new, 1)
     path.write_text(source)
-    print("Normalized UniTracker Coach jobs and stop events.")
+    print("Normalized UniTracker Car and Coach jobs and stop events.")

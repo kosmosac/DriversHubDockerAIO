@@ -68,7 +68,8 @@ RUN test "$(grep -c 'normalize_client_config(json.loads' src/external_plugins/cl
     && patch --batch --fuzz=0 -p1 < docker/preserve-worker-arguments.patch \
     && grep -q 'DRIVERSHUB_WORKER_ARGUMENTS' src/main.py \
     && grep -q 'is_coach_job = market.startswith("bus_")' src/apis/tracker/trucky.py \
-    && grep -q 'is_coach_job = bool(bus_events)' src/apis/tracker/unitracker.py \
+    && grep -q 'is_coach_job = job_type == "bus"' src/apis/tracker/unitracker.py \
+    && grep -q 'is_car_job = job_type == "car"' src/apis/tracker/unitracker.py \
     && grep -q '"type": "coach.stop"' src/apis/tracker/unitracker.py \
     && grep -q 'startswith("road_trip_")' src/apis/tracker/trucky.py \
     && grep -q '"penalty": abs(d\["income"\])' src/apis/tracker/trucky.py \
