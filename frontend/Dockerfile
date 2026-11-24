@@ -26,6 +26,7 @@ COPY frontend/docker/fit-dlog-route.mjs /tmp/fit-dlog-route.mjs
 COPY frontend/docker/set-map-initial-zoom.mjs /tmp/set-map-initial-zoom.mjs
 COPY frontend/docker/simplify-login-methods.mjs /tmp/simplify-login-methods.mjs
 COPY frontend/docker/stabilize-member-dismissal.patch /tmp/stabilize-member-dismissal.patch
+COPY frontend/docker/fix-member-csv-export.mjs /tmp/fix-member-csv-export.mjs
 COPY frontend/caddy/Caddyfile /tmp/Caddyfile
 RUN grep -q 'VITE_HCAPTCHA_SITEKEY' src/routes/auth/login.js \
     && ! grep -q '1788882d-3695-4807-abac-7d7166ec6325' src/routes/auth/login.js \
@@ -53,6 +54,10 @@ RUN node /tmp/handle-empty-trailers.mjs \
 RUN patch --batch --fuzz=0 -p1 < /tmp/stabilize-member-dismissal.patch \
     && grep -q 'membershipUseridRef.current = -1' src/components/usercard.js \
     && grep -q 'onDismiss={refreshMemberList}' src/routes/member-list.js
+RUN node /tmp/fix-member-csv-export.mjs \
+    && grep -q 'Papa.unparse' src/routes/member-list.js \
+    && grep -q 'import Papa from "papaparse"' src/routes/member-list.js \
+    && ! grep -q 'let csv = "uid,userid' src/routes/member-list.js
 
 RUN grep -q 'const LEGAL_LINK_KEYS =' src/App.js \
     && grep -q 'essential_cookies_notice' src/App.js \

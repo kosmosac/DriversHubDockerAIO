@@ -39,6 +39,7 @@ COPY backend/docker/coach-statistics-name.patch ./docker/coach-statistics-name.p
 COPY backend/docker/geoip-session-transition.patch ./docker/geoip-session-transition.patch
 COPY backend/docker/trucky-job-types.patch ./docker/trucky-job-types.patch
 COPY backend/docker/preserve-worker-arguments.patch ./docker/preserve-worker-arguments.patch
+COPY backend/docker/fix-csv-exports.py ./docker/fix-csv-exports.py
 
 RUN test "$(grep -c 'normalize_client_config(json.loads' src/external_plugins/client-config.py)" -eq 2 \
     && grep -q 'def normalize_client_config(config, plugins, frontend_domain, api_host, source_repositories):' src/external_plugins/client-config.py \
@@ -97,6 +98,11 @@ RUN test "$(grep -c 'normalize_client_config(json.loads' src/external_plugins/cl
 RUN python docker/normalize-empty-trailers.py \
     && grep -q 'job.setdefault("trailers", \[\])' src/apis/tracker/tracksim.py \
     && grep -q 'job\["trailers"\] = \[\]' src/apis/tracker/tracksim.py
+
+RUN python docker/fix-csv-exports.py \
+    && test "$(grep -c 'csv_writer.writerow(data)' src/apis/dlog/export.py)" -eq 1 \
+    && test "$(grep -c 'csv_writer.writerow(data)' src/plugins/economy/balance.py)" -eq 1 \
+    && ! grep -Fq 'f.write(",".join(data)' src/apis/dlog/export.py src/plugins/economy/balance.py
 
 RUN python docker/normalize-coach-stops.py \
     && grep -q 'coach_stop_events = \[\]' src/apis/tracker/tracksim.py \
