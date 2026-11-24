@@ -3,22 +3,28 @@ import fs from "node:fs";
 const deliveryPath = "src/routes/delivery.js";
 let source = fs.readFileSync(deliveryPath, "utf8");
 
-const oldName = '            const name = event.type === "job.started" ? tr("job_started") : event.type === "job.delivered" ? tr("job_delivered") : tr("coach_stop");';
-const newName = `            const coachStops = dlogDetail.events.filter((item) => item.meta?.at_stop === true);
-            const finalCoachStop = coachStops.length > 0 && coachStops[coachStops.length - 1] === event;
-            const name = event.type === "job.started" ? tr("coach_departure") : event.type === "job.delivered" || finalCoachStop ? tr("coach_arrival") : tr("coach_stop");`;
-const oldTimeline = "                                            {dlogDetail.events.map((e, idx) => {";
-const newTimeline = '                                            {dlogDetail.events.filter((event) => !(dlogDetail.bus !== undefined && event.type === "job.delivered" && dlogDetail.events.some((item) => item.meta?.at_stop === true))).map((e, idx) => {';
+const oldCoachPresentation = `        if (isCoach && (event.type === "job.started" || event.type === "job.delivered" || event.meta?.at_stop === true)) {
+            const name = event.type === "job.started" ? tr("job_started") : event.type === "job.delivered" ? tr("job_delivered") : tr("coach_stop");
+            return { icon: <DepartureBoardRounded />, color: "lightblue", name };
+        }`;
+const newCoachPresentation = `        if (isCoach && (event.type === "job.started" || event.type === "job.delivered" || event.type === "job.cancelled" || event.meta?.at_stop === true)) {
+            const isDeparture = event.type === "job.started" || event.meta?.coach_stop?.role === "departure";
+            const isArrival = event.type === "job.delivered" || event.meta?.coach_stop?.role === "destination";
+            const name = isDeparture ? tr("coach_departure") : isArrival ? tr("coach_arrival") : event.type === "job.cancelled" ? tr("job_cancelled") : tr("coach_stop");
+            const color = event.type === "job.cancelled" ? "lightred" : isDeparture || isArrival ? "lightgreen" : "lightblue";
+            return { icon: <DepartureBoardRounded />, color, name };
+        }`;
+const filteredTimeline = 'dlogDetail.events.filter((event) => !(dlogDetail.bus !== undefined && event.type === "job.delivered" && dlogDetail.events.some((item) => item.meta?.at_stop === true))).map';
+const completeTimeline = "dlogDetail.events.map";
 
-if (source.includes(newTimeline) && source.includes('tr("coach_departure")') && source.includes('tr("coach_arrival")')) {
-    console.log("Coach arrival presentation is already present; no change needed.");
-} else {
-    if (!source.includes(oldName) || !source.includes(oldTimeline)) {
-        throw new Error("Unsupported delivery event presentation implementation.");
-    }
-    source = source.replace(oldName, newName).replace(oldTimeline, newTimeline);
-    fs.writeFileSync(deliveryPath, source);
+if (source.includes(oldCoachPresentation)) {
+    source = source.replace(oldCoachPresentation, newCoachPresentation);
+} else if (!source.includes(newCoachPresentation)) {
+    throw new Error("Unsupported Coach event presentation implementation.");
 }
+
+source = source.replace(filteredTimeline, completeTimeline);
+fs.writeFileSync(deliveryPath, source);
 
 const translations = {
     de: { coach_departure: "Abfahrt", coach_stop: "Zwischenhalt", coach_arrival: "Ankunft" },

@@ -47,7 +47,10 @@ RUN if grep -q 'const EVENT_ICON =' src/routes/delivery.js; then \
 RUN node /tmp/merge-coach-arrival.mjs \
     && grep -q 'tr("coach_departure")' src/routes/delivery.js \
     && grep -q 'tr("coach_arrival")' src/routes/delivery.js \
-    && grep -q 'event.type === "job.delivered"' src/routes/delivery.js
+    && grep -q 'event.type === "job.delivered"' src/routes/delivery.js \
+    && grep -q 'isDeparture || isArrival ? "lightgreen"' src/routes/delivery.js \
+    && grep -q 'dlogDetail.events.map' src/routes/delivery.js \
+    && ! grep -q 'dlogDetail.events.filter.*job.delivered' src/routes/delivery.js
 RUN node /tmp/handle-empty-trailers.mjs \
     && grep -q 'Array.isArray(detail.trailers)' src/routes/delivery.js \
     && grep -q 'finally {' src/routes/delivery.js
