@@ -16,6 +16,12 @@ const newCoachPresentation = `        if (isCoach && (event.type === "job.starte
         }`;
 const filteredTimeline = 'dlogDetail.events.filter((event) => !(dlogDetail.bus !== undefined && event.type === "job.delivered" && dlogDetail.events.some((item) => item.meta?.at_stop === true))).map';
 const completeTimeline = "dlogDetail.events.map";
+const emptyDescription = "                                                let desc = null;";
+const coachStopDescription = `                                                let desc = null;
+                                                if (dlogDetail.bus !== undefined && (e.type === "job.started" || e.type === "job.delivered" || e.type === "job.cancelled" || e.meta?.at_stop === true)) {
+                                                    const stopName = e.meta?.coach_stop?.name ?? e.meta?.name ?? e.meta?.city?.name;
+                                                    if (stopName) desc = <>{stopName}</>;
+                                                }`;
 
 if (source.includes(oldCoachPresentation)) {
     source = source.replace(oldCoachPresentation, newCoachPresentation);
@@ -24,6 +30,11 @@ if (source.includes(oldCoachPresentation)) {
 }
 
 source = source.replace(filteredTimeline, completeTimeline);
+if (source.includes(emptyDescription) && !source.includes("const stopName = e.meta?.coach_stop?.name")) {
+    source = source.replace(emptyDescription, coachStopDescription);
+} else if (!source.includes("const stopName = e.meta?.coach_stop?.name")) {
+    throw new Error("Unsupported delivery event description implementation.");
+}
 fs.writeFileSync(deliveryPath, source);
 
 const translations = {

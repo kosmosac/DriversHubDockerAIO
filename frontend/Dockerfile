@@ -49,6 +49,7 @@ RUN node /tmp/merge-coach-arrival.mjs \
     && grep -q 'tr("coach_arrival")' src/routes/delivery.js \
     && grep -q 'event.type === "job.delivered"' src/routes/delivery.js \
     && grep -q 'isDeparture || isArrival ? "lightgreen"' src/routes/delivery.js \
+    && grep -q 'const stopName = e.meta?.coach_stop?.name' src/routes/delivery.js \
     && grep -q 'dlogDetail.events.map' src/routes/delivery.js \
     && ! grep -q 'dlogDetail.events.filter.*job.delivered' src/routes/delivery.js
 RUN node /tmp/handle-empty-trailers.mjs \
