@@ -88,11 +88,17 @@ async def post_update''',
         job["bus"] = copy.deepcopy(job["truck"])
         job["trailers"] = []
         if events:
-            events[0].setdefault("meta", {})["coach_stop"] = {
+            departure_meta = events[0].setdefault("meta", {})
+            departure_meta["passengers_in"] = int(bus_events[0].get("passengersEntering") or 0) if bus_events else 0
+            departure_meta["passengers_out"] = int(bus_events[0].get("passengersLeaving") or 0) if bus_events else 0
+            departure_meta["coach_stop"] = {
                 "role": "departure",
                 "name": bus_events[0].get("stopName") if bus_events else "N/A"
             }
-            events[-1].setdefault("meta", {})["coach_stop"] = {
+            destination_meta = events[-1].setdefault("meta", {})
+            destination_meta["passengers_in"] = int(bus_events[-1].get("passengersEntering") or 0) if bus_events else 0
+            destination_meta["passengers_out"] = int(bus_events[-1].get("passengersLeaving") or 0) if bus_events else 0
+            destination_meta["coach_stop"] = {
                 "role": "destination" if job_event_type == "job.delivered" else "last_reached",
                 "name": bus_events[-1].get("stopName") if bus_events else "N/A"
             }

@@ -35,7 +35,7 @@ index a048eaf..93fc699 100644
          meta = {}
          if et == "fine":
              meta = event["attributes"]
-@@ -74,12 +82,84 @@ def convert_format(data):
+@@ -74,12 +82,90 @@ def convert_format(data):
              et = event["attributes"]["transport_type"]
              meta = {"cost": event["attributes"]["amount"], "source_id": event["attributes"]["source_id"], "source_name": event["attributes"]["source"], "target_id": event["attributes"]["target_id"], "target_name": event["attributes"]["target"]}
          events.append({"location": {"x": event["x"], "y": event["y"], "z": event["z"]}, "real_time": event["created_at"].split(".")[0]+"Z", "time": int(datetime.strptime(event["created_at"].split(".")[0]+"Z", "%Y-%m-%dT%H:%M:%SZ").timestamp()), "type": et, "meta": meta})
@@ -90,10 +90,16 @@ index a048eaf..93fc699 100644
 -        events.append({"location": None, "real_time": d["canceled_at"].split(".")[0]+"Z", "time": int(datetime.strptime(d["canceled_at"].split(".")[0]+"Z", "%Y-%m-%dT%H:%M:%SZ").timestamp()), "type": "job.cancelled", "meta": {"penalty": d["income"]}})
 +        events.append({"location": None, "real_time": d["canceled_at"].split(".")[0]+"Z", "time": int(datetime.strptime(d["canceled_at"].split(".")[0]+"Z", "%Y-%m-%dT%H:%M:%SZ").timestamp()), "type": "job.cancelled", "meta": {"penalty": abs(d["income"])}})
 +    if is_coach_job and isinstance(stops, list) and stops:
-+        events[0].setdefault("meta", {})["coach_stop"] = {
++        departure_meta = events[0].setdefault("meta", {})
++        departure_meta["passengers_in"] = int(stops[0].get("passengers_in") or 0)
++        departure_meta["passengers_out"] = int(stops[0].get("passengers_out") or 0)
++        departure_meta["coach_stop"] = {
 +            "role": "departure", "name": stops[0].get("name") or "N/A"
 +        }
-+        events[-1].setdefault("meta", {})["coach_stop"] = {
++        destination_meta = events[-1].setdefault("meta", {})
++        destination_meta["passengers_in"] = int(stops[-1].get("passengers_in") or 0)
++        destination_meta["passengers_out"] = int(stops[-1].get("passengers_out") or 0)
++        destination_meta["coach_stop"] = {
 +            "role": "destination" if job_event_type == "job.delivered" else "last_reached",
 +            "name": stops[-1].get("name") or "N/A"
 +        }
@@ -121,7 +127,7 @@ index a048eaf..93fc699 100644
      return {
          "object": "event",
          "type": job_event_type,
-@@ -105,8 +184,8 @@ def convert_format(data):
+@@ -105,8 +190,8 @@ def convert_format(data):
                  "market": d["market"],
                  "cargo": {
                      "unique_id": d["cargo_id"],
@@ -132,7 +138,7 @@ index a048eaf..93fc699 100644
                      "damage": round(d["cargo_damage"] / 100, 2),
                      "details": cargo_details
                  },
-@@ -124,39 +203,23 @@ def convert_format(data):
+@@ -124,39 +209,23 @@ def convert_format(data):
                      "name": d["source_city_name"]
                  },
                  "source_company": {
