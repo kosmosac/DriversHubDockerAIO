@@ -19,8 +19,21 @@ const completeTimeline = "dlogDetail.events.map";
 const emptyDescription = "                                                let desc = null;";
 const coachStopDescription = `                                                let desc = null;
                                                 if (dlogDetail.bus !== undefined && (e.type === "job.started" || e.type === "job.delivered" || e.type === "job.cancelled" || e.meta?.at_stop === true)) {
+                                                    const passengerDetails = e.meta?.coach_stop?.passengers ?? e.meta?.passengers ?? {};
                                                     const stopName = e.meta?.coach_stop?.name ?? e.meta?.name ?? e.meta?.city?.name;
-                                                    if (stopName) desc = <>{stopName}</>;
+                                                    const passengersIn = e.meta?.passengers_in ?? passengerDetails.entering_actual ?? passengerDetails.entering_planned;
+                                                    const passengersOut = e.meta?.passengers_out ?? passengerDetails.leaving_actual ?? passengerDetails.leaving_planned;
+                                                    const hasPassengersIn = passengersIn !== undefined && passengersIn !== null && Number.isFinite(Number(passengersIn));
+                                                    const hasPassengersOut = passengersOut !== undefined && passengersOut !== null && Number.isFinite(Number(passengersOut));
+                                                    if (stopName || hasPassengersIn || hasPassengersOut) desc = (
+                                                        <>
+                                                            {stopName}
+                                                            {stopName && (hasPassengersIn || hasPassengersOut) && <br />}
+                                                            {hasPassengersIn && <>{tr("passengers_boarded")}: {passengersIn}</>}
+                                                            {hasPassengersIn && hasPassengersOut && <> · </>}
+                                                            {hasPassengersOut && <>{tr("passengers_alighted")}: {passengersOut}</>}
+                                                        </>
+                                                    );
                                                 }`;
 
 if (source.includes(oldCoachPresentation)) {
@@ -30,19 +43,19 @@ if (source.includes(oldCoachPresentation)) {
 }
 
 source = source.replace(filteredTimeline, completeTimeline);
-if (source.includes(emptyDescription) && !source.includes("const stopName = e.meta?.coach_stop?.name")) {
+if (source.includes(emptyDescription) && !source.includes("const passengerDetails =")) {
     source = source.replace(emptyDescription, coachStopDescription);
-} else if (!source.includes("const stopName = e.meta?.coach_stop?.name")) {
+} else if (!source.includes("const passengerDetails =")) {
     throw new Error("Unsupported delivery event description implementation.");
 }
 fs.writeFileSync(deliveryPath, source);
 
 const translations = {
-    de: { coach_departure: "Abfahrt", coach_stop: "Zwischenhalt", coach_arrival: "Ankunft" },
-    en: { coach_departure: "Departure", coach_stop: "Intermediate Stop", coach_arrival: "Arrival" },
-    es: { coach_departure: "Salida", coach_stop: "Parada intermedia", coach_arrival: "Llegada" },
-    nl: { coach_departure: "Vertrek", coach_stop: "Tussenstop", coach_arrival: "Aankomst" },
-    pt: { coach_departure: "Partida", coach_stop: "Paragem intermédia", coach_arrival: "Chegada" },
+    de: { coach_departure: "Abfahrt", coach_stop: "Zwischenhalt", coach_arrival: "Ankunft", passengers_boarded: "Eingestiegen", passengers_alighted: "Ausgestiegen" },
+    en: { coach_departure: "Departure", coach_stop: "Intermediate Stop", coach_arrival: "Arrival", passengers_boarded: "Boarded", passengers_alighted: "Alighted" },
+    es: { coach_departure: "Salida", coach_stop: "Parada intermedia", coach_arrival: "Llegada", passengers_boarded: "Subieron", passengers_alighted: "Bajaron" },
+    nl: { coach_departure: "Vertrek", coach_stop: "Tussenstop", coach_arrival: "Aankomst", passengers_boarded: "Ingestapt", passengers_alighted: "Uitgestapt" },
+    pt: { coach_departure: "Partida", coach_stop: "Paragem intermédia", coach_arrival: "Chegada", passengers_boarded: "Embarcaram", passengers_alighted: "Desembarcaram" },
 };
 for (const [language, labels] of Object.entries(translations)) {
     const path = `src/languages/${language}.json`;
