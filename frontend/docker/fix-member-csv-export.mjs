@@ -18,9 +18,10 @@ if (start === -1 || end === -1) {
 }
 
 const replacement = `    const exportMemberList = useCallback(async () => {
+        const singleLineCsvValue = value => typeof value === "string" ? value.replace(/[\\r\\n\\u2028\\u2029]+/g, " ") : value;
         const csv = Papa.unparse({
             fields: ["uid", "userid", "name", "email", "avatar_url", "discordid", "steamid", "truckersmpid", "join_date", "roles", "tracker"],
-            data: allMembers.map(user => [
+            data: allMembers.map(user => ([
                 user.uid,
                 user.userid,
                 user.name,
@@ -32,7 +33,7 @@ const replacement = `    const exportMemberList = useCallback(async () => {
                 new Date(user.join_timestamp * 1000).toISOString(),
                 user.roles.map(roleid => (allRoles[roleid] !== undefined ? \`\${allRoles[roleid].name} (\${roleid})\` : \`Unknown Role (\${roleid})\`)).join(", "),
                 user.tracker,
-            ]),
+            ]).map(singleLineCsvValue)),
         }, { quotes: true, newline: "\\n" });
         downloadLocal("members.csv", csv);
     }, [allMembers, allRoles]);`;

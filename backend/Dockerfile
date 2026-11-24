@@ -100,8 +100,8 @@ RUN python docker/normalize-empty-trailers.py \
     && grep -q 'job\["trailers"\] = \[\]' src/apis/tracker/tracksim.py
 
 RUN python docker/fix-csv-exports.py \
-    && test "$(grep -c 'csv_writer.writerow(data)' src/apis/dlog/export.py)" -eq 1 \
-    && test "$(grep -c 'csv_writer.writerow(data)' src/plugins/economy/balance.py)" -eq 1 \
+    && test "$(grep -c 'csv_writer.writerow(single_line_csv_row(data))' src/apis/dlog/export.py)" -eq 1 \
+    && test "$(grep -c 'csv_writer.writerow(single_line_csv_row(data))' src/plugins/economy/balance.py)" -eq 1 \
     && ! grep -Fq 'f.write(",".join(data)' src/apis/dlog/export.py src/plugins/economy/balance.py
 
 RUN python docker/normalize-coach-stops.py \
