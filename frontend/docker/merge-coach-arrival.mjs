@@ -19,10 +19,24 @@ const completeTimeline = "dlogDetail.events.map";
 const emptyDescription = "                                                let desc = null;";
 const coachStopDescription = `                                                let desc = null;
                                                 if (dlogDetail.bus !== undefined && (e.type === "job.started" || e.type === "job.delivered" || e.type === "job.cancelled" || e.meta?.at_stop === true)) {
-                                                    const passengerDetails = e.meta?.coach_stop?.passengers ?? e.meta?.passengers ?? {};
+                                                    const segmentPassengers = e.meta?.coach_stop?.passengers ?? e.meta?.passengers;
                                                     const stopName = e.meta?.coach_stop?.name ?? e.meta?.name ?? e.meta?.city?.name;
-                                                    const passengersIn = e.meta?.passengers_in ?? passengerDetails.entering_actual ?? passengerDetails.entering_planned;
-                                                    const passengersOut = e.meta?.passengers_out ?? passengerDetails.leaving_actual ?? passengerDetails.leaving_planned;
+                                                    let passengersIn = e.meta?.passengers_in;
+                                                    let passengersOut = e.meta?.passengers_out;
+                                                    if (segmentPassengers != null) {
+                                                        const isDeparture = e.type === "job.started" || e.meta?.coach_stop?.role === "departure";
+                                                        const isArrival = e.type === "job.delivered" || e.meta?.coach_stop?.role === "destination";
+                                                        if (isDeparture) {
+                                                            passengersIn = segmentPassengers.entering_actual ?? segmentPassengers.entering_planned;
+                                                        } else if (isArrival) {
+                                                            passengersOut = segmentPassengers.leaving_actual ?? segmentPassengers.leaving_planned;
+                                                        } else {
+                                                            passengersOut = segmentPassengers.leaving_actual ?? segmentPassengers.leaving_planned;
+                                                            const followingSegmentEvent = dlogDetail.events.slice(idx + 1).find((item) => item.meta?.coach_stop?.passengers !== undefined || item.meta?.passengers !== undefined);
+                                                            const followingSegmentPassengers = followingSegmentEvent?.meta?.coach_stop?.passengers ?? followingSegmentEvent?.meta?.passengers;
+                                                            passengersIn = followingSegmentPassengers?.entering_actual ?? followingSegmentPassengers?.entering_planned;
+                                                        }
+                                                    }
                                                     const hasPassengersIn = passengersIn !== undefined && passengersIn !== null && Number.isFinite(Number(passengersIn));
                                                     const hasPassengersOut = passengersOut !== undefined && passengersOut !== null && Number.isFinite(Number(passengersOut));
                                                     if (stopName || hasPassengersIn || hasPassengersOut) desc = (
@@ -43,9 +57,9 @@ if (source.includes(oldCoachPresentation)) {
 }
 
 source = source.replace(filteredTimeline, completeTimeline);
-if (source.includes(emptyDescription) && !source.includes("const passengerDetails =")) {
+if (source.includes(emptyDescription) && !source.includes("const segmentPassengers =")) {
     source = source.replace(emptyDescription, coachStopDescription);
-} else if (!source.includes("const passengerDetails =")) {
+} else if (!source.includes("const segmentPassengers =")) {
     throw new Error("Unsupported delivery event description implementation.");
 }
 fs.writeFileSync(deliveryPath, source);
