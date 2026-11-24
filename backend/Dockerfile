@@ -38,6 +38,7 @@ COPY backend/docker/normalize-coach-stops.py ./docker/normalize-coach-stops.py
 COPY backend/docker/coach-statistics-name.patch ./docker/coach-statistics-name.patch
 COPY backend/docker/geoip-session-transition.patch ./docker/geoip-session-transition.patch
 COPY backend/docker/trucky-job-types.patch ./docker/trucky-job-types.patch
+COPY backend/docker/normalize-tracker-jobs.py ./docker/normalize-tracker-jobs.py
 COPY backend/docker/preserve-worker-arguments.patch ./docker/preserve-worker-arguments.patch
 COPY backend/docker/fix-csv-exports.py ./docker/fix-csv-exports.py
 
@@ -63,9 +64,12 @@ RUN test "$(grep -c 'normalize_client_config(json.loads' src/external_plugins/cl
     && grep -q 'event\["meta"\].setdefault("max_speed", event\["meta"\].get("speed"))' src/apis/tracker/tracksim.py \
     && grep -q 'event_meta = data\["events"\]\[-1\].get("meta", {})' src/functions/tracker.py \
     && patch --batch --fuzz=0 -p1 < docker/trucky-job-types.patch \
+    && python docker/normalize-tracker-jobs.py \
     && patch --batch --fuzz=0 -p1 < docker/preserve-worker-arguments.patch \
     && grep -q 'DRIVERSHUB_WORKER_ARGUMENTS' src/main.py \
-    && grep -q 'is_coach_job = d.get("stats_type") == "coaches_real_miles"' src/apis/tracker/trucky.py \
+    && grep -q 'is_coach_job = market.startswith("bus_")' src/apis/tracker/trucky.py \
+    && grep -q 'is_coach_job = bool(bus_events)' src/apis/tracker/unitracker.py \
+    && grep -q '"type": "coach.stop"' src/apis/tracker/unitracker.py \
     && grep -q 'startswith("road_trip_")' src/apis/tracker/trucky.py \
     && grep -q '"penalty": abs(d\["income"\])' src/apis/tracker/trucky.py \
     && test "$(grep -c '"Invalid Trucky webhook payload."' src/apis/tracker/trucky.py)" -eq 3 \

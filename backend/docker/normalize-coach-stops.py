@@ -4,6 +4,49 @@ from pathlib import Path
 path = Path("src/apis/tracker/tracksim.py")
 source = path.read_text()
 
+# A present but empty or zero mass must not bypass the Car fallback.
+source = source.replace(
+    '                cargo.setdefault("mass", 100)\n',
+    '                if not isinstance(cargo.get("mass"), (int, float)) or cargo["mass"] <= 0:\n'
+    '                    cargo["mass"] = 100\n',
+    1
+)
+
+# Completed trips use the planned route total. Cancelled trips report only
+# stops that were actually reached, while still including the departure stop.
+source = source.replace(
+    '''            stop_count = stops.get("planned") if isinstance(stops, dict) else None
+            if not isinstance(stop_count, (int, float)):
+                stop_count = len(stop_items)
+            # TrackSim counts route legs/destination stops. Include the
+            # departure stop in the user-facing total as ETS2 does.
+            stop_count = int(stop_count) + 1
+''',
+    '''            stop_count = stops.get("planned") if isinstance(stops, dict) else None
+            if event_type == "bus_job.completed" and isinstance(stop_count, (int, float)):
+                # TrackSim counts route legs/destination stops. Include the
+                # departure stop in the user-facing total as ETS2 does.
+                stop_count = int(stop_count) + 1
+            else:
+                stop_count = sum(
+                    1 for stop in stop_items
+                    if isinstance(stop, dict)
+                    and isinstance(stop.get("timings"), dict)
+                    and any(
+                        isinstance(stop["timings"].get(kind), dict)
+                        and stop["timings"][kind].get("actual") is not None
+                        for kind in ["arrival", "departure"]
+                    )
+                )
+''',
+    1
+)
+source = source.replace(
+    '                "mass": passenger_count * 75,\n',
+    '                "mass": max(passenger_count * 75, 75),\n',
+    1
+)
+
 marker = '''                elif current_type == "bus_job.cancelled":
                     event["type"] = "job.cancelled"
                 elif current_type == "speeding" and isinstance(event.get("meta"), dict):
@@ -27,7 +70,17 @@ replacement = '''                elif current_type == "bus_job.cancelled":
             final_event = next((event for event in reversed(events) if isinstance(event, dict) and event.get("type") == normalized["type"]), None)
             time_anchors = []
             first_stop = next((stop for stop in stop_items if isinstance(stop, dict)), None)
-            last_stop = next((stop for stop in reversed(stop_items) if isinstance(stop, dict)), None)
+            reached_stops = [
+                stop for stop in stop_items
+                if isinstance(stop, dict)
+                and isinstance(stop.get("timings"), dict)
+                and any(
+                    isinstance(stop["timings"].get(kind), dict)
+                    and stop["timings"][kind].get("actual") is not None
+                    for kind in ["arrival", "departure"]
+                )
+            ]
+            last_stop = reached_stops[-1] if reached_stops else None
             if first_stop is not None and start_event is not None and isinstance(start_event.get("time"), (int, float)):
                 timings = first_stop.get("timings")
                 departure = timings.get("departure") if isinstance(timings, dict) else None
@@ -51,7 +104,11 @@ replacement = '''                elif current_type == "bus_job.cancelled":
 
             coach_stop_events = []
             merged_satisfaction_events = set()
-            for position, stop in enumerate(stop_items):
+            # Each TrackSim item is a route leg. The first source is the
+            # departure, every destination except the final one is an
+            # intermediate stop, and the final destination is represented by
+            # the completion event.
+            for position, stop in enumerate(stop_items[:-1]):
                 if not isinstance(stop, dict):
                     continue
                 timings = stop.get("timings") if isinstance(stop.get("timings"), dict) else {}
@@ -75,6 +132,7 @@ replacement = '''                elif current_type == "bus_job.cancelled":
                 passengers = stop.get("passengers") if isinstance(stop.get("passengers"), dict) else {}
                 stop_meta = {
                     "at_stop": True,
+                    "role": "intermediate",
                     "stop_index": stop.get("index", position),
                     "name": destination_city.get("name") or "N/A",
                     "city": copy.deepcopy(destination_city),
@@ -115,6 +173,28 @@ replacement = '''                elif current_type == "bus_job.cancelled":
             events = [event for event in events if id(event) not in merged_satisfaction_events]
             events.extend(coach_stop_events)
             events.sort(key = lambda event: event.get("time", 0) if isinstance(event, dict) else 0)
+            if first_stop is not None and start_event is not None:
+                departure_city = first_stop.get("source", {}).get("city", {})
+                if not isinstance(departure_city, dict):
+                    departure_city = {}
+                start_event.setdefault("meta", {})["coach_stop"] = {
+                    "role": "departure",
+                    "name": departure_city.get("name") or "N/A",
+                    "city": copy.deepcopy(departure_city),
+                    "timings": copy.deepcopy(first_stop.get("timings", {})),
+                    "passengers": copy.deepcopy(first_stop.get("passengers", {}))
+                }
+            if last_stop is not None and final_event is not None:
+                destination_city = last_stop.get("destination", {}).get("city", {})
+                if not isinstance(destination_city, dict):
+                    destination_city = {}
+                final_event.setdefault("meta", {})["coach_stop"] = {
+                    "role": "destination" if normalized["type"] == "job.delivered" else "last_reached",
+                    "name": destination_city.get("name") or "N/A",
+                    "city": copy.deepcopy(destination_city),
+                    "timings": copy.deepcopy(last_stop.get("timings", {})),
+                    "passengers": copy.deepcopy(last_stop.get("passengers", {}))
+                }
             job["events"] = events
 
             start_event = next((event for event in events if isinstance(event, dict) and event.get("type") == "job.started"), None)
